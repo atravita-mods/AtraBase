@@ -1,4 +1,4 @@
-﻿namespace AtraBase.Utils.Extensions;
+﻿namespace AtraBase.Toolkit.Extensions;
 
 /// <summary>
 /// Add some python-esque methods to the dictionaries.

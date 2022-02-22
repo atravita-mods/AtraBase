@@ -9,8 +9,10 @@
     <Import_RootNamespace>AtraBase</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Utils\Extensions\DictionaryExtensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utils\Extensions\MethodExtensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utils\Extensions\RegexExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\DictionaryExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\MethodExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\RegexExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Reflection\CustomReflectionExceptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Reflection\SafeReflection.cs" />
   </ItemGroup>
 </Project>
