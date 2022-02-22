@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace AtraBase.Utils.Extensions;
+namespace AtraBase.Toolkit.Extensions;
 
 /// <summary>
 /// Adds some LINQ-esque methods to the Regex class.

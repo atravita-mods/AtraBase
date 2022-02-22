@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 
-namespace AtraBase.Utils.Extensions;
+namespace AtraBase.Toolkit.Extensions;
 
 /// <summary>
 /// Small extensions to get the full name of a method.
@@ -13,7 +14,9 @@ internal static class MethodExtensions
     /// <param name="method">MethodBase to analyze.</param>
     /// <returns>Fully qualified name of a MethodBase.</returns>
     [Pure]
-    public static string GetFullName([NotNull] this MethodBase method) => $"{method.DeclaringType}::{method.Name}";
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string GetFullName([NotNull] this MethodBase method)
+        => $"{method.DeclaringType}::{method.Name}";
 
     /// <summary>
     /// Gets the full name of a MethodInfo.
@@ -21,5 +24,7 @@ internal static class MethodExtensions
     /// <param name="method">MethodInfo to analyze.</param>
     /// <returns>Fully qualified name of a MethodInfo.</returns>
     [Pure]
-    public static string GetFullName([NotNull] this MethodInfo method) => $"{method.DeclaringType}::{method.Name}";
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string GetFullName([NotNull] this MethodInfo method)
+        => $"{method.DeclaringType}::{method.Name}";
 }
