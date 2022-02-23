@@ -1,4 +1,6 @@
-﻿namespace AtraBase.Toolkit.Extensions;
+﻿using NotNullAttribute = System.Diagnostics.CodeAnalysis.NotNullAttribute;
+
+namespace AtraBase.Toolkit.Extensions;
 
 /// <summary>
 /// Add some python-esque methods to the dictionaries.
