@@ -1,6 +1,4 @@
-﻿using NotNullAttribute = System.Diagnostics.CodeAnalysis.NotNullAttribute;
-
-namespace AtraBase.Toolkit.Extensions;
+﻿namespace AtraBase.Toolkit.Extensions;
 
 /// <summary>
 /// Add some python-esque methods to the dictionaries.
@@ -16,7 +14,7 @@ public static class DictionaryExtensions
     /// <param name="updateDict">Dictionary containing values to add to the first dictionary.</param>
     /// <returns>the dictionary (for chaining).</returns>
     public static IDictionary<TKey, TValue> Update<TKey, TValue>(
-        [NotNull] this Dictionary<TKey, TValue> dictionary,
+        [NotNull] this IDictionary<TKey, TValue> dictionary,
         IDictionary<TKey, TValue>? updateDict)
         where TKey : notnull
         where TValue : notnull

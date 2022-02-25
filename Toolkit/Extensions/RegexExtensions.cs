@@ -1,5 +1,4 @@
 ﻿using System.Text.RegularExpressions;
-using NotNullAttribute = System.Diagnostics.CodeAnalysis.NotNullAttribute;
 
 namespace AtraBase.Toolkit.Extensions;
 
