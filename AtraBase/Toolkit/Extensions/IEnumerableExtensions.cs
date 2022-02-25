@@ -1,6 +1,4 @@
-﻿using NotNullAttribute = System.Diagnostics.CodeAnalysis.NotNullAttribute;
-
-namespace AtraBase.Toolkit.Extensions;
+﻿namespace AtraBase.Toolkit.Extensions;
 
 /// <summary>
 /// LINQ-like extensions on enumerables.
