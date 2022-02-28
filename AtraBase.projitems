@@ -9,6 +9,7 @@
     <Import_RootNamespace>AtraBase</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Collections\DefaultDict.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\DictionaryExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\IEnumerableExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\MethodExtensions.cs" />
