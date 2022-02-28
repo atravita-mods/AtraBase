@@ -14,16 +14,36 @@ public static class DictionaryExtensions
     /// <param name="updateDict">Dictionary containing values to add to the first dictionary.</param>
     /// <returns>the dictionary (for chaining).</returns>
     public static IDictionary<TKey, TValue> Update<TKey, TValue>(
-        [NotNull] this IDictionary<TKey, TValue> dictionary,
+        this IDictionary<TKey, TValue> dictionary,
         IDictionary<TKey, TValue>? updateDict)
-        where TKey : notnull
-        where TValue : notnull
     {
         if (updateDict is not null)
         {
             foreach (TKey key in updateDict.Keys)
             {
                 dictionary[key] = updateDict[key];
+            }
+        }
+        return dictionary;
+    }
+
+    /// <summary>
+    /// equivalent to python's dictionary.update().
+    /// </summary>
+    /// <typeparam name="TKey">Type of key.</typeparam>
+    /// <typeparam name="TValue">Type of value.</typeparam>
+    /// <param name="dictionary">Dictionary to update.</param>
+    /// <param name="keyValuePairs">Array of key value pairs to add.</param>
+    /// <returns>the dictionary (for chaining).</returns>
+    public static IDictionary<TKey, TValue> Update<TKey, TValue>(
+        this IDictionary<TKey, TValue> dictionary,
+        KeyValuePair<TKey, TValue>[]? keyValuePairs)
+    {
+        if (keyValuePairs is not null)
+        {
+            foreach ((TKey k, TValue v) in keyValuePairs)
+            {
+                dictionary[k] = v;
             }
         }
         return dictionary;
@@ -40,11 +60,9 @@ public static class DictionaryExtensions
     /// <returns>Value from dictionary if one exists, else default value.</returns>
     /// <remarks>Function both sets state and returns value.</remarks>
     public static TValue? SetDefault<TKey, TValue>(
-        [NotNull] this IDictionary<TKey, TValue> dictionary,
-        [NotNull] TKey key,
-        [NotNull] TValue defaultValue)
-        where TKey : notnull
-        where TValue : notnull
+        this IDictionary<TKey, TValue> dictionary,
+        TKey key,
+        TValue defaultValue)
     {
         // add the value to the dictionary if it doesn't exist.
         dictionary.TryAdd(key, defaultValue);
@@ -61,11 +79,9 @@ public static class DictionaryExtensions
     /// <param name="defaultValue">Value to use.</param>
     /// <returns>Value from dictionary if it exists and is not null, defaultValue otherwise.</returns>
     public static TValue SetDefaultOverrideNull<TKey, TValue>(
-        [NotNull] this IDictionary<TKey, TValue> dictionary,
-        [NotNull] TKey key,
-        [NotNull] TValue defaultValue)
-        where TKey : notnull
-        where TValue : notnull
+        this IDictionary<TKey, TValue> dictionary,
+        TKey key,
+        TValue defaultValue)
     {
         if (dictionary.TryGetValue(key, out TValue? value) && value is not null)
         {
@@ -90,13 +106,11 @@ public static class DictionaryExtensions
     /// <returns>Value from dictionary if not null, or else defaultValue.</returns>
     [Pure]
     public static TValue GetValueOrDefaultOverrideNull<TKey, TValue>(
-        [NotNull] this IDictionary<TKey, TValue> dictionary,
-        [NotNull] TKey key,
-        [NotNull] TValue defaultValue)
-      where TKey : notnull
-      where TValue : notnull
+        this IDictionary<TKey, TValue> dictionary,
+        TKey key,
+        TValue defaultValue)
     {
-        if (dictionary.TryGetValue(key, out TValue? value) && value is not null)
+        if (key is not null && dictionary.TryGetValue(key, out TValue? value) && value is not null)
         {
             return value;
         }
