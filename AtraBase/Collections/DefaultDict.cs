@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Runtime.Serialization;
 
 namespace AtraBase.Collections;
 
@@ -8,9 +9,10 @@ namespace AtraBase.Collections;
 /// <typeparam name="TKey">Type of key.</typeparam>
 /// <typeparam name="TValue">Type of value.</typeparam>
 internal class DefaultDict<TKey, TValue> : IDictionary<TKey, TValue>
+    where TKey : notnull
     where TValue : new()
 {
-    private readonly Dictionary<TKey, TValue> dict = new();
+    private readonly Dictionary<TKey, TValue> dict;
 
     private readonly Func<TValue> factory;
 
@@ -21,6 +23,87 @@ internal class DefaultDict<TKey, TValue> : IDictionary<TKey, TValue>
     public DefaultDict(Func<TValue>? factory = null)
     {
         this.factory = factory ?? (() => new TValue());
+        this.dict = new();
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DefaultDict{TKey, TValue}"/> class. Copies values from dictionary.
+    /// </summary>
+    /// <param name="dictionary">Dictionary to copy from.</param>
+    /// <param name="factory">The function for which to generate new values. If left null, just creates a new TValue().</param>
+    public DefaultDict(IDictionary<TKey, TValue> dictionary, Func<TValue>? factory = null)
+    {
+        this.factory = factory ?? (() => new TValue());
+        this.dict = new(dictionary);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DefaultDict{TKey, TValue}"/> class. Copies values from the IEumerable.
+    /// </summary>
+    /// <param name="collection">IEnumerable to get initial values from.</param>
+    /// <param name="factory">The function for which to generate new values. If left null, just creates a new TValue().</param>
+    public DefaultDict(IEnumerable<KeyValuePair<TKey, TValue>> collection, Func<TValue>? factory = null)
+    {
+        this.factory = factory ?? (() => new TValue());
+        this.dict = new(collection);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DefaultDict{TKey, TValue}"/> class with a custom comparer.
+    /// </summary>
+    /// <param name="comparer">Custom comparer.</param>
+    /// <param name="factory">The function for which to generate new values. If left null, just creates a new TValue().</param>
+    public DefaultDict(IEqualityComparer<TKey> comparer, Func<TValue>? factory = null)
+    {
+        this.factory = factory ?? (() => new TValue());
+        this.dict = new(comparer);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DefaultDict{TKey, TValue}"/> class with an initial capacity.
+    /// </summary>
+    /// <param name="capacity">Initial capacity.</param>
+    /// <param name="factory">The function for which to generate new values. If left null, just creates a new TValue().</param>
+    public DefaultDict(int capacity, Func<TValue>? factory = null)
+    {
+        this.factory = factory ?? (() => new TValue());
+        this.dict = new(capacity);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DefaultDict{TKey, TValue}"/> class, with initial values from dictionary and a custom comparer.
+    /// </summary>
+    /// <param name="dictionary">Dictionary to copy from.</param>
+    /// <param name="comparer">Custom comparer.</param>
+    /// <param name="factory">The function for which to generate new values. If left null, just creates a new TValue().</param>
+    public DefaultDict(IDictionary<TKey, TValue> dictionary, IEqualityComparer<TKey> comparer, Func<TValue>? factory = null)
+    {
+        this.factory = factory ?? (() => new TValue());
+        this.dict = new(dictionary, comparer);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DefaultDict{TKey, TValue}"/> class. Copies values from the IEumerable and uses a custom comparer
+    /// </summary>
+    /// <param name="collection">IEnumerable to get initial values from.</param>
+    /// <param name="comparer">Custom comparer.</param>
+    /// <param name="factory">The function for which to generate new values. If left null, just creates a new TValue().</param>
+    public DefaultDict(IEnumerable<KeyValuePair<TKey, TValue>> collection, IEqualityComparer<TKey> comparer, Func<TValue>? factory = null)
+    {
+        this.factory = factory ?? (() => new TValue());
+        this.dict = new(collection, comparer);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DefaultDict{TKey, TValue}"/> class with an initial capacity and a custom comparer
+    /// </summary>
+    /// <param name="capacity">Initial capacity.</param>
+    /// <param name="comparer">Custom comparer.</param>
+    /// <param name="factory">The function for which to generate new values. If left null, just creates a new TValue().</param>
+    public DefaultDict(int capacity, IEqualityComparer<TKey> comparer, Func<TValue>? factory = null)
+    {
+        this.factory = factory ?? (() => new TValue());
+        this.dict = new(capacity, comparer);
     }
 
     /// <inheritdoc/>
@@ -39,6 +122,7 @@ internal class DefaultDict<TKey, TValue> : IDictionary<TKey, TValue>
                 return val;
             }
         }
+
         set
         {
             this.dict[key] = value;
@@ -46,6 +130,7 @@ internal class DefaultDict<TKey, TValue> : IDictionary<TKey, TValue>
     }
 
     /// <inheritdoc/>
+    [SuppressMessage("StyleCop.CSharp.OrderingRules", "SA1201:Elements should appear in the correct order", Justification = "Reviewed")]
     public ICollection<TKey> Keys => this.dict.Keys;
 
     /// <inheritdoc/>
