@@ -1,4 +1,6 @@
-﻿using System.Text.RegularExpressions;
+﻿#if REGEX
+
+using System.Text.RegularExpressions;
 
 namespace AtraBase.Toolkit.Extensions;
 
@@ -13,7 +15,7 @@ public static class RegexExtensions
     /// <param name="match">Regex matchgroup.</param>
     /// <returns>Dictionary with the name of the matchgroup as the key and the value as the value.</returns>
     [Pure]
-    public static Dictionary<string, string> MatchGroupsToDictionary([NotNull] this Match match)
+    public static Dictionary<string, string> MatchGroupsToDictionary(this Match match)
     {
         Dictionary<string, string> result = new();
         foreach (Group group in match.Groups)
@@ -34,11 +36,10 @@ public static class RegexExtensions
     /// <returns>The dictionary.</returns>
     [Pure]
     public static Dictionary<TKey, TValue> MatchGroupsToDictionary<TKey, TValue>(
-        [NotNull] this Match match,
-        [NotNull] Func<string, TKey> keyselector,
-        [NotNull] Func<string, TValue> valueselector)
+        this Match match,
+        Func<string, TKey> keyselector,
+        Func<string, TValue> valueselector)
         where TKey : notnull
-        where TValue : notnull
     {
         Dictionary<TKey, TValue> result = new();
         foreach (Group group in match.Groups)
@@ -47,4 +48,29 @@ public static class RegexExtensions
         }
         return result;
     }
+
+    /// <summary>
+    /// Updates a dictionary with the values of a match group, if valid.
+    /// </summary>
+    /// <param name="dictionary">Dictionary to update.</param>
+    /// <param name="match">Match with named matchgroups.</param>
+    /// <returns>The dictionary (for chaining).</returns>
+    public static IDictionary<string, int> Update(
+        this IDictionary<string, int> dictionary,
+        Match? match)
+    {
+        if (match is not null)
+        {
+            foreach (Group group in match.Groups)
+            {
+                if (int.TryParse(group.Value, out int val))
+                {
+                    dictionary[group.Name] = val;
+                }
+            }
+        }
+        return dictionary;
+    }
 }
+
+#endif

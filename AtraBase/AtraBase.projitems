@@ -13,6 +13,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\DictionaryExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\IEnumerableExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\MethodExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\NumberExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\RegexExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Reflection\CustomReflectionExceptions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Reflection\SafeReflection.cs" />

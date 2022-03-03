@@ -15,7 +15,7 @@ internal static class MethodExtensions
     /// <returns>Fully qualified name of a MethodBase.</returns>
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static string GetFullName([NotNull] this MethodBase method)
+    public static string GetFullName(this MethodBase method)
         => $"{method.DeclaringType}::{method.Name}";
 
     /// <summary>
@@ -25,6 +25,6 @@ internal static class MethodExtensions
     /// <returns>Fully qualified name of a MethodInfo.</returns>
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static string GetFullName([NotNull] this MethodInfo method)
+    public static string GetFullName(this MethodInfo method)
         => $"{method.DeclaringType}::{method.Name}";
 }
