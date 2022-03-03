@@ -6,6 +6,7 @@ namespace AtraBase.Toolkit.Reflection;
 /// <summary>
 /// Reflection, but throws an error if something's not found.
 /// </summary>
+/// <remarks>Inspired by https://gitlab.com/theLion/smapi-mods/-/blob/main/Common/Extensions/SafeReflections.cs. </remarks>
 internal static class SafeReflection
 {
     private const BindingFlags InstanceFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.FlattenHierarchy;
@@ -20,7 +21,7 @@ internal static class SafeReflection
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ConstructorInfo Constructor(this Type type)
         => type.GetConstructor(InstanceFlags, null, Array.Empty<Type>(), null)
-        ?? throw new MethodNotFoundException(type.FullName + ".ctor");
+            ?? throw new MethodNotFoundException(type.FullName + ".ctor");
 
     /// <summary>
     /// Get the constructor of a type. Throws an exception of the constructor is not found.
@@ -32,7 +33,7 @@ internal static class SafeReflection
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ConstructorInfo Constructor(this Type type, Type[] paramsList)
         => type.GetConstructor(InstanceFlags, null, paramsList, null)
-        ?? throw new MethodNotFoundException(type.FullName + ".ctor");
+            ?? throw new MethodNotFoundException(type.FullName + ".ctor");
 
     /// <summary>
     /// Gets the named instance method.
@@ -44,7 +45,7 @@ internal static class SafeReflection
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static MethodInfo InstanceMethodNamed(this Type type, string methodName)
         => type.GetMethod(methodName, InstanceFlags)
-        ?? throw new MethodNotFoundException(type.FullName + methodName);
+            ?? throw new MethodNotFoundException(type.FullName + methodName);
 
     /// <summary>
     /// Gets the named instance method.
@@ -57,7 +58,7 @@ internal static class SafeReflection
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static MethodInfo InstanceMethodNamed(this Type type, string methodName, Type[] paramsList)
         => type.GetMethod(methodName, InstanceFlags, null, paramsList, null)
-        ?? throw new MethodNotFoundException(type.FullName + methodName);
+            ?? throw new MethodNotFoundException(type.FullName + methodName);
 
     /// <summary>
     /// Gets the named static method.
@@ -69,7 +70,7 @@ internal static class SafeReflection
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static MethodInfo StaticMethodNamed(this Type type, string methodName)
         => type.GetMethod(methodName, StaticFlags)
-        ?? throw new MethodNotFoundException(type.FullName + methodName);
+            ?? throw new MethodNotFoundException(type.FullName + methodName);
 
     /// <summary>
     /// Gets the named static method (with a specific call pattern).
@@ -82,7 +83,7 @@ internal static class SafeReflection
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static MethodInfo StaticMethodNamed(this Type type, string methodName, Type[] paramsList)
         => type.GetMethod(methodName, StaticFlags, null, paramsList, null)
-        ?? throw new MethodNotFoundException(type.FullName + methodName);
+            ?? throw new MethodNotFoundException(type.FullName + methodName);
 
     /// <summary>
     /// Gets the instance property such named.
@@ -94,7 +95,7 @@ internal static class SafeReflection
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static PropertyInfo InstancePropertyNamed(this Type type, string propertyName)
         => type.GetProperty(propertyName, InstanceFlags)
-        ?? throw new MethodNotFoundException(type.ToString() + propertyName);
+            ?? throw new MethodNotFoundException(type.FullName + propertyName);
 
     /// <summary>
     /// Gets the static property such named.
@@ -106,7 +107,7 @@ internal static class SafeReflection
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static PropertyInfo StaticPropertyNamed(this Type type, string propertyName)
         => type.GetProperty(propertyName, StaticFlags)
-        ?? throw new MethodNotFoundException(type.ToString() + propertyName);
+            ?? throw new MethodNotFoundException(type.FullName + propertyName);
 
     /// <summary>
     /// Gets the instance field such named.
@@ -118,7 +119,7 @@ internal static class SafeReflection
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static FieldInfo InstanceFieldNamed(this Type type, string fieldName)
         => type.GetField(fieldName, InstanceFlags)
-        ?? throw new MethodNotFoundException(type.ToString() + fieldName);
+            ?? throw new MethodNotFoundException(type.FullName + fieldName);
 
     /// <summary>
     /// Gets the static field such named.
@@ -130,5 +131,5 @@ internal static class SafeReflection
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static FieldInfo StaticFieldNamed(this Type type, string fieldName)
         => type.GetField(fieldName, StaticFlags)
-        ?? throw new MethodNotFoundException(type.ToString() + fieldName);
+            ?? throw new MethodNotFoundException(type.FullName + fieldName);
 }

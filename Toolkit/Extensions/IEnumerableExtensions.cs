@@ -17,12 +17,10 @@ internal static class IEnumerableExtensions
     /// <returns>The dictionary.</returns>
     [Pure]
     public static Dictionary<TKey, TValue> ToDictionaryIgnoreDuplicates<TEnumerable, TKey, TValue>(
-        [NotNull] this IEnumerable<TEnumerable> enumerable,
-        [NotNull] Func<TEnumerable, TKey> keyselector,
-        [NotNull] Func<TEnumerable, TValue> valueselector)
-        where TEnumerable : notnull
+        this IEnumerable<TEnumerable> enumerable,
+        Func<TEnumerable, TKey> keyselector,
+        Func<TEnumerable, TValue> valueselector)
         where TKey : notnull
-        where TValue : notnull
     {
         Dictionary<TKey, TValue> result = new();
         foreach (TEnumerable item in enumerable)

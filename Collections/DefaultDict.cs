@@ -1,10 +1,11 @@
-﻿using System.Collections;
-using System.Runtime.Serialization;
+﻿#if COLLECTIONS
+
+using System.Collections;
 
 namespace AtraBase.Collections;
 
 /// <summary>
-/// Similar to Python's defaultdict. TODO: figure out custom comparers?
+/// Similar to Python's defaultdict.
 /// </summary>
 /// <typeparam name="TKey">Type of key.</typeparam>
 /// <typeparam name="TValue">Type of value.</typeparam>
@@ -185,3 +186,5 @@ internal class DefaultDict<TKey, TValue> : IDictionary<TKey, TValue>
     /// <inheritdoc/>
     IEnumerator IEnumerable.GetEnumerator() => this.dict.GetEnumerator();
 }
+
+#endif
