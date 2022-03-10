@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Linq.Expressions;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 
 namespace AtraBase.Toolkit.Reflection;
@@ -132,4 +133,64 @@ internal static class SafeReflection
     public static FieldInfo StaticFieldNamed(this Type type, string fieldName)
         => type.GetField(fieldName, StaticFlags)
             ?? throw new MethodNotFoundException(type.FullName + fieldName);
+
+    /// <summary>
+    /// Searches through all aseemblies, getting any types that can be assigned to the indicated type.
+    /// This gets subclasses (and will pick up on the original type).
+    /// </summary>
+    /// <param name="type">Type to find subclasses of.</param>
+    /// <param name="publiconly">Whether to search public classes only.</param>
+    /// <param name="includeAbstract">Whether or not to include abstract classes and interfaces.</param>
+    /// <param name="assemblyfilter">A function to filter the assemblies to search.</param>
+    /// <param name="typefilter">A function to filter the types to search.</param>
+    /// <returns>A list of types.</returns>
+    /// <remarks>This is quite slow, use with caution.</remarks>
+    public static HashSet<Type> GetAssignableTypes(
+        this Type type,
+        bool publiconly = false,
+        bool includeAbstract = false,
+        Func<Assembly, bool>? assemblyfilter = null,
+        Func<Assembly, Type, bool>? typefilter = null)
+    {
+        HashSet<Type> types = new();
+        assemblyfilter ??= (Assembly assembly) => true;
+        typefilter ??= (Assembly assembly, Type type) => true;
+        foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies().Where(assemblyfilter))
+        {
+            if (assembly.IsDynamic)
+            {
+                continue;
+            }
+            if (publiconly)
+            {
+                try
+                {
+                    types.UnionWith(assembly.GetExportedTypes().Where((Type t) => (includeAbstract || !t.IsAbstract) && t.IsAssignableTo(type) && typefilter(assembly, type)));
+                }
+                catch (Exception ex) when (
+                    ex is NotSupportedException
+                    or FileNotFoundException)
+                {
+#if DEBUG
+                    Console.WriteLine($"Searching for types in {assembly.FullName} seems to have failed.\n\n{ex}");
+#endif
+                }
+            }
+            else
+            {
+                try
+                {
+                    types.UnionWith(assembly.GetTypes().Where((Type t) => (includeAbstract || !t.IsAbstract) && t.IsAssignableTo(type) && typefilter(assembly, type)));
+                }
+                catch (ReflectionTypeLoadException ex)
+                {
+#if DEBUG
+                    Console.WriteLine($"Searching for types in {assembly.FullName} seems to have failed.\n\n{ex}");
+#endif
+                }
+            }
+        }
+        Console.WriteLine(string.Join(" ", types.Select(t => t.FullName)));
+        return types;
+    }
 }

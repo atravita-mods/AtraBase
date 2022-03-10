@@ -107,7 +107,8 @@ internal class DefaultDict<TKey, TValue> : IDictionary<TKey, TValue>
         this.dict = new(capacity, comparer);
     }
 
-    /// <inheritdoc/>
+    /// <summary>Gets the value of the dictionary if it exists. If not, uses the factory to create a new value.</summary>
+    /// <param name="key">Key to search for.</param>
     public TValue this[TKey key]
     {
         get

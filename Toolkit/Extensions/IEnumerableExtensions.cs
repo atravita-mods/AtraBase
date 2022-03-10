@@ -32,4 +32,14 @@ internal static class IEnumerableExtensions
         }
         return result;
     }
+
+    [Pure]
+    public static IEnumerable<T> Unique<T>(this IEnumerable<T> enumerable)
+    {
+        HashSet<T> hashed = enumerable.ToHashSet();
+        foreach (T item in hashed)
+        {
+            yield return item;
+        }
+    }
 }
