@@ -9,7 +9,7 @@ namespace AtraBase.Collections;
 /// </summary>
 /// <typeparam name="TKey">Type of key.</typeparam>
 /// <typeparam name="TValue">Type of value.</typeparam>
-internal class DefaultDict<TKey, TValue> : IDictionary<TKey, TValue>
+public class DefaultDict<TKey, TValue> : IDictionary<TKey, TValue>
     where TKey : notnull
     where TValue : new()
 {
@@ -84,7 +84,7 @@ internal class DefaultDict<TKey, TValue> : IDictionary<TKey, TValue>
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="DefaultDict{TKey, TValue}"/> class. Copies values from the IEumerable and uses a custom comparer
+    /// Initializes a new instance of the <see cref="DefaultDict{TKey, TValue}"/> class. Copies values from the IEumerable and uses a custom comparer.
     /// </summary>
     /// <param name="collection">IEnumerable to get initial values from.</param>
     /// <param name="comparer">Custom comparer.</param>
@@ -96,7 +96,7 @@ internal class DefaultDict<TKey, TValue> : IDictionary<TKey, TValue>
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="DefaultDict{TKey, TValue}"/> class with an initial capacity and a custom comparer
+    /// Initializes a new instance of the <see cref="DefaultDict{TKey, TValue}"/> class with an initial capacity and a custom comparer.
     /// </summary>
     /// <param name="capacity">Initial capacity.</param>
     /// <param name="comparer">Custom comparer.</param>

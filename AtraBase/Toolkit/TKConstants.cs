@@ -5,7 +5,7 @@ namespace AtraBase.Toolkit;
 /// <summary>
 /// A class that contains useful contants.
 /// </summary>
-internal class TKConstants
+public class TKConstants
 {
     /// <summary>
     /// For use when asking the compiler to both inline and aggressively optimize.
