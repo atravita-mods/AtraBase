@@ -1,9 +1,11 @@
-﻿namespace AtraBase.Toolkit.Extensions;
+﻿using System.Runtime.CompilerServices;
+
+namespace AtraBase.Toolkit.Extensions;
 
 /// <summary>
 /// Extensions on numbers.
 /// </summary>
-internal static class NumberExtensions
+public static class NumberExtensions
 {
     /// <summary>
     /// Gets whether or not a float is within a specific margin of another one.
@@ -34,4 +36,55 @@ internal static class NumberExtensions
     /// <returns>True if within the margin, false otherwise.</returns>
     public static bool WithinMargin(this decimal val, decimal otherval, decimal margin = 0.01M)
         => Math.Abs(val - otherval) <= margin;
+
+    // TODO: benchmark these?
+
+    /// <summary>
+    /// Rounds the number to the nearest int.
+    /// </summary>
+    /// <param name="val">Value to round.</param>
+    /// <returns>Integer.</returns>
+    /// <remarks>Rounds to even.</remarks>
+    public static int ToIntPrecise(this float val)
+        => (int)MathF.Round(val, MidpointRounding.ToEven);
+
+    /// <summary>
+    /// Rounds the number to the nearest int.
+    /// </summary>
+    /// <param name="val">Value to round.</param>
+    /// <returns>Integer.</returns>
+    /// <remarks>Rounds to even.</remarks>
+    public static int ToIntPrecise(this double val)
+        => (int)Math.Round(val, MidpointRounding.ToEven);
+
+    /// <summary>
+    /// Rounds the number to the nearest int.
+    /// </summary>
+    /// <param name="val">Value to round.</param>
+    /// <returns>Integer.</returns>
+    /// <remarks>Rounds to even.</remarks>
+    public static int ToIntPrecise(this decimal val)
+        => (int)Math.Round(val, MidpointRounding.ToEven);
+
+    /// <summary>
+    /// Rounds the number to the nearest int.
+    /// </summary>
+    /// <param name="val">Value to round.</param>
+    /// <returns>Integer.</returns>
+    /// <remarks>Rounding method not precisely defined.</remarks>
+    [MethodImpl(TKConstants.Hot)]
+    public static int ToIntFast(this float val)
+        => (int)(val + 0.5f);
+
+    /// <summary>
+    /// Rounds the number to the nearest int.
+    /// </summary>
+    /// <param name="val">Value to round.</param>
+    /// <returns>Integer.</returns>
+    /// <remarks>Rounding method not precisely defined.</remarks>
+    [MethodImpl(TKConstants.Hot)]
+    public static int ToIntFast(this double val)
+        => (int)(val + 0.5d);
+
+    // No point doing a ToIntFast for Decimal.
 }

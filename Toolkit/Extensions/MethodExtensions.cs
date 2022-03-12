@@ -6,7 +6,7 @@ namespace AtraBase.Toolkit.Extensions;
 /// <summary>
 /// Small extensions to get the full name of a method.
 /// </summary>
-internal static class MethodExtensions
+public static class MethodExtensions
 {
     /// <summary>
     /// Gets the full name of a MethodBase.

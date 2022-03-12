@@ -8,7 +8,7 @@ namespace AtraBase.Toolkit.Reflection;
 /// Reflection, but throws an error if something's not found.
 /// </summary>
 /// <remarks>Inspired by https://gitlab.com/theLion/smapi-mods/-/blob/main/Common/Extensions/SafeReflections.cs. </remarks>
-internal static class SafeReflection
+public static class SafeReflection
 {
     private const BindingFlags InstanceFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.FlattenHierarchy;
     private const BindingFlags StaticFlags = BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.FlattenHierarchy;
@@ -137,6 +137,7 @@ internal static class SafeReflection
     /// <summary>
     /// Searches through all aseemblies, getting any types that can be assigned to the indicated type.
     /// This gets subclasses (and will pick up on the original type).
+    /// Skips dynamic assemblys though.
     /// </summary>
     /// <param name="type">Type to find subclasses of.</param>
     /// <param name="publiconly">Whether to search public classes only.</param>
@@ -190,7 +191,6 @@ internal static class SafeReflection
                 }
             }
         }
-        Console.WriteLine(string.Join(" ", types.Select(t => t.FullName)));
         return types;
     }
 }

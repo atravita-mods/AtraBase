@@ -3,7 +3,7 @@
 /// <summary>
 /// LINQ-like extensions on enumerables.
 /// </summary>
-internal static class IEnumerableExtensions
+public static class IEnumerableExtensions
 {
     /// <summary>
     /// Similar to LINQ's ToDictionary, but ignores duplicates instead of erroring.
@@ -33,6 +33,13 @@ internal static class IEnumerableExtensions
         return result;
     }
 
+    /// <summary>
+    /// Uses a hashset to check if items are unique.
+    /// </summary>
+    /// <typeparam name="T">Type of enumerable.</typeparam>
+    /// <param name="enumerable">Enumerable to check.</param>
+    /// <returns>An enumerable of unique items.</returns>
+    /// <remarks>This implementation is probably pretty slow, eh.</remarks>
     [Pure]
     public static IEnumerable<T> Unique<T>(this IEnumerable<T> enumerable)
     {

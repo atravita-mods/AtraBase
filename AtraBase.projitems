@@ -9,11 +9,13 @@
     <Import_RootNamespace>AtraBase</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Collections\Counter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Collections\DefaultDict.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\TKConstants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\DictionaryExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\IEnumerableExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\MethodExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\NumberExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\RegexExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Reflection\CustomReflectionExceptions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Reflection\SafeReflection.cs" />
