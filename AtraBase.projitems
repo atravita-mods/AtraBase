@@ -13,6 +13,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Collections\DefaultDict.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\IListExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\StringExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Reflection\SimplifiedReflection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\TKConstants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\DictionaryExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\IEnumerableExtensions.cs" />
