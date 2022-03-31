@@ -20,7 +20,6 @@ internal static class SimplifiedReflection
     /// <param name="type">Type to get the instance method from.</param>
     /// <param name="methodName">Name of the method.</param>
     /// <returns>Instance method's methodinfo.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static MethodInfo? DeclaredInstanceMethodNamedOrNull(this Type type, string methodName)
         => type.GetMethod(methodName, UnflattenedInstanceFlags);
 
@@ -32,7 +31,6 @@ internal static class SimplifiedReflection
     /// <param name="methodName">Name of the method.</param>
     /// <param name="paramsList">Call pattern of the method.</param>
     /// <returns>Instance method's methodinfo.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static MethodInfo? DeclaredInstanceMethodNamedOrNull(this Type type, string methodName, Type[] paramsList)
         => type.GetMethod(methodName, UnflattenedInstanceFlags, null, paramsList, null);
 
@@ -44,7 +42,6 @@ internal static class SimplifiedReflection
     /// <param name="methodName">Name of the method.</param>
     /// <returns>Static method's methodinfo.</returns>
     /// <exception cref="MethodNotFoundException">The static method was not found.</exception>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static MethodInfo? DeclaredStaticMethodNamedOrNull(this Type type, string methodName)
         => type.GetMethod(methodName, UnflattenedStaticFlags);
 
@@ -57,7 +54,6 @@ internal static class SimplifiedReflection
     /// <param name="paramsList">Call pattern of the method.</param>
     /// <returns>Static method's methodinfo.</returns>
     /// <exception cref="MethodNotFoundException">The static method was not found.</exception>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static MethodInfo? StaticMethodNamed(this Type type, string methodName, Type[] paramsList)
         => type.GetMethod(methodName, UnflattenedStaticFlags, null, paramsList, null);
 
