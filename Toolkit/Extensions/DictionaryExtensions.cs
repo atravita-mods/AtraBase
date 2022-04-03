@@ -3,7 +3,7 @@
 /// <summary>
 /// Add some python-esque methods to the dictionaries.
 /// </summary>
-public static class DictionaryExtensions
+internal static class DictionaryExtensions
 {
     /// <summary>
     /// equivalent to python's dictionary.update().
@@ -13,7 +13,7 @@ public static class DictionaryExtensions
     /// <param name="dictionary">Dictionary to update.</param>
     /// <param name="updateDict">Dictionary containing values to add to the first dictionary.</param>
     /// <returns>the dictionary (for chaining).</returns>
-    public static IDictionary<TKey, TValue> Update<TKey, TValue>(
+    internal static IDictionary<TKey, TValue> Update<TKey, TValue>(
         this IDictionary<TKey, TValue> dictionary,
         IDictionary<TKey, TValue>? updateDict)
     {
@@ -35,7 +35,7 @@ public static class DictionaryExtensions
     /// <param name="dictionary">Dictionary to update.</param>
     /// <param name="keyValuePairs">Array of key value pairs to add.</param>
     /// <returns>the dictionary (for chaining).</returns>
-    public static IDictionary<TKey, TValue> Update<TKey, TValue>(
+    internal static IDictionary<TKey, TValue> Update<TKey, TValue>(
         this IDictionary<TKey, TValue> dictionary,
         KeyValuePair<TKey, TValue>[]? keyValuePairs)
     {
@@ -59,7 +59,7 @@ public static class DictionaryExtensions
     /// <param name="defaultValue">Default value.</param>
     /// <returns>Value from dictionary if one exists, else default value.</returns>
     /// <remarks>Function both sets state and returns value.</remarks>
-    public static TValue? SetDefault<TKey, TValue>(
+    internal static TValue? SetDefault<TKey, TValue>(
         this IDictionary<TKey, TValue> dictionary,
         TKey key,
         TValue defaultValue)
@@ -78,7 +78,7 @@ public static class DictionaryExtensions
     /// <param name="key">Key.</param>
     /// <param name="defaultValue">Value to use.</param>
     /// <returns>Value from dictionary if it exists and is not null, defaultValue otherwise.</returns>
-    public static TValue SetDefaultOverrideNull<TKey, TValue>(
+    internal static TValue SetDefaultOverrideNull<TKey, TValue>(
         this IDictionary<TKey, TValue> dictionary,
         TKey key,
         TValue defaultValue)
@@ -105,7 +105,7 @@ public static class DictionaryExtensions
     /// <param name="defaultValue">Default value.</param>
     /// <returns>Value from dictionary if not null, or else defaultValue.</returns>
     [Pure]
-    public static TValue GetValueOrDefaultOverrideNull<TKey, TValue>(
+    internal static TValue GetValueOrDefaultOverrideNull<TKey, TValue>(
         this IDictionary<TKey, TValue> dictionary,
         TKey key,
         TValue defaultValue)
