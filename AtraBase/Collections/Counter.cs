@@ -10,7 +10,7 @@ namespace AtraBase.Collections;
 /// Similar to Python's Counter.
 /// </summary>
 /// <typeparam name="TKey">Type of key.</typeparam>
-public class Counter<TKey> : IDictionary<TKey, int>
+internal class Counter<TKey> : IDictionary<TKey, int>
     where TKey : notnull
 {
     private readonly Dictionary<TKey, int> dict;
@@ -18,13 +18,13 @@ public class Counter<TKey> : IDictionary<TKey, int>
     /// <summary>
     /// Initializes a new instance of the <see cref="Counter{TKey}"/> class.
     /// </summary>
-    public Counter() => this.dict = new();
+    internal Counter() => this.dict = new();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Counter{TKey}"/> class, with values copied from a different counter.
     /// </summary>
     /// <param name="other">Other counter to copy from.</param>
-    public Counter(Counter<TKey> other)
+    internal Counter(Counter<TKey> other)
     {
         this.dict = new();
         this.dict.Update(other.dict);
@@ -58,7 +58,7 @@ public class Counter<TKey> : IDictionary<TKey, int>
     /// </summary>
     /// <param name="other">The other counter.</param>
     /// <remarks>Adds counts, not replaces.</remarks>
-    public void Update(Counter<TKey> other)
+    internal void Update(Counter<TKey> other)
     {
         foreach ((TKey k, int v) in other)
         {
@@ -66,7 +66,7 @@ public class Counter<TKey> : IDictionary<TKey, int>
         }
     }
 
-    public void Update(IEnumerable<TKey> enumerable)
+    internal void Update(IEnumerable<TKey> enumerable)
     {
         foreach (TKey key in enumerable)
         {
@@ -74,7 +74,7 @@ public class Counter<TKey> : IDictionary<TKey, int>
         }
     }
 
-    public void Subtract(Counter<TKey> other)
+    internal void Subtract(Counter<TKey> other)
     {
         foreach ((TKey k, int v) in other)
         {
@@ -82,7 +82,7 @@ public class Counter<TKey> : IDictionary<TKey, int>
         }
     }
 
-    public void Subtract(IEnumerable<TKey> enumerable)
+    internal void Subtract(IEnumerable<TKey> enumerable)
     {
         foreach (TKey key in enumerable)
         {
@@ -93,7 +93,7 @@ public class Counter<TKey> : IDictionary<TKey, int>
     /// <summary>
     /// Remove all zero values.
     /// </summary>
-    public void RemoveZeros()
+    internal void RemoveZeros()
     {
         List<TKey> toRemove = new();
         foreach ((TKey key, int count) in this)
@@ -113,7 +113,7 @@ public class Counter<TKey> : IDictionary<TKey, int>
     /// Removes all counts if they're below a certain limit. (Inclusive).
     /// </summary>
     /// <param name="limit">Limit to remove all values under.</param>
-    public void RemoveBelow(int limit = 0)
+    internal void RemoveBelow(int limit = 0)
     {
         List<TKey> toRemove = new();
         foreach ((TKey key, int count) in this)
