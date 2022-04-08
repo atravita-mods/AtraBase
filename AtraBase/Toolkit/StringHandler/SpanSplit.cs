@@ -187,20 +187,12 @@ public ref struct SpanSplit
     public bool MoveNext()
     {
         this.lastYieldPos++;
-
-        if (this.lastYieldPos >= this.splitLocs.Count)
+        bool success = this.TryGetAtIndex(this.lastYieldPos, out SpanSplitEntry entry);
+        if (success)
         {
-            while (this.TryFindNext() && this.lastYieldPos >= this.splitLocs.Count)
-            {
-            }
+            this.Current = entry;
         }
-        if (this.lastYieldPos < this.splitLocs.Count)
-        {
-            (int start, int count, int sep) = this.splitLocs[this.lastYieldPos];
-            this.Current = new SpanSplitEntry(this.str.Slice(start, count), sep == this.str.Length ? string.Empty : this.str.Slice(sep, 1));
-            return true;
-        }
-        return false;
+        return success;
     }
 
     /// <summary>
@@ -249,7 +241,7 @@ public ref struct SpanSplit
             { // we've reached the end.
                 end = this.str.Length - 1;
                 this.remainder = string.Empty;
-                this.lastSearchPos = this.str.Length;
+                this.lastSearchPos = this.str.Length + 1;
             }
             else
             {
