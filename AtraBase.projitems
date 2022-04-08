@@ -15,6 +15,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\IListExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\StringExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\ObjectOverlay.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Reflection\FastReflection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Reflection\SimplifiedReflection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\TKConstants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\DictionaryExtensions.cs" />
