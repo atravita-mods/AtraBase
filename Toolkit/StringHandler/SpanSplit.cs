@@ -45,6 +45,11 @@ public readonly ref struct SpanSplitEntry
         seperator = this.Seperator;
     }
 
+    /// <summary>
+    /// Whether this entry contains the string.
+    /// </summary>
+    /// <param name="str">Substring.</param>
+    /// <returns>True if this entry contains that string.</returns>
     public bool Contains(string str)
     {
         for (int i = 0; i < this.Word.Length - str.Length + 1; i++)
@@ -128,7 +133,7 @@ public ref struct SpanSplit
     /// <param name="options">String split options.</param>
     public SpanSplit(string str, char splitchar, StringSplitOptions options = StringSplitOptions.None)
     {
-        this.remainder = this.str = str;
+        this.remainder = this.str = str.AsSpan();
         this.splitchars = new[] { splitchar };
         this.options = options;
     }
@@ -232,8 +237,7 @@ public ref struct SpanSplit
     /// <returns>True if the next value exists, false otherwise.</returns>
     public bool MoveNext()
     {
-        this.lastYieldPos++;
-        bool success = this.TryGetAtIndex(this.lastYieldPos, out SpanSplitEntry entry);
+        bool success = this.TryGetAtIndex(++this.lastYieldPos, out SpanSplitEntry entry);
         if (success)
         {
             this.Current = entry;
@@ -333,70 +337,4 @@ public ref struct SpanSplit
         }
         return (start, end);
     }
-}
-
-/// <summary>
-/// Holds the extension methods.
-/// </summary>
-public static class SpanSplitExtension
-{
-    /// <summary>
-    /// Creates a new instance of SpanSplit.
-    /// </summary>
-    /// <param name="str">String to split.</param>
-    /// <param name="splitchars">Characters to split by. (leave null for whitespace).</param>
-    /// <param name="options">String split options.</param>
-    /// <returns>SpanSplit instance.</returns>
-    public static SpanSplit SpanSplit(this string str, char[]? splitchars = null, StringSplitOptions options = StringSplitOptions.None)
-        => new(str, splitchars, options);
-
-    /// <summary>
-    /// Creates a new instance of SpanSplit.
-    /// </summary>
-    /// <param name="str">String to split.</param>
-    /// <param name="splitchars">Characters to split by. (leave null for whitespace).</param>
-    /// <param name="options">String split options.</param>
-    /// <returns>SpanSplit instance.</returns>
-    public static SpanSplit SpanSplit(this ReadOnlySpan<char> str, char[]? splitchars = null, StringSplitOptions options = StringSplitOptions.None)
-        => new(str, splitchars, options);
-
-    /// <summary>
-    /// Creates a new instance of SpanSplit.
-    /// </summary>
-    /// <param name="str">String to split.</param>
-    /// <param name="splitchars">Characters to split by. (leave null for whitespace).</param>
-    /// <param name="options">String split options.</param>
-    /// <returns>SpanSplit instance.</returns>
-    public static SpanSplit SpanSplit(this SpanSplitEntry str, char[]? splitchars = null, StringSplitOptions options = StringSplitOptions.None)
-        => new(str.Word, splitchars, options);
-
-    /// <summary>
-    /// Creates a new instance of SpanSplit.
-    /// </summary>
-    /// <param name="str">String to split.</param>
-    /// <param name="splitchar">Character to split by.</param>
-    /// <param name="options">String split options.</param>
-    /// <returns>SpanSplit instance.</returns>
-    public static SpanSplit SpanSplit(this string str, char splitchar, StringSplitOptions options = StringSplitOptions.None)
-        => new(str, splitchar, options);
-
-    /// <summary>
-    /// Creates a new instance of SpanSplit.
-    /// </summary>
-    /// <param name="str">String to split.</param>
-    /// <param name="splitchar">Characters to split by.</param>
-    /// <param name="options">String split options.</param>
-    /// <returns>SpanSplit instance.</returns>
-    public static SpanSplit SpanSplit(this ReadOnlySpan<char> str, char splitchar, StringSplitOptions options = StringSplitOptions.None)
-        => new(str, splitchar, options);
-
-    /// <summary>
-    /// Creates a new instance of SpanSplit.
-    /// </summary>
-    /// <param name="str">String to split.</param>
-    /// <param name="splitchar">Characters to split by.</param>
-    /// <param name="options">String split options.</param>
-    /// <returns>SpanSplit instance.</returns>
-    public static SpanSplit SpanSplit(this SpanSplitEntry str, char splitchar, StringSplitOptions options = StringSplitOptions.None)
-        => new(str.Word, splitchar, options);
 }

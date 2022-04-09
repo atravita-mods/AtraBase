@@ -18,6 +18,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Reflection\FastReflection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Reflection\SimplifiedReflection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\StringHandler\SpanSplit.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\StringHandler\SpanSplitExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\TKConstants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\DictionaryExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\IEnumerableExtensions.cs" />
