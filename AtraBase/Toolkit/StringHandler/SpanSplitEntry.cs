@@ -59,7 +59,8 @@ public readonly ref struct SpanSplitEntry
                 }
             }
             return true;
-ContainsLoopContinue:;
+ContainsLoopContinue:
+            ;
         }
         return false;
     }
