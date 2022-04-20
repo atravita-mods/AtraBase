@@ -73,7 +73,7 @@ public ref struct SpanSplit
     /// <summary>
     /// Gets the total count.
     /// </summary>
-    /// <remarks>This will process the whole string.</remarks>
+    /// <remarks>This will process the whole string. <see cref="CountIsAtLeast(int)"></see> may be preferable.</remarks>
     public int Count
     {
         get
@@ -116,6 +116,31 @@ public ref struct SpanSplit
     }
 
     /// <summary>
+    /// Checks to see if the SplitSpan has at least a certain count of elements.
+    /// </summary>
+    /// <param name="count">Count.</param>
+    /// <returns>True/False.</returns>
+    /// <remarks>This will process the SplitSpan only as far as necessary.</remarks>
+    public bool CountIsAtLeast(int count)
+    {
+        if (this.splitLocs.Count >= count)
+        {
+            return true;
+        }
+        else
+        {
+            while (this.TryFindNext())
+            {
+                if (this.splitLocs.Count >= count)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /// <summary>
     /// Tries to get the SpanSplitEntry at the given index.
     /// </summary>
     /// <param name="index">Index to look at.</param>
@@ -125,8 +150,7 @@ public ref struct SpanSplit
     {
         if (index < 0)
         {
-            entry = default;
-            return false;
+            goto FAIL;
         }
         if (index >= this.splitLocs.Count)
         {
@@ -140,11 +164,9 @@ public ref struct SpanSplit
             entry = new SpanSplitEntry(this.str.Slice(start, count), sep == this.str.Length ? string.Empty : this.str.Slice(sep, 1));
             return true;
         }
-        else
-        {
-            entry = default;
-            return false;
-        }
+FAIL:
+        entry = default;
+        return false;
     }
 
     /**********************
@@ -233,7 +255,7 @@ public ref struct SpanSplit
             }
             if (this.options.HasFlag(StringSplitOptions.TrimEntries))
             {
-                (start, end) = this.PerformTrimIfNeeded(start, end);
+                this.PerformTrimIfNeeded(ref start, ref end);
             }
             if (this.options.HasFlag(StringSplitOptions.RemoveEmptyEntries) && start >= end)
             {
@@ -256,17 +278,15 @@ public ref struct SpanSplit
     /// </summary>
     /// <param name="start">start coordinate.</param>
     /// <param name="end">end coordinate.</param>
-    /// <returns>New start and end coordinates.</returns>
-    private (int start, int end) PerformTrimIfNeeded(int start, int end)
+    private void PerformTrimIfNeeded(ref int start, ref int end)
     {
-        while (char.IsWhiteSpace(this.str[start]) && start <= end)
+        while (char.IsWhiteSpace(this.str[start]) && start < end)
         {
             start++;
         }
-        while (char.IsWhiteSpace(this.str[end]) && start <= end)
+        while (char.IsWhiteSpace(this.str[end]) && start < end)
         {
             end--;
         }
-        return (start, end);
     }
 }

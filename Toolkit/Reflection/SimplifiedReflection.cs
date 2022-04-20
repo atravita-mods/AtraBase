@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
 
 namespace AtraBase.Toolkit.Reflection;
 
@@ -54,7 +53,7 @@ internal static class SimplifiedReflection
     /// <param name="paramsList">Call pattern of the method.</param>
     /// <returns>Static method's methodinfo.</returns>
     /// <exception cref="MethodNotFoundException">The static method was not found.</exception>
-    public static MethodInfo? StaticMethodNamed(this Type type, string methodName, Type[] paramsList)
+    public static MethodInfo? DeclaredStaticMethodNamedOrNull(this Type type, string methodName, Type[] paramsList)
         => type.GetMethod(methodName, UnflattenedStaticFlags, null, paramsList, null);
 
     /// <summary>
