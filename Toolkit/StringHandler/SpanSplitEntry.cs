@@ -46,24 +46,15 @@ public readonly ref struct SpanSplitEntry
     /// Whether this entry contains the string.
     /// </summary>
     /// <param name="str">Substring.</param>
+    /// <param name="comparison">The comparsion method - defaults to ordinal</param>
     /// <returns>True if this entry contains that string.</returns>
-    public bool Contains(string str)
-    {
-        for (int i = 0; i < this.Word.Length - str.Length + 1; i++)
-        {
-            for (int j = 0; j < str.Length; j++)
-            {
-                if (!this.Word[i + j].Equals(str[j]))
-                {
-                    goto ContainsLoopContinue;
-                }
-            }
-            return true;
-ContainsLoopContinue:
-            ;
-        }
-        return false;
-    }
+    public bool Contains(ReadOnlySpan<char> str, StringComparison comparison = StringComparison.Ordinal)
+        => this.Word.Contains(str, comparison);
+
+    public bool StartsWith(ReadOnlySpan<char> str, StringComparison comparison = StringComparison.Ordinal)
+        => this.Word.StartsWith(str, comparison);
+
+    public bool EndsWith(ReadOnlySpan<char> str, StringComparison comparison = StringComparison.Ordinal) => this.Word.EndsWith(str, comparison);
 
     /// <inheritdoc />
     public override string ToString() => this.Word.ToString();

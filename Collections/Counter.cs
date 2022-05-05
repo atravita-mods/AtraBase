@@ -129,6 +129,8 @@ internal class Counter<TKey> : IDictionary<TKey, int>
         }
     }
 
+#pragma warning disable SA1201 // Elements should appear in the correct order - methods unique to Counter are placed above methods common to dictionaries.
+#pragma warning disable SA1202 // Elements should be ordered by access
     /// <summary>
     /// Not implemented - does not make sense for Counter.
     /// </summary>
@@ -139,7 +141,6 @@ internal class Counter<TKey> : IDictionary<TKey, int>
         => throw new NotSupportedException("This method makes no sense for Counter.");
 
     /// <inheritdoc/>
-#pragma warning disable SA1201 // Elements should appear in the correct order - methods unique to Counter are placed above methods common to dictionaries.
     public ICollection<TKey> Keys => this.dict.Keys;
 
     /// <inheritdoc/>
@@ -199,6 +200,7 @@ internal class Counter<TKey> : IDictionary<TKey, int>
     IEnumerator IEnumerable.GetEnumerator() => this.dict.GetEnumerator();
 
 #pragma warning restore SA1201 // Elements should appear in the correct order
+#pragma warning restore SA1202 // Elements should be ordered by access
 }
 
 #endif
