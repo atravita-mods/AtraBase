@@ -12,7 +12,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Collections\Counter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Collections\DefaultDict.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Collections\EmptyContainers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\CustomExceptions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\IListExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\SpanExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\StringExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\ObjectOverlay.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Reflection\FastReflection.cs" />

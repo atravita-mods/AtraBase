@@ -27,7 +27,9 @@ public static class IEnumerableExtensions
         {
             if (!result.TryAdd(keyselector(item), valueselector(item)))
             {
+#if DEBUG
                 Console.WriteLine($"Recieved duplicate key {keyselector(item)}, ignoring");
+#endif
             }
         }
         return result;
