@@ -6,7 +6,7 @@ namespace AtraBase.Toolkit.Reflection;
 /// <summary>
 /// Makes delegates from reflection stuff.
 /// </summary>
-/// <remarks>Inspired by https://github.com/ameisen/SV-SpriteMaster/blob/master/SpriteMaster/Extensions/ReflectionExtDelegates.cs </remarks>
+/// <remarks>Inspired by https://github.com/ameisen/SV-SpriteMaster/blob/master/SpriteMaster/Extensions/ReflectionExtDelegates.cs .</remarks>
 internal static class FastReflection
 {
     /// <summary>
@@ -134,5 +134,17 @@ internal static class FastReflection
         MemberExpression? fieldsetter = Expression.Field(null, field);
         BinaryExpression? assignexpress = Expression.Assign(fieldsetter, convertfield);
         return Expression.Lambda<Action<TField>>(assignexpress, fieldval).Compile();
+    }
+
+    [return: NotNullIfNotNull("type")]
+    internal static Func<object, bool>? GetTypeIs(this Type? type)
+    {
+        if (type is null)
+        {
+            return null;
+        }
+        var obj = Expression.Parameter(typeof(object), "obj");
+        var express = Expression.TypeIs(obj, type);
+        return Expression.Lambda<Func<object, bool>>(express, obj).Compile();
     }
 }

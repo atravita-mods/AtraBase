@@ -10,7 +10,7 @@ public ref struct SpanSplit
 {
     private readonly char[]? splitchars;
     private readonly StringSplitOptions options;
-    private readonly List<(int start, int count, int sepindex)> splitLocs = new();
+    private readonly List<(int start, int count, int sepindex)> splitLocs;
 
     private readonly ReadOnlySpan<char> str;
     private ReadOnlySpan<char> remainder;
@@ -29,6 +29,7 @@ public ref struct SpanSplit
         this.remainder = this.str = str;
         this.splitchars = splitchars;
         this.options = options;
+        this.splitLocs = new(Math.Min(str.Length / 6, 4));
     }
 
     /// <summary>
@@ -42,6 +43,7 @@ public ref struct SpanSplit
         this.remainder = this.str = str;
         this.splitchars = new[] { splitchar };
         this.options = options;
+        this.splitLocs = new(Math.Min(str.Length / 6, 4));
     }
 
     /// <summary>
@@ -55,6 +57,7 @@ public ref struct SpanSplit
         this.remainder = this.str = str.AsSpan();
         this.splitchars = splitchars;
         this.options = options;
+        this.splitLocs = new(Math.Min(str.Length / 6, 4));
     }
 
     /// <summary>
@@ -68,6 +71,7 @@ public ref struct SpanSplit
         this.remainder = this.str = str.AsSpan();
         this.splitchars = new[] { splitchar };
         this.options = options;
+        this.splitLocs = new(Math.Min(str.Length / 6, 4));
     }
 
     /// <summary>
@@ -152,11 +156,8 @@ public ref struct SpanSplit
         {
             goto FAIL;
         }
-        if (index >= this.splitLocs.Count)
+        while (index >= this.splitLocs.Count && this.TryFindNext())
         {
-            while (this.TryFindNext() && index >= this.splitLocs.Count)
-            {
-            }
         }
         if (index < this.splitLocs.Count)
         {

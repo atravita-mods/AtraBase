@@ -131,6 +131,7 @@ internal class Counter<TKey> : IDictionary<TKey, int>
 
 #pragma warning disable SA1201 // Elements should appear in the correct order - methods unique to Counter are placed above methods common to dictionaries.
 #pragma warning disable SA1202 // Elements should be ordered by access
+
     /// <summary>
     /// Not implemented - does not make sense for Counter.
     /// </summary>

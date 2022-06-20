@@ -1,4 +1,6 @@
-﻿namespace AtraBase.Toolkit.Reflection;
+﻿using System.Runtime.CompilerServices;
+
+namespace AtraBase.Toolkit.Reflection;
 
 /// <summary>
 /// Thrown when a method accessed by reflection/Harmony isn't found.
@@ -12,5 +14,22 @@ public class MethodNotFoundException : Exception
     public MethodNotFoundException(string methodname)
         : base($"{methodname} not found!")
     {
+    }
+}
+
+internal static partial class TKThrowHelper
+{
+    [DoesNotReturn]
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    internal static void ThrowMethodNotFoundException(string methodName)
+    {
+        throw new MethodNotFoundException(methodName);
+    }
+
+    [DoesNotReturn]
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    internal static T ThrowMethodNotFoundException<T>(string methodName)
+    {
+        throw new MethodNotFoundException(methodName);
     }
 }
