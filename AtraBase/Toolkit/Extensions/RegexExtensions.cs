@@ -1,6 +1,4 @@
-﻿#if REGEX
-
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace AtraBase.Toolkit.Extensions;
 
@@ -89,5 +87,3 @@ public static class RegexExtensions
         return dictionary;
     }
 }
-
-#endif

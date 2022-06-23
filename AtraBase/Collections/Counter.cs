@@ -1,6 +1,4 @@
-﻿#if COLLECTIONS
-
-using System.Collections;
+﻿using System.Collections;
 using System.Text;
 using AtraBase.Toolkit.Extensions;
 
@@ -203,5 +201,3 @@ public class Counter<TKey> : IDictionary<TKey, int>
 #pragma warning restore SA1201 // Elements should appear in the correct order
 #pragma warning restore SA1202 // Elements should be ordered by access
 }
-
-#endif

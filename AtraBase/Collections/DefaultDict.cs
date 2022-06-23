@@ -1,6 +1,4 @@
-﻿#if COLLECTIONS
-
-using System.Collections;
+﻿using System.Collections;
 
 namespace AtraBase.Collections;
 
@@ -187,5 +185,3 @@ public class DefaultDict<TKey, TValue> : IDictionary<TKey, TValue>
     /// <inheritdoc/>
     IEnumerator IEnumerable.GetEnumerator() => this.dict.GetEnumerator();
 }
-
-#endif
