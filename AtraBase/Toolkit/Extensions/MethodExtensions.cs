@@ -6,7 +6,7 @@ namespace AtraBase.Toolkit.Extensions;
 /// <summary>
 /// Small extensions to get the full name of a method.
 /// </summary>
-internal static class MethodExtensions
+public static class MethodExtensions
 {
     /// <summary>
     /// Gets the full name of a MethodBase.
@@ -14,7 +14,7 @@ internal static class MethodExtensions
     /// <param name="method">MethodBase to analyze.</param>
     /// <returns>Fully qualified name of a MethodBase.</returns>
     [Pure]
-    internal static string GetFullName(this MethodBase method)
+    public static string GetFullName(this MethodBase method)
         => $"{method.DeclaringType}::{method.Name}";
 
     /// <summary>
@@ -23,6 +23,6 @@ internal static class MethodExtensions
     /// <param name="method">MethodInfo to analyze.</param>
     /// <returns>Fully qualified name of a MethodInfo.</returns>
     [Pure]
-    internal static string GetFullName(this MethodInfo method)
+    public static string GetFullName(this MethodInfo method)
         => $"{method.DeclaringType}::{method.Name}";
 }

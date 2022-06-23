@@ -17,18 +17,18 @@ public class MethodNotFoundException : Exception
     }
 }
 
-internal static partial class TKThrowHelper
+public static class ReflectionThrowHelper
 {
     [DoesNotReturn]
     [MethodImpl(MethodImplOptions.NoInlining)]
-    internal static void ThrowMethodNotFoundException(string methodName)
+    public static void ThrowMethodNotFoundException(string methodName)
     {
         throw new MethodNotFoundException(methodName);
     }
 
     [DoesNotReturn]
     [MethodImpl(MethodImplOptions.NoInlining)]
-    internal static T ThrowMethodNotFoundException<T>(string methodName)
+    public static T ThrowMethodNotFoundException<T>(string methodName)
     {
         throw new MethodNotFoundException(methodName);
     }

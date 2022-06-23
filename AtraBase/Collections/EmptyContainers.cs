@@ -3,7 +3,7 @@
 /// <summary>
 /// Gets empty containers.
 /// </summary>
-internal static class EmptyContainers
+public static class EmptyContainers
 {
     /// <summary>
     /// Gets a blank dictionary of the following type.
@@ -11,7 +11,7 @@ internal static class EmptyContainers
     /// <typeparam name="TKey">The key type.</typeparam>
     /// <typeparam name="TValue">The value type.</typeparam>
     /// <returns>An empty dictionary.</returns>
-    internal static Dictionary<TKey, TValue> GetEmptyDictionary<TKey, TValue>()
+    public static Dictionary<TKey, TValue> GetEmptyDictionary<TKey, TValue>()
         where TKey : notnull
         => new();
 
@@ -20,6 +20,6 @@ internal static class EmptyContainers
     /// </summary>
     /// <typeparam name="TKey">They key type.</typeparam>
     /// <returns>An empty list.</returns>
-    internal static List<TKey> GetEmptyList<TKey>()
+    public static List<TKey> GetEmptyList<TKey>()
         => new();
 }

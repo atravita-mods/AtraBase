@@ -3,7 +3,7 @@
 /// <summary>
 /// Extensions on IList.
 /// </summary>
-internal static class IListExtensions
+public static class IListExtensions
 {
     /// <summary>
     /// Gets the Nth occurance of a specific thing a list.
@@ -14,7 +14,7 @@ internal static class IListExtensions
     /// <param name="count">N.</param>
     /// <returns>Index of the thing, or -1 if not found.</returns>
     [Pure]
-    internal static int NthOccuranceOf<T>(this IList<T> list, T item, int count = 1)
+    public static int NthOccuranceOf<T>(this IList<T> list, T item, int count = 1)
         where T : IEquatable<T>
     {
         for (int i = 0; i < list.Count; i++)

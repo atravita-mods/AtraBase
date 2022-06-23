@@ -7,7 +7,7 @@ namespace AtraBase.Toolkit.Reflection;
 /// This class doesn't throw errors if the method is not found.
 /// And only searches the class given, it doesn't search up the hierarchy.
 /// </summary>
-internal static class SimplifiedReflection
+public static class SimplifiedReflection
 {
     private const BindingFlags UnflattenedInstanceFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public;
     private const BindingFlags UnflattenedStaticFlags = BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public;
