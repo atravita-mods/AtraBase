@@ -9,7 +9,7 @@ namespace AtraBase.Collections;
 /// </summary>
 /// <typeparam name="TKey">Type of key.</typeparam>
 /// <typeparam name="TValue">Type of value.</typeparam>
-internal class DefaultDict<TKey, TValue> : IDictionary<TKey, TValue>
+public class DefaultDict<TKey, TValue> : IDictionary<TKey, TValue>
     where TKey : notnull
     where TValue : new()
 {
@@ -21,7 +21,7 @@ internal class DefaultDict<TKey, TValue> : IDictionary<TKey, TValue>
     /// Initializes a new instance of the <see cref="DefaultDict{TKey, TValue}"/> class.
     /// </summary>
     /// <param name="factory">The function for which to generate new values. If left null, just creates a new TValue().</param>
-    internal DefaultDict(Func<TValue>? factory = null)
+    public DefaultDict(Func<TValue>? factory = null)
     {
         this.factory = factory ?? (() => new TValue());
         this.dict = new();
@@ -32,7 +32,7 @@ internal class DefaultDict<TKey, TValue> : IDictionary<TKey, TValue>
     /// </summary>
     /// <param name="dictionary">Dictionary to copy from.</param>
     /// <param name="factory">The function for which to generate new values. If left null, just creates a new TValue().</param>
-    internal DefaultDict(IDictionary<TKey, TValue> dictionary, Func<TValue>? factory = null)
+    public DefaultDict(IDictionary<TKey, TValue> dictionary, Func<TValue>? factory = null)
     {
         this.factory = factory ?? (() => new TValue());
         this.dict = new(dictionary);
@@ -43,7 +43,7 @@ internal class DefaultDict<TKey, TValue> : IDictionary<TKey, TValue>
     /// </summary>
     /// <param name="collection">IEnumerable to get initial values from.</param>
     /// <param name="factory">The function for which to generate new values. If left null, just creates a new TValue().</param>
-    internal DefaultDict(IEnumerable<KeyValuePair<TKey, TValue>> collection, Func<TValue>? factory = null)
+    public DefaultDict(IEnumerable<KeyValuePair<TKey, TValue>> collection, Func<TValue>? factory = null)
     {
         this.factory = factory ?? (() => new TValue());
         this.dict = new(collection);
@@ -54,7 +54,7 @@ internal class DefaultDict<TKey, TValue> : IDictionary<TKey, TValue>
     /// </summary>
     /// <param name="comparer">Custom comparer.</param>
     /// <param name="factory">The function for which to generate new values. If left null, just creates a new TValue().</param>
-    internal DefaultDict(IEqualityComparer<TKey> comparer, Func<TValue>? factory = null)
+    public DefaultDict(IEqualityComparer<TKey> comparer, Func<TValue>? factory = null)
     {
         this.factory = factory ?? (() => new TValue());
         this.dict = new(comparer);
@@ -65,7 +65,7 @@ internal class DefaultDict<TKey, TValue> : IDictionary<TKey, TValue>
     /// </summary>
     /// <param name="capacity">Initial capacity.</param>
     /// <param name="factory">The function for which to generate new values. If left null, just creates a new TValue().</param>
-    internal DefaultDict(int capacity, Func<TValue>? factory = null)
+    public DefaultDict(int capacity, Func<TValue>? factory = null)
     {
         this.factory = factory ?? (() => new TValue());
         this.dict = new(capacity);
@@ -77,7 +77,7 @@ internal class DefaultDict<TKey, TValue> : IDictionary<TKey, TValue>
     /// <param name="dictionary">Dictionary to copy from.</param>
     /// <param name="comparer">Custom comparer.</param>
     /// <param name="factory">The function for which to generate new values. If left null, just creates a new TValue().</param>
-    internal DefaultDict(IDictionary<TKey, TValue> dictionary, IEqualityComparer<TKey> comparer, Func<TValue>? factory = null)
+    public DefaultDict(IDictionary<TKey, TValue> dictionary, IEqualityComparer<TKey> comparer, Func<TValue>? factory = null)
     {
         this.factory = factory ?? (() => new TValue());
         this.dict = new(dictionary, comparer);
@@ -89,7 +89,7 @@ internal class DefaultDict<TKey, TValue> : IDictionary<TKey, TValue>
     /// <param name="collection">IEnumerable to get initial values from.</param>
     /// <param name="comparer">Custom comparer.</param>
     /// <param name="factory">The function for which to generate new values. If left null, just creates a new TValue().</param>
-    internal DefaultDict(IEnumerable<KeyValuePair<TKey, TValue>> collection, IEqualityComparer<TKey> comparer, Func<TValue>? factory = null)
+    public DefaultDict(IEnumerable<KeyValuePair<TKey, TValue>> collection, IEqualityComparer<TKey> comparer, Func<TValue>? factory = null)
     {
         this.factory = factory ?? (() => new TValue());
         this.dict = new(collection, comparer);
@@ -101,7 +101,7 @@ internal class DefaultDict<TKey, TValue> : IDictionary<TKey, TValue>
     /// <param name="capacity">Initial capacity.</param>
     /// <param name="comparer">Custom comparer.</param>
     /// <param name="factory">The function for which to generate new values. If left null, just creates a new TValue().</param>
-    internal DefaultDict(int capacity, IEqualityComparer<TKey> comparer, Func<TValue>? factory = null)
+    public DefaultDict(int capacity, IEqualityComparer<TKey> comparer, Func<TValue>? factory = null)
     {
         this.factory = factory ?? (() => new TValue());
         this.dict = new(capacity, comparer);

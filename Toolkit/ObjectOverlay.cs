@@ -4,9 +4,9 @@ using AtraBase.Toolkit.Reflection;
 
 namespace AtraBase.Toolkit;
 
-internal static class ObjectOverlay
+public static class ObjectOverlay
 {
-    internal static Action<T, T> CreateObjOverlayFunction<T>()
+    public static Action<T, T> CreateObjOverlayFunction<T>()
     {
         ParameterExpression? obj = Expression.Parameter(typeof(T));
         ParameterExpression? overlay = Expression.Parameter(typeof(T));

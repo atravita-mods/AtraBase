@@ -16,7 +16,7 @@ public static class IEnumerableExtensions
     /// <param name="valueselector">Function that maps enumerable to value.</param>
     /// <returns>The dictionary.</returns>
     [Pure]
-    internal static Dictionary<TKey, TValue> ToDictionaryIgnoreDuplicates<TEnumerable, TKey, TValue>(
+    public static Dictionary<TKey, TValue> ToDictionaryIgnoreDuplicates<TEnumerable, TKey, TValue>(
         this IEnumerable<TEnumerable> enumerable,
         Func<TEnumerable, TKey> keyselector,
         Func<TEnumerable, TValue> valueselector)
@@ -43,7 +43,7 @@ public static class IEnumerableExtensions
     /// <returns>An enumerable of unique items.</returns>
     /// <remarks>This implementation is probably pretty slow, eh.</remarks>
     [Pure]
-    internal static IEnumerable<T> Unique<T>(this IEnumerable<T> enumerable)
+    public static IEnumerable<T> Unique<T>(this IEnumerable<T> enumerable)
     {
         HashSet<T> hashed = enumerable.ToHashSet();
         foreach (T item in hashed)

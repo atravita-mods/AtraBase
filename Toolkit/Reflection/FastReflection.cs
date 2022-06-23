@@ -7,7 +7,7 @@ namespace AtraBase.Toolkit.Reflection;
 /// Makes delegates from reflection stuff.
 /// </summary>
 /// <remarks>Inspired by https://github.com/ameisen/SV-SpriteMaster/blob/master/SpriteMaster/Extensions/ReflectionExtDelegates.cs .</remarks>
-internal static class FastReflection
+public static class FastReflection
 {
     /// <summary>
     /// Gets a getter for an instance field.
@@ -18,7 +18,7 @@ internal static class FastReflection
     /// <returns>Delegate that gets the field's value.</returns>
     /// <exception cref="ArgumentException">Type mismatch.</exception>
     [return: NotNullIfNotNull("field")]
-    internal static Func<TObject, TField>? GetInstanceFieldGetter<TObject, TField>(this FieldInfo? field)
+    public static Func<TObject, TField>? GetInstanceFieldGetter<TObject, TField>(this FieldInfo? field)
     {
         if (field is null)
         {
@@ -51,7 +51,7 @@ internal static class FastReflection
     /// <returns>Delegate that allows setting the field's value.</returns>
     /// <exception cref="ArgumentException">Type mismatch.</exception>
     [return: NotNullIfNotNull("field")]
-    internal static Action<TObject, TField>? GetInstanceFieldSetter<TObject, TField>(this FieldInfo? field)
+    public static Action<TObject, TField>? GetInstanceFieldSetter<TObject, TField>(this FieldInfo? field)
     {
         if (field is null)
         {
@@ -87,7 +87,7 @@ internal static class FastReflection
     /// <returns>A delegate that allows getting the value from a static field.</returns>
     /// <exception cref="ArgumentException">Type mismatch.</exception>
     [return: NotNullIfNotNull("field")]
-    internal static Func<TField>? GetStaticFieldGetter<TField>(this FieldInfo? field)
+    public static Func<TField>? GetStaticFieldGetter<TField>(this FieldInfo? field)
     {
         if (field is null)
         {
@@ -114,7 +114,7 @@ internal static class FastReflection
     /// <returns>Delegate that allows setting of a static field.</returns>
     /// <exception cref="ArgumentException">Type mismatch.</exception>
     [return: NotNullIfNotNull("field")]
-    internal static Action<TField>? GetStaticFieldSetter<TField>(this FieldInfo? field)
+    public static Action<TField>? GetStaticFieldSetter<TField>(this FieldInfo? field)
     {
         if (field is null)
         {
@@ -137,7 +137,7 @@ internal static class FastReflection
     }
 
     [return: NotNullIfNotNull("type")]
-    internal static Func<object, bool>? GetTypeIs(this Type? type)
+    public static Func<object, bool>? GetTypeIs(this Type? type)
     {
         if (type is null)
         {

@@ -5,7 +5,7 @@ namespace AtraBase.Toolkit.Extensions;
 /// <summary>
 /// Extensions on numbers.
 /// </summary>
-internal static class NumberExtensions
+public static class NumberExtensions
 {
     /// <summary>
     /// Gets whether or not a float is within a specific margin of another one.
@@ -15,7 +15,7 @@ internal static class NumberExtensions
     /// <param name="margin">Margin.</param>
     /// <returns>True if within the margin, false otherwise.</returns>
     [Pure]
-    internal static bool WithinMargin(this float val, float otherval, float margin = 0.01f)
+    public static bool WithinMargin(this float val, float otherval, float margin = 0.01f)
         => Math.Abs(val - otherval) <= margin;
 
     /// <summary>
@@ -26,7 +26,7 @@ internal static class NumberExtensions
     /// <param name="margin">Margin.</param>
     /// <returns>True if within the margin, false otherwise.</returns>
     [Pure]
-    internal static bool WithinMargin(this double val, double otherval, double margin = 0.01)
+    public static bool WithinMargin(this double val, double otherval, double margin = 0.01)
         => Math.Abs(val - otherval) <= margin;
 
     /// <summary>
@@ -37,7 +37,7 @@ internal static class NumberExtensions
     /// <param name="margin">Margin.</param>
     /// <returns>True if within the margin, false otherwise.</returns>
     [Pure]
-    internal static bool WithinMargin(this decimal val, decimal otherval, decimal margin = 0.01M)
+    public static bool WithinMargin(this decimal val, decimal otherval, decimal margin = 0.01M)
         => Math.Abs(val - otherval) <= margin;
 
     // TODO: benchmark these?
@@ -49,7 +49,7 @@ internal static class NumberExtensions
     /// <returns>Integer.</returns>
     /// <remarks>Rounds to even.</remarks>
     [Pure]
-    internal static int ToIntPrecise(this float val)
+    public static int ToIntPrecise(this float val)
         => (int)MathF.Round(val, MidpointRounding.ToEven);
 
     /// <summary>
@@ -59,7 +59,7 @@ internal static class NumberExtensions
     /// <returns>Integer.</returns>
     /// <remarks>Rounds to even.</remarks>
     [Pure]
-    internal static int ToIntPrecise(this double val)
+    public static int ToIntPrecise(this double val)
         => (int)Math.Round(val, MidpointRounding.ToEven);
 
     /// <summary>
@@ -69,7 +69,7 @@ internal static class NumberExtensions
     /// <returns>Integer.</returns>
     /// <remarks>Rounds to even.</remarks>
     [Pure]
-    internal static int ToIntPrecise(this decimal val)
+    public static int ToIntPrecise(this decimal val)
         => (int)Math.Round(val, MidpointRounding.ToEven);
 
     /// <summary>
@@ -80,7 +80,7 @@ internal static class NumberExtensions
     /// <remarks>Rounding method not precisely defined.</remarks>
     [Pure]
     [MethodImpl(TKConstants.Hot)]
-    internal static int ToIntFast(this float val)
+    public static int ToIntFast(this float val)
         => (int)(val + 0.5f);
 
     /// <summary>
@@ -91,7 +91,7 @@ internal static class NumberExtensions
     /// <remarks>Rounding method not precisely defined.</remarks>
     [Pure]
     [MethodImpl(TKConstants.Hot)]
-    internal static int ToIntFast(this double val)
+    public static int ToIntFast(this double val)
         => (int)(val + 0.5d);
 
     // No point doing a ToIntFast for Decimal.
