@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>2db924cc-3230-4c0a-8e9b-967cdeda2e23</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>AtraBase</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Collections\Counter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collections\DefaultDict.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collections\EmptyContainers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\CustomExceptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\IListExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\SpanExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\StringExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\ObjectOverlay.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Reflection\FastReflection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Reflection\SimplifiedReflection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\StringHandler\SpanSplit.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\StringHandler\SpanSplitEntry.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\StringHandler\SpanSplitExtension.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\TKConstants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\DictionaryExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\IEnumerableExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\MethodExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\NumberExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\RegexExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Reflection\CustomReflectionExceptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Reflection\SafeReflection.cs" />
+  </ItemGroup>
+</Project>
