@@ -55,6 +55,17 @@ public static class StringExtensions
     /// <param name="index">index of the chunk to get.</param>
     /// <returns>a readonlyspan char with the chunk, or an empty readonlyspan for failure.</returns>
     /// <remarks>Inspired by the lovely Wren.</remarks>
+    public static ReadOnlySpan<char> GetNthChunk(this string str, char deliminator, int index = 0)
+        => str.GetNthChunk(new[] { deliminator }, index);
+
+    /// <summary>
+    /// Faster replacement for str.Split()[index];.
+    /// </summary>
+    /// <param name="str">String to search in.</param>
+    /// <param name="deliminators">deliminators to use.</param>
+    /// <param name="index">index of the chunk to get.</param>
+    /// <returns>a readonlyspan char with the chunk, or an empty readonlyspan for failure.</returns>
+    /// <remarks>Inspired by the lovely Wren.</remarks>
     public static ReadOnlySpan<char> GetNthChunk(this string str, char[] deliminators, int index = 0)
     {
         Guard.IsGreaterThanOrEqualTo(index, 0, nameof(index));

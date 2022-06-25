@@ -43,12 +43,7 @@ public ref struct SpanSplit
     /// <param name="options">String split options.</param>
     /// <param name="expectedCount">The expected number of splits.</param>
     public SpanSplit(ReadOnlySpan<char> str, char splitchar, StringSplitOptions options = StringSplitOptions.None, int? expectedCount = null)
-    {
-        this.remainder = this.str = str;
-        this.splitchars = new[] { splitchar };
-        this.options = options;
-        this.splitLocs = new(expectedCount ?? Math.Min(str.Length / 6, 4));
-    }
+        : this(str, new[] {splitchar}, options, expectedCount) { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SpanSplit"/> struct.
@@ -58,12 +53,7 @@ public ref struct SpanSplit
     /// <param name="options">String split options.</param>
     /// <param name="expectedCount">The expected number of splits.</param>
     public SpanSplit(string str, char[]? splitchars = null, StringSplitOptions options = StringSplitOptions.None, int? expectedCount = null)
-    {
-        this.remainder = this.str = str.AsSpan();
-        this.splitchars = splitchars;
-        this.options = options;
-        this.splitLocs = new(expectedCount ?? Math.Min(str.Length / 6, 4));
-    }
+        : this(str.AsSpan(), splitchars, options, expectedCount) { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SpanSplit"/> struct.
@@ -73,12 +63,7 @@ public ref struct SpanSplit
     /// <param name="options">String split options.</param>
     /// <param name="expectedCount">The expected number of splits.</param>
     public SpanSplit(string str, char splitchar, StringSplitOptions options = StringSplitOptions.None, int? expectedCount = null)
-    {
-        this.remainder = this.str = str.AsSpan();
-        this.splitchars = new[] { splitchar };
-        this.options = options;
-        this.splitLocs = new(expectedCount ?? Math.Min(str.Length / 6, 4));
-    }
+        : this(str.AsSpan(), new[] {splitchar}, options, expectedCount) { }
 
     /// <summary>
     /// Gets the total count.

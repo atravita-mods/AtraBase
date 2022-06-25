@@ -2,11 +2,35 @@
 
 namespace AtraBase.Toolkit.StringHandler;
 
+public static class StreamSplitExtensions
+{
+    public static StreamSplit StreamSplit(this string str, char splitchar, StringSplitOptions options = StringSplitOptions.None)
+        => new(str, splitchar, options);
+
+    public static StreamSplit StreamSplit(this string str, char[]? splitchars, StringSplitOptions options = StringSplitOptions.None)
+        => new(str, splitchars, options);
+
+    public static StreamSplit StreamSplit(this ReadOnlySpan<char> str, char splitchar, StringSplitOptions options = StringSplitOptions.None)
+        => new(str, splitchar, options);
+
+    public static StreamSplit StreamSplit(this ReadOnlySpan<char> str, char[]? splitchars = null, StringSplitOptions options = StringSplitOptions.None)
+        => new(str, splitchars, options);
+}
+
 public ref struct StreamSplit
 {
     private readonly char[]? splitchars;
     private readonly StringSplitOptions options;
     private ReadOnlySpan<char> remainder;
+
+    public StreamSplit(string str, char splitchar, StringSplitOptions options = StringSplitOptions.None)
+        : this(str.AsSpan(), new[] { splitchar }, options) { }
+
+    public StreamSplit(string str, char[]? splitchars, StringSplitOptions options = StringSplitOptions.None)
+        : this(str.AsSpan(), splitchars, options ) { }
+
+    public StreamSplit(ReadOnlySpan<char> str, char splitchar, StringSplitOptions options = StringSplitOptions.None)
+        : this(str, new[] {splitchar}, options) { }
 
     public StreamSplit(ReadOnlySpan<char> str, char[]? splitchars = null, StringSplitOptions options = StringSplitOptions.None)
     {
@@ -77,6 +101,5 @@ public ref struct StreamSplit
             this.Current = new SpanSplitEntry(word, splitchar);
             return true;
         }
-
     }
 }
