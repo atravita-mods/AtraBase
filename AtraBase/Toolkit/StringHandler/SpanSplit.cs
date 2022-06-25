@@ -1,4 +1,6 @@
-﻿namespace AtraBase.Toolkit.StringHandler;
+﻿using AtraBase.Toolkit.Extensions;
+
+namespace AtraBase.Toolkit.StringHandler;
 
 // TODO: consider the case of splitting by a string?
 // Dunno how necesssary though...
@@ -24,12 +26,13 @@ public ref struct SpanSplit
     /// <param name="str">String to split.</param>
     /// <param name="splitchars">Characters to split by (leave null to mean whitespace).</param>
     /// <param name="options">String split options.</param>
-    public SpanSplit(ReadOnlySpan<char> str, char[]? splitchars = null, StringSplitOptions options = StringSplitOptions.None)
+    /// <param name="expectedCount">The expected number of splits.</param>
+    public SpanSplit(ReadOnlySpan<char> str, char[]? splitchars = null, StringSplitOptions options = StringSplitOptions.None, int? expectedCount = null)
     {
         this.remainder = this.str = str;
         this.splitchars = splitchars;
         this.options = options;
-        this.splitLocs = new(Math.Min(str.Length / 6, 4));
+        this.splitLocs = new(expectedCount ?? Math.Min(str.Length / 6, 4));
     }
 
     /// <summary>
@@ -38,12 +41,13 @@ public ref struct SpanSplit
     /// <param name="str">String to split.</param>
     /// <param name="splitchar">Character to split by.</param>
     /// <param name="options">String split options.</param>
-    public SpanSplit(ReadOnlySpan<char> str, char splitchar, StringSplitOptions options = StringSplitOptions.None)
+    /// <param name="expectedCount">The expected number of splits.</param>
+    public SpanSplit(ReadOnlySpan<char> str, char splitchar, StringSplitOptions options = StringSplitOptions.None, int? expectedCount = null)
     {
         this.remainder = this.str = str;
         this.splitchars = new[] { splitchar };
         this.options = options;
-        this.splitLocs = new(Math.Min(str.Length / 6, 4));
+        this.splitLocs = new(expectedCount ?? Math.Min(str.Length / 6, 4));
     }
 
     /// <summary>
@@ -52,12 +56,13 @@ public ref struct SpanSplit
     /// <param name="str">String to split.</param>
     /// <param name="splitchars">Characters to split by (leave null to mean whitespace).</param>
     /// <param name="options">String split options.</param>
-    public SpanSplit(string str, char[]? splitchars = null, StringSplitOptions options = StringSplitOptions.None)
+    /// <param name="expectedCount">The expected number of splits.</param>
+    public SpanSplit(string str, char[]? splitchars = null, StringSplitOptions options = StringSplitOptions.None, int? expectedCount = null)
     {
         this.remainder = this.str = str.AsSpan();
         this.splitchars = splitchars;
         this.options = options;
-        this.splitLocs = new(Math.Min(str.Length / 6, 4));
+        this.splitLocs = new(expectedCount ?? Math.Min(str.Length / 6, 4));
     }
 
     /// <summary>
@@ -66,12 +71,13 @@ public ref struct SpanSplit
     /// <param name="str">String to split.</param>
     /// <param name="splitchar">Character to split by.</param>
     /// <param name="options">String split options.</param>
-    public SpanSplit(string str, char splitchar, StringSplitOptions options = StringSplitOptions.None)
+    /// <param name="expectedCount">The expected number of splits.</param>
+    public SpanSplit(string str, char splitchar, StringSplitOptions options = StringSplitOptions.None, int? expectedCount = null)
     {
         this.remainder = this.str = str.AsSpan();
         this.splitchars = new[] { splitchar };
         this.options = options;
-        this.splitLocs = new(Math.Min(str.Length / 6, 4));
+        this.splitLocs = new(expectedCount ?? Math.Min(str.Length / 6, 4));
     }
 
     /// <summary>
@@ -226,15 +232,7 @@ FAIL:
         {
             if (this.splitchars is null)
             { // null = we're splitting by whitespace.
-                index = -1;
-                for (int i = 0; i < this.remainder.Length; i++)
-                {
-                    if (char.IsWhiteSpace(this.remainder[i]))
-                    {
-                        index = i;
-                        break;
-                    }
-                }
+                index = this.remainder.GetIndexOfWhiteSpace();
             }
             else
             {

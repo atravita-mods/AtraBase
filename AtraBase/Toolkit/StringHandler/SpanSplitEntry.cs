@@ -51,9 +51,21 @@ public readonly ref struct SpanSplitEntry
     public bool Contains(ReadOnlySpan<char> str, StringComparison comparison = StringComparison.Ordinal)
         => this.Word.Contains(str, comparison);
 
+    /// <summary>
+    /// Whether this entry starts with the string.
+    /// </summary>
+    /// <param name="str">Substring.</param>
+    /// <param name="comparison">The comparison method - defaults to ordinal.</param>
+    /// <returns>True if this entry starts with that string.</returns>
     public bool StartsWith(ReadOnlySpan<char> str, StringComparison comparison = StringComparison.Ordinal)
         => this.Word.StartsWith(str, comparison);
 
+    /// <summary>
+    /// Whether or not this entry ends with a specfic string.
+    /// </summary>
+    /// <param name="str">Substring.</param>
+    /// <param name="comparison">The comparsion method - defaults to ordinal.</param>
+    /// <returns>True if this entry ends with that string.</returns>
     public bool EndsWith(ReadOnlySpan<char> str, StringComparison comparison = StringComparison.Ordinal)
         => this.Word.EndsWith(str, comparison);
 

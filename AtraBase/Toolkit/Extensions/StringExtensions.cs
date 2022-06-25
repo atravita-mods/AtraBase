@@ -47,6 +47,14 @@ public static class StringExtensions
         return -1;
     }
 
+    /// <summary>
+    /// Faster replacement for str.Split()[index];.
+    /// </summary>
+    /// <param name="str">String to search in.</param>
+    /// <param name="deliminators">deliminator to use.</param>
+    /// <param name="index">index of the chunk to get.</param>
+    /// <returns>a readonlyspan char with the chunk, or an empty readonlyspan for failure.</returns>
+    /// <remarks>Inspired by the lovely Wren.</remarks>
     public static ReadOnlySpan<char> GetNthChunk(this string str, char[] deliminators, int index = 0)
     {
         Guard.IsGreaterThanOrEqualTo(index, 0, nameof(index));
@@ -63,7 +71,7 @@ public static class StringExtensions
                 // this means we're done.
                 if (index == -1)
                 {
-                    return str.AsSpan().Slice(start);
+                    return str.AsSpan()[start..];
                 }
 
                 // else, we've run out of entries
@@ -77,5 +85,35 @@ public static class StringExtensions
             }
         }
         return str.AsSpan()[start..ind];
+    }
+
+    public static int GetIndexOfWhiteSpace(this string str)
+        => str.AsSpan().GetIndexOfWhiteSpace();
+
+    public static int GetIndexOfWhiteSpace(this ReadOnlySpan<char> chars)
+    {
+        for (int i = 0; i < chars.Length; i++)
+        {
+            if (char.IsWhiteSpace(chars[i]))
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public static int GetLastIndexOfWhiteSpace(this string str)
+        => str.AsSpan().GetLastIndexOfWhiteSpace();
+
+    public static int GetLastIndexOfWhiteSpace(this ReadOnlySpan<char> chars)
+    {
+        for (int i = chars.Length - 1; i >= 0; i--)
+        {
+            if (char.IsWhiteSpace(chars[i]))
+            {
+                return i;
+            }
+        }
+        return -1;
     }
 }
