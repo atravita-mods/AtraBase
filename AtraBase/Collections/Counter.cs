@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Text;
+using Microsoft.Toolkit.Diagnostics;
 using AtraBase.Toolkit.Extensions;
 
 namespace AtraBase.Collections;
@@ -127,8 +128,9 @@ public class Counter<TKey> : IDictionary<TKey, int>
         }
     }
 
-#pragma warning disable SA1201 // Elements should appear in the correct order - methods unique to Counter are placed above methods common to dictionaries.
-#pragma warning disable SA1202 // Elements should be ordered by access
+    /**************
+     * BEGIN DICTIONARY METHODS
+     * ************/
 
     /// <summary>
     /// Not implemented - does not make sense for Counter.
@@ -137,7 +139,7 @@ public class Counter<TKey> : IDictionary<TKey, int>
     /// <param name="arrayIndex">not relevant, so not implemented.</param>
     /// <exception cref="NotSupportedException">Not implemented! Does not make sense for Counter.</exception>
     public void CopyTo(KeyValuePair<TKey, int>[] array, int arrayIndex)
-        => throw new NotSupportedException("This method makes no sense for Counter.");
+        => ThrowHelper.ThrowNotSupportedException("This method makes no sense for Counter.");
 
     /// <inheritdoc/>
     public ICollection<TKey> Keys => this.dict.Keys;
@@ -198,6 +200,4 @@ public class Counter<TKey> : IDictionary<TKey, int>
     /// <inheritdoc/>
     IEnumerator IEnumerable.GetEnumerator() => this.dict.GetEnumerator();
 
-#pragma warning restore SA1201 // Elements should appear in the correct order
-#pragma warning restore SA1202 // Elements should be ordered by access
 }

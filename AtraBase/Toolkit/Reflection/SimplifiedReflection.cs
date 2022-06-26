@@ -101,6 +101,7 @@ public static class SimplifiedReflection
             }
             else
             {
+#pragma warning disable CS0168 // Variable is declared but never used
                 try
                 {
                     types.UnionWith(assembly.GetTypes().Where((Type t) => (includeAbstract || !t.IsAbstract) && t.IsAssignableTo(type) && typefilter(assembly, type)));
@@ -111,6 +112,7 @@ public static class SimplifiedReflection
                     Console.WriteLine($"Searching for types in {assembly.FullName} seems to have failed.\n\n{ex}");
 #endif
                 }
+#pragma warning restore CS0168 // Variable is declared but never used
             }
         }
         return types;

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Microsoft.Toolkit.Diagnostics;
 
 namespace AtraBase.Collections;
 
@@ -130,7 +131,6 @@ public class DefaultDict<TKey, TValue> : IDictionary<TKey, TValue>
     }
 
     /// <inheritdoc/>
-    [SuppressMessage("StyleCop.CSharp.OrderingRules", "SA1201:Elements should appear in the correct order", Justification = "Reviewed")]
     public ICollection<TKey> Keys => this.dict.Keys;
 
     /// <inheritdoc/>
@@ -160,15 +160,14 @@ public class DefaultDict<TKey, TValue> : IDictionary<TKey, TValue>
     /// <inheritdoc/>
     public bool ContainsKey(TKey key) => this.dict.ContainsKey(key);
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// Not implemented - does not make sense for DefaultDict.
+    /// </summary>
+    /// <param name="array">not relevant, not implemented.</param>
+    /// <param name="arrayIndex">not relevant, so not implemented.</param>
+    /// <exception cref="NotSupportedException">Not implemented! Does not make sense for Counter.</exception>
     public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
-    {
-        for (int i = arrayIndex; i < array.Length; i++)
-        {
-            (TKey k, TValue v) = array[i];
-            this.dict[k] = v;
-        }
-    }
+        => ThrowHelper.ThrowInvalidOperationException("This method makes no sense for DefaultDict.");
 
     /// <inheritdoc/>
     public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator() => this.dict.GetEnumerator();

@@ -24,13 +24,19 @@ public ref struct StreamSplit
     private ReadOnlySpan<char> remainder;
 
     public StreamSplit(string str, char splitchar, StringSplitOptions options = StringSplitOptions.None)
-        : this(str.AsSpan(), new[] { splitchar }, options) { }
+        : this(str.AsSpan(), new[] { splitchar }, options)
+    {
+    }
 
     public StreamSplit(string str, char[]? splitchars, StringSplitOptions options = StringSplitOptions.None)
-        : this(str.AsSpan(), splitchars, options ) { }
+        : this(str.AsSpan(), splitchars, options )
+    {
+    }
 
     public StreamSplit(ReadOnlySpan<char> str, char splitchar, StringSplitOptions options = StringSplitOptions.None)
-        : this(str, new[] {splitchar}, options) { }
+        : this(str, new[] { splitchar }, options)
+    {
+    }
 
     public StreamSplit(ReadOnlySpan<char> str, char[]? splitchars = null, StringSplitOptions options = StringSplitOptions.None)
     {
@@ -88,7 +94,6 @@ public ref struct StreamSplit
                 }
                 word = this.remainder[..(index - 1)];
             }
-            
 
             if (this.options.HasFlag(StringSplitOptions.TrimEntries))
             {

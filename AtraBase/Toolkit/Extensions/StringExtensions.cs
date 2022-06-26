@@ -1,4 +1,5 @@
-﻿using Microsoft.Toolkit.Diagnostics;
+﻿using System.Runtime.CompilerServices;
+using Microsoft.Toolkit.Diagnostics;
 
 namespace AtraBase.Toolkit.Extensions;
 
@@ -51,7 +52,7 @@ public static class StringExtensions
     /// Faster replacement for str.Split()[index];.
     /// </summary>
     /// <param name="str">String to search in.</param>
-    /// <param name="deliminators">deliminator to use.</param>
+    /// <param name="deliminator">deliminator to use.</param>
     /// <param name="index">index of the chunk to get.</param>
     /// <returns>a readonlyspan char with the chunk, or an empty readonlyspan for failure.</returns>
     /// <remarks>Inspired by the lovely Wren.</remarks>
@@ -68,7 +69,7 @@ public static class StringExtensions
     /// <remarks>Inspired by the lovely Wren.</remarks>
     public static ReadOnlySpan<char> GetNthChunk(this string str, char[] deliminators, int index = 0)
     {
-        Guard.IsGreaterThanOrEqualTo(index, 0, nameof(index));
+        Guard.IsBetweenOrEqualTo(index, 0, str.Length, nameof(index));
 
         int start = 0;
         int ind = 0;
@@ -77,8 +78,7 @@ public static class StringExtensions
             ind = str.IndexOfAny(deliminators, start);
             if (ind == -1)
             {
-                // since we've previously decremented
-                // index, check against -1;
+                // since we've previously decremented index, check against -1;
                 // this means we're done.
                 if (index == -1)
                 {
@@ -101,6 +101,7 @@ public static class StringExtensions
     public static int GetIndexOfWhiteSpace(this string str)
         => str.AsSpan().GetIndexOfWhiteSpace();
 
+    [MethodImpl(TKConstants.Hot)]
     public static int GetIndexOfWhiteSpace(this ReadOnlySpan<char> chars)
     {
         for (int i = 0; i < chars.Length; i++)
