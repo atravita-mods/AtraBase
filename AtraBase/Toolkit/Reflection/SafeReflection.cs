@@ -30,7 +30,7 @@ public static class SafeReflection
     /// <exception cref="MethodNotFoundException">Constructor was not found.</exception>
     public static ConstructorInfo Constructor(this Type type, Type[] paramsList)
         => type.GetConstructor(InstanceFlags, null, paramsList, null)
-            ?? ReflectionThrowHelper.ThrowMethodNotFoundException<ConstructorInfo>(type.FullName + "::.ctor");
+            ?? ReflectionThrowHelper.ThrowMethodNotFoundException<ConstructorInfo>(type.FullName + "::.ctor" + string.Join(',', paramsList.Select((a) => a.FullName)));
 
     /// <summary>
     /// Gets the named instance method.
@@ -53,7 +53,7 @@ public static class SafeReflection
     /// <exception cref="MethodNotFoundException">The instance method was not found.</exception>
     public static MethodInfo InstanceMethodNamed(this Type type, string methodName, Type[] paramsList)
         => type.GetMethod(methodName, InstanceFlags, null, paramsList, null)
-            ?? ReflectionThrowHelper.ThrowMethodNotFoundException<MethodInfo>(type.FullName + "::" + methodName);
+            ?? ReflectionThrowHelper.ThrowMethodNotFoundException<MethodInfo>(type.FullName + "::" + methodName + string.Join(',', paramsList.Select((a) => a.FullName)));
 
     /// <summary>
     /// Gets the named static method.
@@ -76,7 +76,7 @@ public static class SafeReflection
     /// <exception cref="MethodNotFoundException">The static method was not found.</exception>
     public static MethodInfo StaticMethodNamed(this Type type, string methodName, Type[] paramsList)
         => type.GetMethod(methodName, StaticFlags, null, paramsList, null)
-            ?? ReflectionThrowHelper.ThrowMethodNotFoundException<MethodInfo>(type.FullName + "::" + methodName);
+            ?? ReflectionThrowHelper.ThrowMethodNotFoundException<MethodInfo>(type.FullName + "::" + methodName + string.Join(',', paramsList.Select((a) => a.FullName)));
 
     /// <summary>
     /// Gets the instance property such named.

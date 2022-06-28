@@ -9,9 +9,11 @@
     <Import_RootNamespace>AtraBase</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Caching\SimpleConcurrentCache.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Collections\Counter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Collections\DefaultDict.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Collections\EmptyContainers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collections\EnumerableExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\CustomExceptions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\IListExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\SpanExtensions.cs" />
