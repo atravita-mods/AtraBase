@@ -7,7 +7,7 @@ public static class StreamSplitExtensions
     public static StreamSplit StreamSplit(this string str, char splitchar, StringSplitOptions options = StringSplitOptions.None)
         => new(str, splitchar, options);
 
-    public static StreamSplit StreamSplit(this string str, char[]? splitchars, StringSplitOptions options = StringSplitOptions.None)
+    public static StreamSplit StreamSplit(this string str, char[]? splitchars = null, StringSplitOptions options = StringSplitOptions.None)
         => new(str, splitchars, options);
 
     public static StreamSplit StreamSplit(this ReadOnlySpan<char> str, char splitchar, StringSplitOptions options = StringSplitOptions.None)
@@ -28,7 +28,7 @@ public ref struct StreamSplit
     {
     }
 
-    public StreamSplit(string str, char[]? splitchars, StringSplitOptions options = StringSplitOptions.None)
+    public StreamSplit(string str, char[]? splitchars = null, StringSplitOptions options = StringSplitOptions.None)
         : this(str.AsSpan(), splitchars, options )
     {
     }
@@ -85,16 +85,16 @@ public ref struct StreamSplit
                     this.remainder.Slice(index, 2).Equals("\r\n", StringComparison.Ordinal))
                 {
                     splitchar = this.remainder.Slice(index, 2);
+                    word = this.remainder[..Math.Max(0, index)];
                     this.remainder = this.remainder[(index + 2)..];
                 }
                 else
                 {
                     splitchar = this.remainder.Slice(index, 1);
+                    word = this.remainder[..Math.Max(0, index)];
                     this.remainder = this.remainder[(index + 1)..];
                 }
-                word = this.remainder[..(index - 1)];
             }
-
             if (this.options.HasFlag(StringSplitOptions.TrimEntries))
             {
                 word = word.Trim();

@@ -67,7 +67,7 @@ public ref struct SpanSplit
     /// <param name="options">String split options.</param>
     /// <param name="expectedCount">The expected number of splits.</param>
     public SpanSplit(string str, char splitchar, StringSplitOptions options = StringSplitOptions.None, int? expectedCount = null)
-        : this(str.AsSpan(), new[] {splitchar}, options, expectedCount)
+        : this(str.AsSpan(), new[] { splitchar }, options, expectedCount)
     {
     }
 

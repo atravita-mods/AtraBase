@@ -28,6 +28,7 @@ public class DefaultDict<TKey, TValue> : IDictionary<TKey, TValue>
 
     /// <summary>
     /// Initializes a new instance of the <see cref="DefaultDict{TKey, TValue}"/> class. Copies values from dictionary.
+    /// Uses the default comparer.
     /// </summary>
     /// <param name="dictionary">Dictionary to copy from.</param>
     /// <param name="factory">The function for which to generate new values. If left null, just creates a new TValue().</param>
@@ -39,6 +40,7 @@ public class DefaultDict<TKey, TValue> : IDictionary<TKey, TValue>
 
     /// <summary>
     /// Initializes a new instance of the <see cref="DefaultDict{TKey, TValue}"/> class. Copies values from the IEumerable.
+    /// Uses the default comparer.
     /// </summary>
     /// <param name="collection">IEnumerable to get initial values from.</param>
     /// <param name="factory">The function for which to generate new values. If left null, just creates a new TValue().</param>
@@ -60,7 +62,7 @@ public class DefaultDict<TKey, TValue> : IDictionary<TKey, TValue>
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="DefaultDict{TKey, TValue}"/> class with an initial capacity.
+    /// Initializes a new instance of the <see cref="DefaultDict{TKey, TValue}"/> class with an initial capacity. Uses the default comparer.
     /// </summary>
     /// <param name="capacity">Initial capacity.</param>
     /// <param name="factory">The function for which to generate new values. If left null, just creates a new TValue().</param>
@@ -133,14 +135,14 @@ public class DefaultDict<TKey, TValue> : IDictionary<TKey, TValue>
     /// <inheritdoc/>
     public ICollection<TKey> Keys => this.dict.Keys;
 
-    /// <inheritdoc/>
+    /// <inheritdoc/
     public ICollection<TValue> Values => this.dict.Values;
 
     /// <inheritdoc/>
     public int Count => this.dict.Count;
 
     /// <inheritdoc/>
-    public bool IsReadOnly => ((ICollection<KeyValuePair<TKey, TValue>>)this.dict).IsReadOnly;
+    public bool IsReadOnly => false;
 
     /// <inheritdoc/>
     public void Add(TKey key, TValue value) => this.dict.Add(key, value);

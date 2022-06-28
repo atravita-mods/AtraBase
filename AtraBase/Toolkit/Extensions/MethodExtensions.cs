@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
+using Microsoft.Toolkit.Diagnostics;
 
 namespace AtraBase.Toolkit.Extensions;
 
@@ -25,4 +25,27 @@ public static class MethodExtensions
     [Pure]
     public static string GetFullName(this MethodInfo method)
         => $"{method.DeclaringType}::{method.Name}";
+}
+
+/// <summary>
+/// Contains extensions against propertyInfos.
+/// </summary>
+public static class PropertyInfoExtensions
+{
+    /// <summary>
+    /// Indicates whether or not a property is static.
+    /// </summary>
+    /// <param name="property">Propertyinfo.</param>
+    /// <returns>True if static, false otherwise.</returns>
+    /// <exception cref="InvalidOperationException">Somehow the property lacks both a getter and a setter. This should never happen.</exception>
+    /// <remarks>This is just for completeness - methodinfo and fieldinfo have this, but not propertyinfo.</remarks>
+    [Pure]
+    public static bool IsStatic(this PropertyInfo property)
+    {
+        if (!property.CanWrite && !property.CanRead)
+        {
+            return ThrowHelper.ThrowInvalidOperationException<bool>("This property appears to be mangled.");
+        }
+        return (property.GetGetMethod()?.IsStatic == true) || (property.GetSetMethod()?.IsStatic == true);
+    }
 }
