@@ -69,7 +69,7 @@ public static class StringExtensions
     /// <remarks>Inspired by the lovely Wren.</remarks>
     public static ReadOnlySpan<char> GetNthChunk(this string str, char[] deliminators, int index = 0)
     {
-        Guard.IsBetweenOrEqualTo(index, 0, str.Length, nameof(index));
+        Guard.IsBetweenOrEqualTo(index, 0, str.Length - 1, nameof(index));
 
         int start = 0;
         int ind = 0;
@@ -98,9 +98,20 @@ public static class StringExtensions
         return str.AsSpan()[start..ind];
     }
 
+    /// <summary>
+    /// Gets the index of the next whitespace character.
+    /// </summary>
+    /// <param name="str">String to search in.</param>
+    /// <returns>Index of the whitespace character, or -1 if not found.</returns>
+    [MethodImpl(TKConstants.Hot)]
     public static int GetIndexOfWhiteSpace(this string str)
         => str.AsSpan().GetIndexOfWhiteSpace();
 
+    /// <summary>
+    /// Gets the index of the next whitespace character.
+    /// </summary>
+    /// <param name="chars">ReadOnlySpan to search in.</param>
+    /// <returns>Index of the whitespace character, or -1 if not found.</returns>
     [MethodImpl(TKConstants.Hot)]
     public static int GetIndexOfWhiteSpace(this ReadOnlySpan<char> chars)
     {
@@ -114,9 +125,21 @@ public static class StringExtensions
         return -1;
     }
 
+    /// <summary>
+    /// Gets the index of the last whitespace character.
+    /// </summary>
+    /// <param name="str">String to search in.</param>
+    /// <returns>Index of the whitespace character, or -1 if not found.</returns>
+    [MethodImpl(TKConstants.Hot)]
     public static int GetLastIndexOfWhiteSpace(this string str)
         => str.AsSpan().GetLastIndexOfWhiteSpace();
 
+    /// <summary>
+    /// Gets the index of the last whitespace character.
+    /// </summary>
+    /// <param name="chars">ReadOnlySpan to search in.</param>
+    /// <returns>Index of the whitespace character, or -1 if not found.</returns>
+    [MethodImpl(TKConstants.Hot)]
     public static int GetLastIndexOfWhiteSpace(this ReadOnlySpan<char> chars)
     {
         for (int i = chars.Length - 1; i >= 0; i--)

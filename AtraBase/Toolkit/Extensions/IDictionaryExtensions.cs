@@ -3,7 +3,7 @@
 /// <summary>
 /// Add some python-esque methods to the dictionaries.
 /// </summary>
-public static class DictionaryExtensions
+public static class IDictionaryExtensions
 {
     /// <summary>
     /// equivalent to python's dictionary.update().

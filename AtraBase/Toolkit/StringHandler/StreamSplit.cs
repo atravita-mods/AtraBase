@@ -2,6 +2,9 @@
 
 namespace AtraBase.Toolkit.StringHandler;
 
+/// <summary>
+/// Holds extensions for StreamSplit.
+/// </summary>
 public static class StreamSplitExtensions
 {
     public static StreamSplit StreamSplit(this string str, char splitchar, StringSplitOptions options = StringSplitOptions.None)
@@ -17,12 +20,21 @@ public static class StreamSplitExtensions
         => new(str, splitchars, options);
 }
 
+/// <summary>
+/// A struct that tracks the split progress.
+/// </summary>
 public ref struct StreamSplit
 {
     private readonly char[]? splitchars;
     private readonly StringSplitOptions options;
     private ReadOnlySpan<char> remainder;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StreamSplit"/> struct.
+    /// </summary>
+    /// <param name="str">string to split.</param>
+    /// <param name="splitchar">character to split by.</param>
+    /// <param name="options">split options.</param>
     public StreamSplit(string str, char splitchar, StringSplitOptions options = StringSplitOptions.None)
         : this(str.AsSpan(), new[] { splitchar }, options)
     {
@@ -49,10 +61,21 @@ public ref struct StreamSplit
      * REGION ENUMERATOR METHODS
      * *************/
 
+    /// <summary>
+    /// Gets the current value - for Enumerator.
+    /// </summary>
     public SpanSplitEntry Current { get; private set; } = new SpanSplitEntry(string.Empty, string.Empty);
 
+    /// <summary>
+    /// Gets this as an enumerator. Used for ForEach.
+    /// </summary>
+    /// <returns>this.</returns>
     public StreamSplit GetEnumerator() => this;
 
+    /// <summary>
+    /// Moves to the next value.
+    /// </summary>
+    /// <returns>True if the next value exists, false otherwise.</returns>
     public bool MoveNext()
     {
         while (true)

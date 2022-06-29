@@ -50,10 +50,13 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
         this.stale = new();
     }
 
-    /// <summary>The total number of items in the cache.</summary>
+    /// <summary>Gets the total number of items in the cache.</summary>
     /// <remarks>May slightly overcount when something is both in the hot cache and the stale cache.</remarks>
     public int Count => this.cache.Count + this.stale.Count;
 
+    /// <summary>
+    /// Gets a value indicating whether or not the cache is read only.
+    /// </summary>
     public bool IsReadOnly => false;
 
     /// <summary>

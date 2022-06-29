@@ -17,8 +17,8 @@ namespace AtraBase.Collections;
 /// <typeparam name="TForward">Type of keys for the forward map.</typeparam>
 /// <typeparam name="TReverse">Type of keys for the reverse map.</typeparam>
 public class BiMap<TForward, TReverse> : IEnumerable<KeyValuePair<TForward, TReverse>>
-    where TForward : notnull, IEquatable<TForward>
-    where TReverse : notnull, IEquatable<TReverse>
+    where TForward : notnull
+    where TReverse : notnull
 {
     private readonly Dictionary<TForward, TReverse> forward;
     private readonly Dictionary<TReverse, TForward> reverse;
@@ -312,6 +312,7 @@ public class BiMap<TForward, TReverse> : IEnumerable<KeyValuePair<TForward, TRev
     /// <returns>If the value was sucessfully gotten.</returns>
     public bool TryGetReverse(TReverse reverse, [MaybeNullWhen(false)] out TForward forward) => this.reverse.TryGetValue(reverse, out forward);
 
+#warning should probably test this logic?
     /// <summary>
     /// Tries to remove a pair from the bimap.
     /// </summary>
@@ -324,8 +325,8 @@ public class BiMap<TForward, TReverse> : IEnumerable<KeyValuePair<TForward, TRev
         {
             return ThrowHelper.ThrowArgumentNullException<bool>("Either forward or reverse were null");
         }
-        if (!this.forward.TryGetValue(forward, out TReverse? rev) || !rev.Equals(reverse)
-            || !this.reverse.TryGetValue(reverse, out TForward? fore) || !fore.Equals(forward))
+        if (!this.forward.TryGetValue(forward, out TReverse? rev) || this.reverse.Comparer.Equals(rev, reverse)
+            || !this.reverse.TryGetValue(reverse, out TForward? fore) || this.forward.Comparer.Equals(fore, forward))
         {
             return false;
         }
