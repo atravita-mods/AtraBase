@@ -93,14 +93,8 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
     /// <returns>The value from the cache or provider.</returns>
     public TValue GetOrSet(TKey key, Func<TValue> provider)
     {
-        if (this.cache.TryGetValue(key, out TValue? value))
+        if (this.TryGetValue(key, out TValue? value))
         {
-            return value;
-        }
-
-        if (this.stale.TryGetValue(key, out value))
-        {
-            this.cache[key] = value;
             return value;
         }
 
@@ -197,7 +191,13 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
         {
             return true;
         }
-        return this.stale.TryGetValue(key, out value);
+        if (this.stale.TryGetValue(key, out value))
+        {
+            // promote to hot.
+            this.cache[key] = value;
+            return true;
+        }
+        return false;
     }
 
     /// <summary>

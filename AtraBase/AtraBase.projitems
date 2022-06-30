@@ -16,6 +16,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Collections\EmptyContainers.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Collections\EnumerableExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\CustomExceptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\IDictionaryExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\IListExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\SpanExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\StringExtensions.cs" />
@@ -27,7 +28,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\StringHandler\SpanSplitExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\StringHandler\StreamSplit.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\TKConstants.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\DictionaryExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\IEnumerableExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\MethodExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\NumberExtensions.cs" />

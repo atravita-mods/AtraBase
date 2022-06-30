@@ -5,6 +5,7 @@
 /// </summary>
 public static class SpanExtensions
 {
+    [Pure]
     public static Span<char> Concat(this Span<char> thisspan, Span<char> thatspan)
     {
         char[] buffer = GC.AllocateUninitializedArray<char>(thisspan.Length + thatspan.Length);
@@ -14,6 +15,7 @@ public static class SpanExtensions
         return span;
     }
 
+    [Pure]
     public static Span<char> Concat(this Span<char> thisspan, Span<char> thatspan1, Span<char> thatspan2)
     {
         char[] buffer = GC.AllocateUninitializedArray<char>(thisspan.Length + thatspan1.Length + thatspan2.Length);

@@ -55,7 +55,7 @@ public static class StringExtensions
     /// <param name="deliminator">deliminator to use.</param>
     /// <param name="index">index of the chunk to get.</param>
     /// <returns>a readonlyspan char with the chunk, or an empty readonlyspan for failure.</returns>
-    /// <remarks>Inspired by the lovely Wren.</remarks>
+    [Pure]
     public static ReadOnlySpan<char> GetNthChunk(this string str, char deliminator, int index = 0)
         => str.GetNthChunk(new[] { deliminator }, index);
 
@@ -67,9 +67,10 @@ public static class StringExtensions
     /// <param name="index">index of the chunk to get.</param>
     /// <returns>a readonlyspan char with the chunk, or an empty readonlyspan for failure.</returns>
     /// <remarks>Inspired by the lovely Wren.</remarks>
+    [Pure]
     public static ReadOnlySpan<char> GetNthChunk(this string str, char[] deliminators, int index = 0)
     {
-        Guard.IsBetweenOrEqualTo(index, 0, str.Length - 1, nameof(index));
+        Guard.IsBetweenOrEqualTo(index, 0, str.Length + 1, nameof(index));
 
         int start = 0;
         int ind = 0;
@@ -103,6 +104,7 @@ public static class StringExtensions
     /// </summary>
     /// <param name="str">String to search in.</param>
     /// <returns>Index of the whitespace character, or -1 if not found.</returns>
+    [Pure]
     [MethodImpl(TKConstants.Hot)]
     public static int GetIndexOfWhiteSpace(this string str)
         => str.AsSpan().GetIndexOfWhiteSpace();
@@ -112,6 +114,7 @@ public static class StringExtensions
     /// </summary>
     /// <param name="chars">ReadOnlySpan to search in.</param>
     /// <returns>Index of the whitespace character, or -1 if not found.</returns>
+    [Pure]
     [MethodImpl(TKConstants.Hot)]
     public static int GetIndexOfWhiteSpace(this ReadOnlySpan<char> chars)
     {
@@ -130,6 +133,7 @@ public static class StringExtensions
     /// </summary>
     /// <param name="str">String to search in.</param>
     /// <returns>Index of the whitespace character, or -1 if not found.</returns>
+    [Pure]
     [MethodImpl(TKConstants.Hot)]
     public static int GetLastIndexOfWhiteSpace(this string str)
         => str.AsSpan().GetLastIndexOfWhiteSpace();
@@ -139,6 +143,7 @@ public static class StringExtensions
     /// </summary>
     /// <param name="chars">ReadOnlySpan to search in.</param>
     /// <returns>Index of the whitespace character, or -1 if not found.</returns>
+    [Pure]
     [MethodImpl(TKConstants.Hot)]
     public static int GetLastIndexOfWhiteSpace(this ReadOnlySpan<char> chars)
     {
