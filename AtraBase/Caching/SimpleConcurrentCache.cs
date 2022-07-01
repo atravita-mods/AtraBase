@@ -11,10 +11,10 @@ namespace AtraBase.Caching;
 public class SimpleConcurrentCache<TKey, TValue> : IDisposable
     where TKey : notnull
 {
+    private readonly Timer timer;
+
     private ConcurrentDictionary<TKey, TValue> cache;
     private ConcurrentDictionary<TKey, TValue> stale;
-
-    private readonly Timer timer;
 
     /// <summary>
     /// Gets the timer for this instance.
@@ -219,7 +219,7 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"cache swap failed\n\n{ex}");
+            Console.WriteLine($"[AtraBase] Cache swap failed\n\n{ex}");
         }
     }
 }

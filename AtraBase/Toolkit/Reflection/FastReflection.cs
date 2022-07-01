@@ -1,6 +1,6 @@
-﻿using System.Linq.Expressions;
+﻿using FastExpressionCompiler.LightExpression;
+
 using System.Reflection;
-using Microsoft.Toolkit.Diagnostics;
 
 namespace AtraBase.Toolkit.Reflection;
 
@@ -40,7 +40,7 @@ public static class FastReflection
 
         ParameterExpression? objparam = Expression.Parameter(typeof(TObject), "obj");
         MemberExpression? fieldgetter = Expression.Field(objparam, field);
-        return Expression.Lambda<Func<TObject, TField>>(fieldgetter, objparam).Compile();
+        return Expression.Lambda<Func<TObject, TField>>(fieldgetter, objparam).CompileFast();
     }
 
     /// <summary>
@@ -77,7 +77,7 @@ public static class FastReflection
         MemberExpression? fieldsetter = Expression.Field(objparam, field);
         BinaryExpression? assignexpress = Expression.Assign(fieldsetter, convertfield);
 
-        return Expression.Lambda<Action<TObject, TField>>(assignexpress, objparam, fieldval).Compile();
+        return Expression.Lambda<Action<TObject, TField>>(assignexpress, objparam, fieldval).CompileFast();
     }
 
     /// <summary>
@@ -104,7 +104,7 @@ public static class FastReflection
         }
 
         MemberExpression? fieldgetter = Expression.Field(null, field);
-        return Expression.Lambda<Func<TField>>(fieldgetter).Compile();
+        return Expression.Lambda<Func<TField>>(fieldgetter).CompileFast();
     }
 
     /// <summary>
@@ -134,7 +134,7 @@ public static class FastReflection
         UnaryExpression? convertfield = Expression.Convert(fieldval, field.FieldType);
         MemberExpression? fieldsetter = Expression.Field(null, field);
         BinaryExpression? assignexpress = Expression.Assign(fieldsetter, convertfield);
-        return Expression.Lambda<Action<TField>>(assignexpress, fieldval).Compile();
+        return Expression.Lambda<Action<TField>>(assignexpress, fieldval).CompileFast();
     }
 
     [return: NotNullIfNotNull("type")]
@@ -146,6 +146,6 @@ public static class FastReflection
         }
         var obj = Expression.Parameter(typeof(object), "obj");
         var express = Expression.TypeIs(obj, type);
-        return Expression.Lambda<Func<object, bool>>(express, obj).Compile();
+        return Expression.Lambda<Func<object, bool>>(express, obj).CompileFast();
     }
 }
