@@ -1,6 +1,5 @@
-﻿using FastExpressionCompiler.LightExpression;
-
-using System.Reflection;
+﻿using System.Reflection;
+using FastExpressionCompiler.LightExpression;
 
 namespace AtraBase.Toolkit.Reflection;
 
@@ -38,7 +37,7 @@ public static class FastReflection
             throw new ArgumentException($"Expected a non-static field");
         }
 
-        ParameterExpression? objparam = Expression.Parameter(typeof(TObject), "obj");
+        ParameterExpression? objparam = Expression.ParameterOf<TObject>("obj");
         MemberExpression? fieldgetter = Expression.Field(objparam, field);
         return Expression.Lambda<Func<TObject, TField>>(fieldgetter, objparam).CompileFast();
     }

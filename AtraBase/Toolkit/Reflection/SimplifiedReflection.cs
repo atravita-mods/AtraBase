@@ -92,7 +92,8 @@ public static class SimplifiedReflection
                 }
                 catch (Exception ex) when (
                     ex is NotSupportedException
-                    or FileNotFoundException)
+                    or FileNotFoundException
+                    or TypeLoadException)
                 {
 #if DEBUG
                     Console.WriteLine($"Searching for types in {assembly.FullName} seems to have failed.\n\n{ex}");
@@ -106,7 +107,9 @@ public static class SimplifiedReflection
                 {
                     types.UnionWith(assembly.GetTypes().Where((Type t) => (includeAbstract || !t.IsAbstract) && t.IsAssignableTo(type) && typefilter(assembly, type)));
                 }
-                catch (ReflectionTypeLoadException ex)
+                catch (Exception ex) when (
+                    ex is ReflectionTypeLoadException
+                    or TypeLoadException)
                 {
 #if DEBUG
                     Console.WriteLine($"Searching for types in {assembly.FullName} seems to have failed.\n\n{ex}");

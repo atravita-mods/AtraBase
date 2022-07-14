@@ -17,11 +17,6 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
     private ConcurrentDictionary<TKey, TValue> stale;
 
     /// <summary>
-    /// Gets the timer for this instance.
-    /// </summary>
-    internal Timer Timer => this.timer;
-
-    /// <summary>
     /// Initializes a new instance of the <see cref="SimpleConcurrentCache{TKey, TValue}"/> class with default timing.
     /// </summary>
     public SimpleConcurrentCache()
@@ -58,6 +53,11 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
     /// Gets a value indicating whether or not the cache is read only.
     /// </summary>
     public bool IsReadOnly => false;
+
+    /// <summary>
+    /// Gets the timer for this instance.
+    /// </summary>
+    internal Timer Timer => this.timer;
 
     /// <summary>
     /// Gets a value from the cache if possible. Writes to the hot cache.

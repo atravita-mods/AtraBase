@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Text;
-using Microsoft.Toolkit.Diagnostics;
 using AtraBase.Toolkit.Extensions;
+using Microsoft.Toolkit.Diagnostics;
 
 namespace AtraBase.Collections;
 

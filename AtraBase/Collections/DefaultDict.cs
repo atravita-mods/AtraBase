@@ -108,6 +108,18 @@ public class DefaultDict<TKey, TValue> : IDictionary<TKey, TValue>
         this.dict = new(capacity, comparer);
     }
 
+    /// <inheritdoc/>
+    public ICollection<TKey> Keys => this.dict.Keys;
+
+    /// <inheritdoc/
+    public ICollection<TValue> Values => this.dict.Values;
+
+    /// <inheritdoc/>
+    public int Count => this.dict.Count;
+
+    /// <inheritdoc/>
+    public bool IsReadOnly => false;
+
     /// <summary>Gets the value of the dictionary if it exists. If not, uses the factory to create a new value.</summary>
     /// <param name="key">Key to search for.</param>
     public TValue this[TKey key]
@@ -131,18 +143,6 @@ public class DefaultDict<TKey, TValue> : IDictionary<TKey, TValue>
             this.dict[key] = value;
         }
     }
-
-    /// <inheritdoc/>
-    public ICollection<TKey> Keys => this.dict.Keys;
-
-    /// <inheritdoc/
-    public ICollection<TValue> Values => this.dict.Values;
-
-    /// <inheritdoc/>
-    public int Count => this.dict.Count;
-
-    /// <inheritdoc/>
-    public bool IsReadOnly => false;
 
     /// <inheritdoc/>
     public void Add(TKey key, TValue value) => this.dict.Add(key, value);
