@@ -70,8 +70,8 @@ public static class FastReflection
             throw new ArgumentException($"Expected a non-static field");
         }
 
-        ParameterExpression? objparam = Expression.Parameter(typeof(TObject), "obj");
-        ParameterExpression? fieldval = Expression.Parameter(typeof(TField), "fieldval");
+        ParameterExpression? objparam = Expression.ParameterOf<TObject>("obj");
+        ParameterExpression? fieldval = Expression.ParameterOf<TField>("fieldval");
         UnaryExpression? convertfield = Expression.Convert(fieldval, field.FieldType);
         MemberExpression? fieldsetter = Expression.Field(objparam, field);
         BinaryExpression? assignexpress = Expression.Assign(fieldsetter, convertfield);
@@ -129,7 +129,7 @@ public static class FastReflection
             throw new ArgumentException($"Expected a static field");
         }
 
-        ParameterExpression? fieldval = Expression.Parameter(typeof(TField), "fieldval");
+        ParameterExpression? fieldval = Expression.ParameterOf<TField>("fieldval");
         UnaryExpression? convertfield = Expression.Convert(fieldval, field.FieldType);
         MemberExpression? fieldsetter = Expression.Field(null, field);
         BinaryExpression? assignexpress = Expression.Assign(fieldsetter, convertfield);
@@ -143,7 +143,7 @@ public static class FastReflection
         {
             return null;
         }
-        var obj = Expression.Parameter(typeof(object), "obj");
+        var obj = Expression.ParameterOf<object>("obj");
         var express = Expression.TypeIs(obj, type);
         return Expression.Lambda<Func<object, bool>>(express, obj).CompileFast();
     }

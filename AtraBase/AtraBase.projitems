@@ -37,4 +37,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Reflection\CustomReflectionExceptions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Reflection\SafeReflection.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)README.md" />
+  </ItemGroup>
 </Project>

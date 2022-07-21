@@ -1,4 +1,5 @@
 ﻿using System.Collections.Concurrent;
+using Microsoft.Toolkit.Diagnostics;
 
 namespace AtraBase.Caching;
 
@@ -17,21 +18,17 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
     private ConcurrentDictionary<TKey, TValue> stale;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="SimpleConcurrentCache{TKey, TValue}"/> class with default timing.
+    /// Initializes a new instance of the <see cref="SimpleConcurrentCache{TKey, TValue}"/> class with default timing and a default comparer.
     /// </summary>
     public SimpleConcurrentCache()
     {
-        this.timer = new(
-            new TimerCallback(this.OnTimerCallback),
-            null,
-            TimeSpan.FromMinutes(2),
-            TimeSpan.FromMinutes(5));
+        this.timer = this.GetDefaultTimer();
         this.cache = new();
         this.stale = new();
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="SimpleConcurrentCache{TKey, TValue}"/> class.
+    /// Initializes a new instance of the <see cref="SimpleConcurrentCache{TKey, TValue}"/> class with a default comparer.
     /// </summary>
     /// <param name="time">The amount of time needed between resets.</param>
     public SimpleConcurrentCache(TimeSpan time)
@@ -43,6 +40,226 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
             time);
         this.cache = new();
         this.stale = new();
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SimpleConcurrentCache{TKey, TValue}"/> class with default timing and a default comparer.
+    /// </summary>
+    /// <param name="initial">Initial elements to populate the hot cache with.</param>
+    public SimpleConcurrentCache(IEnumerable<KeyValuePair<TKey, TValue>> initial)
+    {
+        Guard.IsNotNull(initial, nameof(initial));
+
+        this.timer = this.GetDefaultTimer();
+        this.cache = new(initial);
+        this.stale = new();
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SimpleConcurrentCache{TKey, TValue}"/> class with the default comparer.
+    /// </summary>
+    /// <param name="initial">Initial elements to populate the hot cache with.</param>
+    /// <param name="time">The amount of time between resets.</param>
+    public SimpleConcurrentCache(IEnumerable<KeyValuePair<TKey, TValue>> initial, TimeSpan time)
+    {
+        Guard.IsNotNull(initial, nameof(initial));
+
+        this.timer = new(
+            new TimerCallback(this.OnTimerCallback),
+            null,
+            time,
+            time);
+        this.cache = new(initial);
+        this.stale = new();
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SimpleConcurrentCache{TKey, TValue}"/> class with a custom comparer and default timing.
+    /// </summary>
+    /// <param name="comparer">Custom comparer.</param>
+    public SimpleConcurrentCache(IEqualityComparer<TKey> comparer)
+    {
+        Guard.IsNotNull(comparer, nameof(comparer));
+
+        this.timer = this.GetDefaultTimer();
+        this.cache = new(comparer);
+        this.stale = new(comparer);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SimpleConcurrentCache{TKey, TValue}"/> class using a custom comparer and time period.
+    /// </summary>
+    /// <param name="comparer">Comparer.</param>
+    /// <param name="time">Time period to use.</param>
+    public SimpleConcurrentCache(IEqualityComparer<TKey> comparer, TimeSpan time)
+    {
+        Guard.IsNotNull(comparer, nameof(comparer));
+
+        this.timer = new(
+            new TimerCallback(this.OnTimerCallback),
+            null,
+            time,
+            time);
+
+        this.cache = new(comparer);
+        this.stale = new(comparer);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SimpleConcurrentCache{TKey, TValue}"/> class with default timing and a custom comparer.
+    /// </summary>
+    /// <param name="initial">Initial collection to populate the hot cache.</param>
+    /// <param name="comparer">Custom comparer.</param>
+    public SimpleConcurrentCache(IEnumerable<KeyValuePair<TKey, TValue>> initial, IEqualityComparer<TKey> comparer)
+    {
+        Guard.IsNotNull(initial, nameof(initial));
+        Guard.IsNotNull(comparer, nameof(comparer));
+
+        this.timer = this.GetDefaultTimer();
+        this.cache = new(initial, comparer);
+        this.stale = new(comparer);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SimpleConcurrentCache{TKey, TValue}"/> class with custom timing and a custom comparer.
+    /// </summary>
+    /// <param name="initial">Initial collection to populate the hot cache.</param>
+    /// <param name="comparer">Custom comparer.</param>
+    /// <param name="time">Time period to use.</param>
+    public SimpleConcurrentCache(IEnumerable<KeyValuePair<TKey, TValue>> initial, IEqualityComparer<TKey> comparer, TimeSpan time)
+    {
+        Guard.IsNotNull(initial, nameof(initial));
+        Guard.IsNotNull(comparer, nameof(comparer));
+
+        this.timer = new(
+            new(this.OnTimerCallback),
+            null,
+            time,
+            time);
+
+        this.cache = new(initial, comparer);
+        this.stale = new(comparer);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SimpleConcurrentCache{TKey, TValue}"/> class with the specified concurrency level.
+    /// </summary>
+    /// <param name="concurrencyLevel">Estimated concurrency level.</param>
+    /// <param name="capacity">Initial capacity.</param>
+    /// <remarks>Doesn't adjust the concurrency level for the timer.</remarks>
+    public SimpleConcurrentCache(int concurrencyLevel, int capacity)
+    {
+        Guard.IsGreaterThanOrEqualTo(concurrencyLevel, 1, nameof(concurrencyLevel));
+        Guard.IsGreaterThanOrEqualTo(capacity, 0, nameof(capacity));
+
+        this.timer = this.GetDefaultTimer();
+        this.cache = new(concurrencyLevel, capacity);
+        this.stale = new(concurrencyLevel, 0); // no need to reserve capacity for the stale cache.
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SimpleConcurrentCache{TKey, TValue}"/> class with the given estimated concurrency level, capacity, and timeframe.
+    /// </summary>
+    /// <param name="concurrencyLevel">Estimated concurrency level.</param>
+    /// <param name="capacity">Initial capacity.</param>
+    /// <param name="time">Time between resets.</param>
+    /// <remarks>Does not adjust the concurrency level for the timer.</remarks>
+    public SimpleConcurrentCache(int concurrencyLevel, int capacity, TimeSpan time)
+    {
+        Guard.IsGreaterThanOrEqualTo(concurrencyLevel, 1, nameof(concurrencyLevel));
+        Guard.IsGreaterThanOrEqualTo(capacity, 0, nameof(capacity));
+
+        this.timer = new(
+            new TimerCallback(this.OnTimerCallback),
+            null,
+            time,
+            time);
+        this.cache = new(concurrencyLevel, capacity);
+        this.stale = new(concurrencyLevel, 0); // no need to reserve capacity for the stale cache.
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SimpleConcurrentCache{TKey, TValue}"/> class with the given initial elements, a custom comparer,
+    /// and the given concurrency level, but with default timings.
+    /// </summary>
+    /// <param name="concurrencyLevel">Estimated concurrency level.</param>
+    /// <param name="initial">Initial collection to populate the hot cache.</param>
+    /// <param name="comparer">Comparer to use.</param>
+    /// <remarks>Does not adjust the concurrency level for the timer.</remarks>
+    public SimpleConcurrentCache(int concurrencyLevel, IEnumerable<KeyValuePair<TKey, TValue>> initial, IEqualityComparer<TKey> comparer)
+    {
+        Guard.IsGreaterThanOrEqualTo(concurrencyLevel, 1, nameof(concurrencyLevel));
+        Guard.IsNotNull(initial, nameof(initial));
+        Guard.IsNotNull(comparer, nameof(comparer));
+
+        this.timer = this.GetDefaultTimer();
+        this.cache = new(concurrencyLevel, initial, comparer);
+        this.stale = new(concurrencyLevel, Enumerable.Empty<KeyValuePair<TKey, TValue>>(), comparer);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SimpleConcurrentCache{TKey, TValue}"/> class with the given initial elements, a custom comparer,
+    /// and the given concurrency level, and custom timing.
+    /// </summary>
+    /// <param name="concurrencyLevel">Estimated concurrency level.</param>
+    /// <param name="initial">Initial collection to populate the hot cache.</param>
+    /// <param name="comparer">Comparer to use.</param>
+    /// <param name="time">The time between resets.</param>
+    /// <remarks>Does not adjust the concurrency level for the timer.</remarks>
+    public SimpleConcurrentCache(int concurrencyLevel, IEnumerable<KeyValuePair<TKey, TValue>> initial, IEqualityComparer<TKey> comparer, TimeSpan time)
+    {
+        Guard.IsGreaterThanOrEqualTo(concurrencyLevel, 1, nameof(concurrencyLevel));
+        Guard.IsNotNull(initial, nameof(initial));
+        Guard.IsNotNull(comparer, nameof(comparer));
+
+        this.timer = new(
+            new TimerCallback(this.OnTimerCallback),
+            null,
+            time,
+            time);
+        this.cache = new(concurrencyLevel, initial, comparer);
+        this.stale = new(concurrencyLevel, Enumerable.Empty<KeyValuePair<TKey, TValue>>(), comparer);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SimpleConcurrentCache{TKey, TValue}"/> class with the given concurrency level and capacity, and a custom comparer,
+    /// but default timings.
+    /// </summary>
+    /// <param name="concurrencyLevel">Estimated concurrency level.</param>
+    /// <param name="capacity">Expected capacity.</param>
+    /// <param name="comparer">Custom comparer to use.</param>
+    public SimpleConcurrentCache(int concurrencyLevel, int capacity, IEqualityComparer<TKey> comparer)
+    {
+        Guard.IsGreaterThanOrEqualTo(concurrencyLevel, 1, nameof(concurrencyLevel));
+        Guard.IsGreaterThanOrEqualTo(capacity, 0, nameof(capacity));
+        Guard.IsNotNull(comparer, nameof(comparer));
+
+        this.timer = this.GetDefaultTimer();
+        this.cache = new(concurrencyLevel, capacity, comparer);
+        this.stale = new(concurrencyLevel, 0, comparer);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SimpleConcurrentCache{TKey, TValue}"/> class with the given concurrency level and capacity, a custom comparer,
+    /// and the given time between resets.
+    /// </summary>
+    /// <param name="concurrencyLevel">Estimated concurrency level.</param>
+    /// <param name="capacity">Expected capacity.</param>
+    /// <param name="comparer">Custom comparer to use.</param>
+    /// <param name="time">The expected time.</param>
+    public SimpleConcurrentCache(int concurrencyLevel, int capacity, IEqualityComparer<TKey> comparer, TimeSpan time)
+    {
+        Guard.IsGreaterThanOrEqualTo(concurrencyLevel, 1, nameof(concurrencyLevel));
+        Guard.IsGreaterThanOrEqualTo(capacity, 0, nameof(capacity));
+        Guard.IsNotNull(comparer, nameof(comparer));
+
+        this.timer = new(
+            new TimerCallback(this.OnTimerCallback),
+            null,
+            time,
+            time);
+        this.cache = new(concurrencyLevel, capacity, comparer);
+        this.stale = new(concurrencyLevel, 0, comparer);
     }
 
     /// <summary>Gets the total number of items in the cache.</summary>
@@ -222,4 +439,17 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
             Console.WriteLine($"[AtraBase] Cache swap failed\n\n{ex}");
         }
     }
+
+    /// <summary>
+    /// Gets the default timer.
+    /// This one does the first reset after two minutes, and does five minutes between others.
+    /// This is because a LOT of reflection happens at startup, and less so later on.
+    /// </summary>
+    /// <returns>The default timer.</returns>
+    private Timer GetDefaultTimer()
+    => new(
+        new TimerCallback(this.OnTimerCallback),
+        null,
+        TimeSpan.FromMinutes(2),
+        TimeSpan.FromMinutes(5));
 }

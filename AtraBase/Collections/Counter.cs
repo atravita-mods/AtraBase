@@ -131,7 +131,7 @@ public class Counter<TKey> : IDictionary<TKey, int>
     /**************
      * BEGIN DICTIONARY METHODS
      * ************/
-
+#pragma warning disable SA1201 // Elements should appear in the correct order. Methods common to dictonaries are placed under methods specific to Counter.
     /// <summary>
     /// Not implemented - does not make sense for Counter.
     /// </summary>
@@ -147,11 +147,10 @@ public class Counter<TKey> : IDictionary<TKey, int>
     /// <inheritdoc/>
     public override string ToString()
     {
-        StringBuilder sb = new();
-        sb.Append("Counter");
+        StringBuilder sb = new("Counter:");
         foreach ((TKey key, int count) in this.dict)
         {
-            sb.AppendLine().Append(key.ToString()).Append(": ").Append(count);
+            sb.AppendLine().Append(key.ToString()).Append("->").Append(count);
         }
         return sb.ToString();
     }
@@ -199,5 +198,5 @@ public class Counter<TKey> : IDictionary<TKey, int>
 
     /// <inheritdoc/>
     IEnumerator IEnumerable.GetEnumerator() => this.dict.GetEnumerator();
-
+#pragma warning restore SA1201 // Elements should appear in the correct order
 }

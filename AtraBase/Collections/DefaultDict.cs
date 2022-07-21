@@ -111,7 +111,7 @@ public class DefaultDict<TKey, TValue> : IDictionary<TKey, TValue>
     /// <inheritdoc/>
     public ICollection<TKey> Keys => this.dict.Keys;
 
-    /// <inheritdoc/
+    /// <inheritdoc/>
     public ICollection<TValue> Values => this.dict.Values;
 
     /// <inheritdoc/>

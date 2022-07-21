@@ -40,6 +40,12 @@ public ref struct StreamSplit
     {
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StreamSplit"/> struct.
+    /// </summary>
+    /// <param name="str">string to split.</param>
+    /// <param name="splitchars">characters to split by.</param>
+    /// <param name="options">split options.</param>
     public StreamSplit(string str, char[]? splitchars = null, StringSplitOptions options = StringSplitOptions.None)
         : this(str.AsSpan(), splitchars, options )
     {

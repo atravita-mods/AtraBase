@@ -40,6 +40,8 @@ public class BiMap<TForward, TReverse> : IEnumerable<KeyValuePair<TForward, TRev
     /// <exception cref="ArgumentNullException">Value was null.</exception>
     public BiMap(Dictionary<TForward, TReverse> dictionary)
     {
+        Guard.IsNotNull(dictionary, nameof(dictionary));
+
         // process reverse first
         // it'll throw if there's a duplicate or the value is null
         // value will never be null if nullable is enforced but this is public.
@@ -60,6 +62,8 @@ public class BiMap<TForward, TReverse> : IEnumerable<KeyValuePair<TForward, TRev
     /// <exception cref="ArgumentNullException">Value was null.</exception>
     public BiMap(IEnumerable<KeyValuePair<TForward, TReverse>> collection)
     {
+        Guard.IsNotNull(collection, nameof(collection));
+
         // construct the forward collection.
         this.forward = new(collection);
 
@@ -105,6 +109,8 @@ public class BiMap<TForward, TReverse> : IEnumerable<KeyValuePair<TForward, TRev
     /// <exception cref="ArgumentNullException">Value was null.</exception>
     public BiMap(Dictionary<TForward, TReverse> dictionary, IEqualityComparer<TForward>? forwardComparer, IEqualityComparer<TReverse>? reverseComparer)
     {
+        Guard.IsNotNull(dictionary, nameof(dictionary));
+
         // process reverse first
         // it'll throw if there's a duplicate or the value is null
         // value will never be null if nullable is enforced but this is public.
@@ -128,6 +134,8 @@ public class BiMap<TForward, TReverse> : IEnumerable<KeyValuePair<TForward, TRev
     /// <exception cref="ArgumentNullException">Value was null.</exception>
     public BiMap(IEnumerable<KeyValuePair<TForward, TReverse>> collection, IEqualityComparer<TForward>? forwardComparer, IEqualityComparer<TReverse>? reverseComparer)
     {
+        Guard.IsNotNull(collection, nameof(collection));
+
         // process forward map
         this.forward = forwardComparer is null ? new(collection) : new(collection, forwardComparer);
 
