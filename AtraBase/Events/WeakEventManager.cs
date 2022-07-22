@@ -4,6 +4,7 @@
 internal class WeakEventManager<TEventArgs> : IWeakEventManager<TEventArgs>
 {
     private readonly List<WeakReference<EventHandler<TEventArgs>>> listeners = new();
+    private readonly List<WeakReference<EventHandler<TEventArgs>>> toAdd = new();
     private readonly HashSet<EventHandler<TEventArgs>> toRemove = new();
 
     /// <inheritdoc />
@@ -11,7 +12,7 @@ internal class WeakEventManager<TEventArgs> : IWeakEventManager<TEventArgs>
     {
         lock (this.listeners)
         {
-            this.listeners.Add(new WeakReference<EventHandler<TEventArgs>>(listener));
+            this.toAdd.Add(new WeakReference<EventHandler<TEventArgs>>(listener));
         }
     }
 
@@ -20,11 +21,20 @@ internal class WeakEventManager<TEventArgs> : IWeakEventManager<TEventArgs>
     /// whenever a listener tries to remove themselves during an event.
     /// These are weak events anyways, so GC can still come collecting.</remarks>
     public void Remove(EventHandler<TEventArgs> listener)
-        => this.toRemove.Add(listener);
+    {
+        lock (this.toRemove)
+        {
+            this.toRemove.Add(listener);
+        }
+    }
 
     /// <inheritdoc />
     public void Raise(object? sender, TEventArgs args)
     {
+        // add the listeners registered since last time.
+        this.listeners.AddRange(this.toAdd);
+        this.toAdd.Clear();
+
         for (int i = this.listeners.Count - 1; i >= 0; i--)
         {
             if (this.listeners[i].TryGetTarget(out EventHandler<TEventArgs>? listener) && !this.toRemove.Contains(listener))
