@@ -23,6 +23,9 @@ public class UnexpectedEnumValueException<T> : Exception
 /// </summary>
 public static class TKThrowHelper
 {
+#if NET6_0_OR_GREATER
+    [StaticTraceHidden]
+#endif
     [DoesNotReturn]
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ThrowUnexpectedEnumValueException<TEnum>(TEnum value)
@@ -30,6 +33,9 @@ public static class TKThrowHelper
         throw new UnexpectedEnumValueException<TEnum>(value);
     }
 
+#if NET6_0_OR_GREATER
+    [StaticTraceHidden]
+#endif
     [DoesNotReturn]
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static TReturn ThrowUnexpectedEnumValueException<TEnum, TReturn>(TEnum value)

@@ -24,9 +24,9 @@ public static class FastReflection
         {
             return null;
         }
-        if (!typeof(TObject).IsAssignableFrom(field.DeclaringType))
+        if (!typeof(TObject).IsAssignableTo(field.DeclaringType))
         {
-            throw new ArgumentException($"{typeof(TObject).FullName} is not assignable from {field.DeclaringType?.FullName}");
+            throw new ArgumentException($"{typeof(TObject).FullName} is not assignable to {field.DeclaringType?.FullName}");
         }
         if (!typeof(TField).IsAssignableFrom(field.FieldType))
         {
@@ -57,9 +57,9 @@ public static class FastReflection
         {
             return null;
         }
-        if (!typeof(TObject).IsAssignableFrom(field.DeclaringType))
+        if (!typeof(TObject).IsAssignableTo(field.DeclaringType))
         {
-            throw new ArgumentException($"{typeof(TObject).FullName} is not assignable from {field.DeclaringType?.FullName}");
+            throw new ArgumentException($"{typeof(TObject).FullName} is not assignable to {field.DeclaringType?.FullName}");
         }
         if (!typeof(TField).IsAssignableTo(field.FieldType))
         {
@@ -136,6 +136,11 @@ public static class FastReflection
         return Expression.Lambda<Action<TField>>(assignexpress, fieldval).CompileFast();
     }
 
+    /// <summary>
+    /// Gets an isinst for this particular type.
+    /// </summary>
+    /// <param name="type">Type.</param>
+    /// <returns>IsInit method.</returns>
     [return: NotNullIfNotNull("type")]
     public static Func<object, bool>? GetTypeIs(this Type? type)
     {

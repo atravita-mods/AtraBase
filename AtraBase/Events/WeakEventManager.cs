@@ -1,5 +1,7 @@
 ﻿namespace AtraBase.Events;
 
+#warning - cross check this for thread safety.
+
 /// <inheritdoc />
 internal class WeakEventManager<TEventArgs> : IWeakEventManager<TEventArgs>
 {
@@ -10,7 +12,7 @@ internal class WeakEventManager<TEventArgs> : IWeakEventManager<TEventArgs>
     /// <inheritdoc />
     public void Add(EventHandler<TEventArgs> listener)
     {
-        lock (this.listeners)
+        lock (this.toAdd)
         {
             this.toAdd.Add(new WeakReference<EventHandler<TEventArgs>>(listener));
         }
