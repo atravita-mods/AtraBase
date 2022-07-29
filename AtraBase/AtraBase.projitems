@@ -17,6 +17,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Collections\EnumerableExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\IWeakEventManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\WeakEventManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\ILogger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Internal\Logger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\CustomExceptions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\IDictionaryExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\IListExtensions.cs" />

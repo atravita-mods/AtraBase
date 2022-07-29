@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using AtraBase.Internal;
 
 namespace AtraBase.Toolkit.Reflection;
 
@@ -95,14 +96,11 @@ public static class SimplifiedReflection
                     or FileNotFoundException
                     or TypeLoadException)
                 {
-#if DEBUG
-                    Console.WriteLine($"Searching for types in {assembly.FullName} seems to have failed.\n\n{ex}");
-#endif
+                    Logger.Instance.Warn($"Searching for types in {assembly.FullName} seems to have failed.\n\n{ex}");
                 }
             }
             else
             {
-#pragma warning disable CS0168 // Variable is declared but never used
                 try
                 {
                     types.UnionWith(assembly.GetTypes().Where((Type t) => (includeAbstract || !t.IsAbstract) && t.IsAssignableTo(type) && typefilter(assembly, type)));
@@ -111,11 +109,8 @@ public static class SimplifiedReflection
                     ex is ReflectionTypeLoadException
                     or TypeLoadException)
                 {
-#if DEBUG
-                    Console.WriteLine($"Searching for types in {assembly.FullName} seems to have failed.\n\n{ex}");
-#endif
+                    Logger.Instance.Warn($"Searching for types in {assembly.FullName} seems to have failed.\n\n{ex}");
                 }
-#pragma warning restore CS0168 // Variable is declared but never used
             }
         }
         return types;

@@ -1,4 +1,6 @@
-﻿namespace AtraBase.Toolkit.Extensions;
+﻿using AtraBase.Internal;
+
+namespace AtraBase.Toolkit.Extensions;
 
 /// <summary>
 /// LINQ-like extensions on enumerables.
@@ -28,7 +30,7 @@ public static class IEnumerableExtensions
             if (!result.TryAdd(keyselector(item), valueselector(item)))
             {
 #if DEBUG
-                Console.WriteLine($"Recieved duplicate key {keyselector(item)}, ignoring");
+                Logger.Instance.Info($"Recieved duplicate key {keyselector(item)}, ignoring");
 #endif
             }
         }
