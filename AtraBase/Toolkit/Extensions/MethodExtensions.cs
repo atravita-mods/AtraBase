@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using Microsoft.Toolkit.Diagnostics;
+using CommunityToolkit.Diagnostics;
 
 namespace AtraBase.Toolkit.Extensions;
 

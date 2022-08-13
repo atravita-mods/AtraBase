@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using Microsoft.Toolkit.Diagnostics;
+using CommunityToolkit.Diagnostics;
 
 namespace AtraBase.Collections;
 

@@ -1,4 +1,6 @@
-﻿namespace AtraBase.Events;
+﻿using AtraBase.Internal;
+
+namespace AtraBase.Events;
 
 #warning - cross check this for thread safety.
 
@@ -41,7 +43,14 @@ internal class WeakEventManager<TEventArgs> : IWeakEventManager<TEventArgs>
         {
             if (this.listeners[i].TryGetTarget(out EventHandler<TEventArgs>? listener) && !this.toRemove.Contains(listener))
             {
-                listener.Invoke(sender, args);
+                try
+                {
+                    listener.Invoke(sender, args);
+                }
+                catch (Exception ex)
+                {
+                    Logger.Instance.Error($"Failed while raising weak event:\n\n{ex}");
+                }
             }
             else
             {

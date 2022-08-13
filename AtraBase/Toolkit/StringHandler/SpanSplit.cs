@@ -111,7 +111,8 @@ public ref struct SpanSplit
             }
             else
             {
-                throw new IndexOutOfRangeException("Index is out of range!");
+                TKThrowHelper.ThrowIndexOutOfRangeException();
+                return default;
             }
         }
     }
@@ -174,8 +175,7 @@ FAIL:
     /// <summary>
     /// Gets the current value - for Enumerator.
     /// </summary>
-    [SuppressMessage("StyleCop.CSharp.OrderingRules", "SA1201:Elements should appear in the correct order", Justification = "Enumerator methods stay together.")]
-    public SpanSplitEntry Current { get; private set; } = new SpanSplitEntry(string.Empty, string.Empty);
+    public SpanSplitEntry Current { get; private set; } = default;
 
     /// <summary>
     /// Gets this as an enumerator. Used for ForEach.

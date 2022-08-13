@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Text;
 using AtraBase.Toolkit.Extensions;
-using Microsoft.Toolkit.Diagnostics;
+using CommunityToolkit.Diagnostics;
 
 namespace AtraBase.Collections;
 
@@ -131,7 +131,6 @@ public class Counter<TKey> : IDictionary<TKey, int>
     /**************
      * BEGIN DICTIONARY METHODS
      * ************/
-#pragma warning disable SA1201 // Elements should appear in the correct order. Methods common to dictonaries are placed under methods specific to Counter.
     /// <summary>
     /// Not implemented - does not make sense for Counter.
     /// </summary>
@@ -198,5 +197,4 @@ public class Counter<TKey> : IDictionary<TKey, int>
 
     /// <inheritdoc/>
     IEnumerator IEnumerable.GetEnumerator() => this.dict.GetEnumerator();
-#pragma warning restore SA1201 // Elements should appear in the correct order
 }

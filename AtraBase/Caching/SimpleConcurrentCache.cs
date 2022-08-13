@@ -1,5 +1,6 @@
 ﻿using System.Collections.Concurrent;
-using Microsoft.Toolkit.Diagnostics;
+using AtraBase.Internal;
+using CommunityToolkit.Diagnostics;
 
 namespace AtraBase.Caching;
 
@@ -325,6 +326,9 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
     /// </summary>
     public void Swap()
     {
+#if DEBUG
+        Logger.Instance.Info($"{this.cache.Count} in hot cache, ${this.stale.Count} in the stale cache before swap.");
+#endif
         this.stale.Clear();
         if (!this.cache.IsEmpty)
         {
@@ -436,7 +440,7 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"[AtraBase] Cache swap failed\n\n{ex}");
+            Logger.Instance.Error($"[AtraBase] Cache swap failed\n\n{ex}");
         }
     }
 

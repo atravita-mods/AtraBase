@@ -42,4 +42,24 @@ public static class TKThrowHelper
     {
         throw new UnexpectedEnumValueException<TEnum>(value);
     }
+
+#if NET6_0_OR_GREATER
+    [StaticTraceHidden]
+#endif
+    [DoesNotReturn]
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public static void ThrowIndexOutOfRangeException()
+    {
+        throw new IndexOutOfRangeException();
+    }
+
+#if NET6_0_OR_GREATER
+    [StaticTraceHidden]
+#endif
+    [DoesNotReturn]
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public static TReturn ThrowIndexOutOfRangeException<TReturn>()
+    {
+        throw new IndexOutOfRangeException();
+    }
 }
