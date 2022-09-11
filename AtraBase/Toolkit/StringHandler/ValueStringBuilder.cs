@@ -11,7 +11,7 @@ using System.Runtime.CompilerServices;
 using CommunityToolkit.Diagnostics;
 
 #if !NET7_0_OR_GREATER
-using AtraBase.Toolkit.Shims.NetSeven
+using AtraBase.Toolkit.Shims.NetSeven;
 #endif
 
 namespace AtraBase.Toolkit.StringHandler;
@@ -240,7 +240,11 @@ internal ref struct ValueStringBuilder
     {
         for (int i = 0; i < this._pos; i++)
         {
+#if NET7_0_OR_GREATER
+            if (Char.IsAsciiLetterUpper(this._chars[i]))
+#else
             if (CharExtensions.IsAsciiLetterUpper(this._chars[i]))
+#endif
             {
                 this._chars[i] = (char)(this._chars[i] | 0x20);
             }
@@ -254,14 +258,18 @@ internal ref struct ValueStringBuilder
     {
         for (int i = 0; i < this._pos; i++)
         {
+#if NET7_0_OR_GREATER
+            if (Char.IsAsciiLetterLower(this._chars[i]))
+#else
             if (CharExtensions.IsAsciiLetterLower(this._chars[i]))
+#endif
             {
                 this._chars[i] = (char)(this._chars[i] & ~0x20);
             }
         }
     }
 
-    #endregion
+#endregion
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     private void GrowAndAppend(char c)
@@ -307,5 +315,4 @@ internal ref struct ValueStringBuilder
             ArrayPool<char>.Shared.Return(toReturn);
         }
     }
-
 }
