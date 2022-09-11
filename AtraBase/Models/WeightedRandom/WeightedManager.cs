@@ -1,5 +1,8 @@
-﻿namespace AtraBase.Models.WeightedRandom;
+﻿using System.Buffers;
 
+namespace AtraBase.Models.WeightedRandom;
+
+[SuppressMessage("StyleCop.CSharp.NamingRules", "SA1313:Parameter names should begin with lower-case letter", Justification = "Stylecop doesn't understand records.")]
 public record struct WeightedItem<T>(double Weight, T Item);
 
 /// <summary>
@@ -9,11 +12,23 @@ public record struct WeightedItem<T>(double Weight, T Item);
 /// <remarks>This is geared towards reusing the same list of weights often.</remarks>
 public class WeightedManager<T>
 {
-    private List<WeightedItem<T>> items = new();
+    private readonly List<WeightedItem<T>> items = new();
     private double[]? processedChances;
     private double max = -1;
 
     private Random? random;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="WeightedManager{T}"/> class.
+    /// </summary>
+    public WeightedManager() { }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="WeightedManager{T}"/> class.
+    /// </summary>
+    /// <param name="items">Initial items.</param>
+    public WeightedManager(IEnumerable<WeightedItem<T>> items)
+        => this.items.AddRange(items);
 
     /// <summary>
     /// Gets the random instance for this manager.
@@ -35,11 +50,6 @@ public class WeightedManager<T>
             return this.random;
         }
     }
-
-    public WeightedManager() { }
-
-    public WeightedManager(IEnumerable<WeightedItem<T>> items)
-        => this.items.AddRange(items);
 
     public void Add(WeightedItem<T> item)
     {
@@ -85,6 +95,39 @@ public class WeightedManager<T>
         {
             index = ~index - 1;
         }
+
+        return this.items[index].Item;
+    }
+
+    public T GetValueUncached(Random? random = null)
+    {
+        random ??= this.Random;
+
+        // The values are cached already just use that.
+        if (this.processedChances?.Length == this.items.Count)
+        {
+            return this.GetValue(random);
+        }
+
+        double acc = 0;
+        double[] weights = ArrayPool<double>.Shared.Rent(this.items.Count);
+
+        for (int i = 0; i < this.items.Count; i++)
+        {
+            weights[i] = acc;
+            acc += this.items[i].Weight;
+        }
+
+        double chance = random.NextDouble() * acc;
+
+        int index = Array.BinarySearch(weights, 0, this.items.Count, chance);
+
+        if (index < 0)
+        {
+            index = ~index - 1;
+        }
+
+        ArrayPool<double>.Shared.Return(weights);
 
         return this.items[index].Item;
     }

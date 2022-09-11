@@ -5,7 +5,7 @@ namespace AtraBase.Internal;
 /// <inheritdoc />
 internal class Logger : ILogger
 {
-    internal static ILogger Instance = new Logger();
+    internal static ILogger Instance { get; set; } = new Logger();
 
     public void Error(string message)
         => Console.WriteLine(message);

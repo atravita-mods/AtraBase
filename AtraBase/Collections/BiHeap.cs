@@ -13,36 +13,49 @@ namespace AtraBase.Collections;
 /// <typeparam name="T">The type of the item.</typeparam>
 /// <remarks>Consulted the net 5 implementation of a binary heap and also python's heapq package
 /// while writing this.
-/// 
+///
 /// Dotnet impl: https://referencesource.microsoft.com/#PresentationCore/Shared/MS/Internal/PriorityQueue.cs
 /// Python impl: https://github.com/python/cpython/blob/3.10/Lib/heapq.py </remarks>
 public class BiHeap<T> : ICollection<T>
     where T : notnull, IEquatable<T>
 {
+    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1310:Field names should not contain underscore", Justification = "Reviewed.")]
     private const int DEFAULT_CAPACITY = 6;
 
+    private readonly IComparer<T> comparer;
     private int count = 0;
     private T[] heap;
-    private readonly IComparer<T> comparer;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BiHeap{T}"/> class.
+    /// </summary>
     public BiHeap()
     {
         this.heap = new T[DEFAULT_CAPACITY];
         this.comparer = Comparer<T>.Default;
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BiHeap{T}"/> class.
+    /// </summary>
+    /// <param name="capacity">Initial capacity.</param>
     public BiHeap(int capacity)
     {
-        Guard.IsGreaterThan(capacity, 0, nameof(capacity));
+        Guard.IsGreaterThan(capacity, 0);
 
         this.heap = new T[capacity];
         this.comparer = Comparer<T>.Default;
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BiHeap{T}"/> class.
+    /// </summary>
+    /// <param name="capacity">Initial capacity.</param>
+    /// <param name="comparer">Comparer to use.</param>
     public BiHeap(int capacity, IComparer<T> comparer)
     {
-        Guard.IsGreaterThan(capacity, 0, nameof(capacity));
-        Guard.IsNotNull(comparer, nameof(comparer));
+        Guard.IsGreaterThan(capacity, 0);
+        Guard.IsNotNull(comparer);
 
         this.heap = new T[capacity];
         this.comparer = comparer;
@@ -50,7 +63,7 @@ public class BiHeap<T> : ICollection<T>
 
     public BiHeap(IEnumerable<T> values)
     {
-        Guard.IsNotNull(values, nameof(values));
+        Guard.IsNotNull(values);
 
         this.ReadInIEnumerable(values);
         this.comparer = Comparer<T>.Default;
@@ -59,8 +72,8 @@ public class BiHeap<T> : ICollection<T>
 
     public BiHeap(IEnumerable<T> values, IComparer<T> comparer)
     {
-        Guard.IsNotNull(values, nameof(values));
-        Guard.IsNotNull(comparer, nameof(comparer));
+        Guard.IsNotNull(values);
+        Guard.IsNotNull(comparer);
 
         this.ReadInIEnumerable(values);
         this.comparer = comparer;
@@ -68,7 +81,10 @@ public class BiHeap<T> : ICollection<T>
         this.Heapify();
     }
 
+    /// <inheritdoc />
     public int Count => this.count;
+
+    /// <inheritdoc />
     public bool IsReadOnly => false;
 
     public static List<TType> NthSmallest<TType>(int n, IEnumerable<TType> items, IComparer<TType>? comparer = null)
@@ -279,7 +295,7 @@ public class BiHeap<T> : ICollection<T>
 
     private void Heapify()
     {
-        for (int i = this.count/2 - 1; i>= 0; i--)
+        for (int i = this.count / 2 - 1; i >= 0; i--)
         {
             T value = this.heap[i];
             int leaf = this.SiftGapDown(i);
@@ -299,7 +315,7 @@ public class BiHeap<T> : ICollection<T>
     [MemberNotNull("heap", "count")]
     private int ReadInIEnumerable(IEnumerable<T> items)
     {
-        Guard.IsNotNull(items, nameof(items));
+        Guard.IsNotNull(items);
         Guard.IsEqualTo(this.count, 0, "This function can only be used with an empty heap");
 
         if (items is ICollection collection)

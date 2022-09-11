@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace AtraBase.Toolkit.Reflection;
 
@@ -19,14 +20,22 @@ public class MethodNotFoundException : Exception
 
 public static class ReflectionThrowHelper
 {
+#if NET6_0_OR_GREATER
+    [StaticTraceHidden]
+#endif
     [DoesNotReturn]
+    [DebuggerHidden]
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ThrowMethodNotFoundException(string methodName)
     {
         throw new MethodNotFoundException(methodName);
     }
 
+#if NET6_0_OR_GREATER
+    [StaticTraceHidden]
+#endif
     [DoesNotReturn]
+    [DebuggerHidden]
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static T ThrowMethodNotFoundException<T>(string methodName)
     {

@@ -25,6 +25,8 @@ public class Counter<TKey> : IDictionary<TKey, int>
     /// <param name="other">Other counter to copy from.</param>
     public Counter(Counter<TKey> other)
     {
+        Guard.IsNotNull(other);
+
         this.dict = new();
         this.dict.Update(other.dict);
     }
@@ -59,6 +61,8 @@ public class Counter<TKey> : IDictionary<TKey, int>
     /// <remarks>Adds counts, not replaces.</remarks>
     public void Update(Counter<TKey> other)
     {
+        Guard.IsNotNull(other);
+
         foreach ((TKey k, int v) in other)
         {
             this[k] = this[k] + v;
@@ -67,6 +71,8 @@ public class Counter<TKey> : IDictionary<TKey, int>
 
     public void Update(IEnumerable<TKey> enumerable)
     {
+        Guard.IsNotNull(enumerable);
+
         foreach (TKey key in enumerable)
         {
             this[key] = this[key] + 1;
@@ -75,6 +81,8 @@ public class Counter<TKey> : IDictionary<TKey, int>
 
     public void Subtract(Counter<TKey> other)
     {
+        Guard.IsNotNull(other);
+
         foreach ((TKey k, int v) in other)
         {
             this[k] = this[k] - v;
@@ -83,6 +91,8 @@ public class Counter<TKey> : IDictionary<TKey, int>
 
     public void Subtract(IEnumerable<TKey> enumerable)
     {
+        Guard.IsNotNull(enumerable);
+
         foreach (TKey key in enumerable)
         {
             this[key] = this[key] - 1;

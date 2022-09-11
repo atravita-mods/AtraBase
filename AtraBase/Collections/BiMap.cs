@@ -40,7 +40,7 @@ public class BiMap<TForward, TReverse> : IEnumerable<KeyValuePair<TForward, TRev
     /// <exception cref="ArgumentNullException">Value was null.</exception>
     public BiMap(Dictionary<TForward, TReverse> dictionary)
     {
-        Guard.IsNotNull(dictionary, nameof(dictionary));
+        Guard.IsNotNull(dictionary);
 
         // process reverse first
         // it'll throw if there's a duplicate or the value is null
@@ -62,7 +62,7 @@ public class BiMap<TForward, TReverse> : IEnumerable<KeyValuePair<TForward, TRev
     /// <exception cref="ArgumentNullException">Value was null.</exception>
     public BiMap(IEnumerable<KeyValuePair<TForward, TReverse>> collection)
     {
-        Guard.IsNotNull(collection, nameof(collection));
+        Guard.IsNotNull(collection);
 
         // construct the forward collection.
         this.forward = new(collection);
@@ -93,7 +93,7 @@ public class BiMap<TForward, TReverse> : IEnumerable<KeyValuePair<TForward, TRev
     /// <param name="capacity">starting capacity.</param>
     public BiMap(int capacity)
     {
-        Guard.IsGreaterThanOrEqualTo(capacity, 0, nameof(capacity));
+        Guard.IsGreaterThanOrEqualTo(capacity, 0);
         this.forward = new(capacity);
         this.reverse = new(capacity);
     }
@@ -109,7 +109,7 @@ public class BiMap<TForward, TReverse> : IEnumerable<KeyValuePair<TForward, TRev
     /// <exception cref="ArgumentNullException">Value was null.</exception>
     public BiMap(Dictionary<TForward, TReverse> dictionary, IEqualityComparer<TForward>? forwardComparer, IEqualityComparer<TReverse>? reverseComparer)
     {
-        Guard.IsNotNull(dictionary, nameof(dictionary));
+        Guard.IsNotNull(dictionary);
 
         // process reverse first
         // it'll throw if there's a duplicate or the value is null
@@ -134,7 +134,7 @@ public class BiMap<TForward, TReverse> : IEnumerable<KeyValuePair<TForward, TRev
     /// <exception cref="ArgumentNullException">Value was null.</exception>
     public BiMap(IEnumerable<KeyValuePair<TForward, TReverse>> collection, IEqualityComparer<TForward>? forwardComparer, IEqualityComparer<TReverse>? reverseComparer)
     {
-        Guard.IsNotNull(collection, nameof(collection));
+        Guard.IsNotNull(collection);
 
         // process forward map
         this.forward = forwardComparer is null ? new(collection) : new(collection, forwardComparer);
@@ -155,7 +155,7 @@ public class BiMap<TForward, TReverse> : IEnumerable<KeyValuePair<TForward, TRev
     /// <param name="reverseComparer">custom comparer for the reverse map, leave null to be default.</param>
     public BiMap(int capacity, IEqualityComparer<TForward>? forwardComparer, IEqualityComparer<TReverse>? reverseComparer)
     {
-        Guard.IsGreaterThanOrEqualTo(capacity, 0, nameof(capacity));
+        Guard.IsGreaterThanOrEqualTo(capacity, 0);
         this.forward = forwardComparer is null ? new(capacity) : new(capacity, forwardComparer);
         this.reverse = reverseComparer is null ? new(capacity) : new(capacity, reverseComparer);
     }

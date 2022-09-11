@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace AtraBase.Toolkit;
 
@@ -27,6 +28,7 @@ public static class TKThrowHelper
     [StaticTraceHidden]
 #endif
     [DoesNotReturn]
+    [DebuggerHidden]
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ThrowUnexpectedEnumValueException<TEnum>(TEnum value)
     {
@@ -37,6 +39,7 @@ public static class TKThrowHelper
     [StaticTraceHidden]
 #endif
     [DoesNotReturn]
+    [DebuggerHidden]
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static TReturn ThrowUnexpectedEnumValueException<TEnum, TReturn>(TEnum value)
     {
@@ -47,6 +50,7 @@ public static class TKThrowHelper
     [StaticTraceHidden]
 #endif
     [DoesNotReturn]
+    [DebuggerHidden]
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ThrowIndexOutOfRangeException()
     {
@@ -57,6 +61,7 @@ public static class TKThrowHelper
     [StaticTraceHidden]
 #endif
     [DoesNotReturn]
+    [DebuggerHidden]
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static TReturn ThrowIndexOutOfRangeException<TReturn>()
     {

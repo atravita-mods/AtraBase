@@ -49,7 +49,7 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
     /// <param name="initial">Initial elements to populate the hot cache with.</param>
     public SimpleConcurrentCache(IEnumerable<KeyValuePair<TKey, TValue>> initial)
     {
-        Guard.IsNotNull(initial, nameof(initial));
+        Guard.IsNotNull(initial);
 
         this.timer = this.GetDefaultTimer();
         this.cache = new(initial);
@@ -63,7 +63,7 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
     /// <param name="time">The amount of time between resets.</param>
     public SimpleConcurrentCache(IEnumerable<KeyValuePair<TKey, TValue>> initial, TimeSpan time)
     {
-        Guard.IsNotNull(initial, nameof(initial));
+        Guard.IsNotNull(initial);
 
         this.timer = new(
             new TimerCallback(this.OnTimerCallback),
@@ -80,7 +80,7 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
     /// <param name="comparer">Custom comparer.</param>
     public SimpleConcurrentCache(IEqualityComparer<TKey> comparer)
     {
-        Guard.IsNotNull(comparer, nameof(comparer));
+        Guard.IsNotNull(comparer);
 
         this.timer = this.GetDefaultTimer();
         this.cache = new(comparer);
@@ -94,7 +94,7 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
     /// <param name="time">Time period to use.</param>
     public SimpleConcurrentCache(IEqualityComparer<TKey> comparer, TimeSpan time)
     {
-        Guard.IsNotNull(comparer, nameof(comparer));
+        Guard.IsNotNull(comparer);
 
         this.timer = new(
             new TimerCallback(this.OnTimerCallback),
@@ -113,8 +113,8 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
     /// <param name="comparer">Custom comparer.</param>
     public SimpleConcurrentCache(IEnumerable<KeyValuePair<TKey, TValue>> initial, IEqualityComparer<TKey> comparer)
     {
-        Guard.IsNotNull(initial, nameof(initial));
-        Guard.IsNotNull(comparer, nameof(comparer));
+        Guard.IsNotNull(initial);
+        Guard.IsNotNull(comparer);
 
         this.timer = this.GetDefaultTimer();
         this.cache = new(initial, comparer);
@@ -129,8 +129,8 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
     /// <param name="time">Time period to use.</param>
     public SimpleConcurrentCache(IEnumerable<KeyValuePair<TKey, TValue>> initial, IEqualityComparer<TKey> comparer, TimeSpan time)
     {
-        Guard.IsNotNull(initial, nameof(initial));
-        Guard.IsNotNull(comparer, nameof(comparer));
+        Guard.IsNotNull(initial);
+        Guard.IsNotNull(comparer);
 
         this.timer = new(
             new(this.OnTimerCallback),
@@ -150,8 +150,8 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
     /// <remarks>Doesn't adjust the concurrency level for the timer.</remarks>
     public SimpleConcurrentCache(int concurrencyLevel, int capacity)
     {
-        Guard.IsGreaterThanOrEqualTo(concurrencyLevel, 1, nameof(concurrencyLevel));
-        Guard.IsGreaterThanOrEqualTo(capacity, 0, nameof(capacity));
+        Guard.IsGreaterThanOrEqualTo(concurrencyLevel, 1);
+        Guard.IsGreaterThanOrEqualTo(capacity, 0);
 
         this.timer = this.GetDefaultTimer();
         this.cache = new(concurrencyLevel, capacity);
@@ -167,8 +167,8 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
     /// <remarks>Does not adjust the concurrency level for the timer.</remarks>
     public SimpleConcurrentCache(int concurrencyLevel, int capacity, TimeSpan time)
     {
-        Guard.IsGreaterThanOrEqualTo(concurrencyLevel, 1, nameof(concurrencyLevel));
-        Guard.IsGreaterThanOrEqualTo(capacity, 0, nameof(capacity));
+        Guard.IsGreaterThanOrEqualTo(concurrencyLevel, 1);
+        Guard.IsGreaterThanOrEqualTo(capacity, 0);
 
         this.timer = new(
             new TimerCallback(this.OnTimerCallback),
@@ -189,9 +189,9 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
     /// <remarks>Does not adjust the concurrency level for the timer.</remarks>
     public SimpleConcurrentCache(int concurrencyLevel, IEnumerable<KeyValuePair<TKey, TValue>> initial, IEqualityComparer<TKey> comparer)
     {
-        Guard.IsGreaterThanOrEqualTo(concurrencyLevel, 1, nameof(concurrencyLevel));
-        Guard.IsNotNull(initial, nameof(initial));
-        Guard.IsNotNull(comparer, nameof(comparer));
+        Guard.IsGreaterThanOrEqualTo(concurrencyLevel, 1);
+        Guard.IsNotNull(initial);
+        Guard.IsNotNull(comparer);
 
         this.timer = this.GetDefaultTimer();
         this.cache = new(concurrencyLevel, initial, comparer);
@@ -209,9 +209,9 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
     /// <remarks>Does not adjust the concurrency level for the timer.</remarks>
     public SimpleConcurrentCache(int concurrencyLevel, IEnumerable<KeyValuePair<TKey, TValue>> initial, IEqualityComparer<TKey> comparer, TimeSpan time)
     {
-        Guard.IsGreaterThanOrEqualTo(concurrencyLevel, 1, nameof(concurrencyLevel));
-        Guard.IsNotNull(initial, nameof(initial));
-        Guard.IsNotNull(comparer, nameof(comparer));
+        Guard.IsGreaterThanOrEqualTo(concurrencyLevel, 1);
+        Guard.IsNotNull(initial);
+        Guard.IsNotNull(comparer);
 
         this.timer = new(
             new TimerCallback(this.OnTimerCallback),
@@ -231,9 +231,9 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
     /// <param name="comparer">Custom comparer to use.</param>
     public SimpleConcurrentCache(int concurrencyLevel, int capacity, IEqualityComparer<TKey> comparer)
     {
-        Guard.IsGreaterThanOrEqualTo(concurrencyLevel, 1, nameof(concurrencyLevel));
-        Guard.IsGreaterThanOrEqualTo(capacity, 0, nameof(capacity));
-        Guard.IsNotNull(comparer, nameof(comparer));
+        Guard.IsGreaterThanOrEqualTo(concurrencyLevel, 1);
+        Guard.IsGreaterThanOrEqualTo(capacity, 0);
+        Guard.IsNotNull(comparer);
 
         this.timer = this.GetDefaultTimer();
         this.cache = new(concurrencyLevel, capacity, comparer);
@@ -250,9 +250,9 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
     /// <param name="time">The expected time.</param>
     public SimpleConcurrentCache(int concurrencyLevel, int capacity, IEqualityComparer<TKey> comparer, TimeSpan time)
     {
-        Guard.IsGreaterThanOrEqualTo(concurrencyLevel, 1, nameof(concurrencyLevel));
-        Guard.IsGreaterThanOrEqualTo(capacity, 0, nameof(capacity));
-        Guard.IsNotNull(comparer, nameof(comparer));
+        Guard.IsGreaterThanOrEqualTo(concurrencyLevel, 1);
+        Guard.IsGreaterThanOrEqualTo(capacity, 0);
+        Guard.IsNotNull(comparer);
 
         this.timer = new(
             new TimerCallback(this.OnTimerCallback),
@@ -327,7 +327,7 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
     public void Swap()
     {
 #if DEBUG
-        Logger.Instance.Info($"{this.cache.Count} in hot cache, ${this.stale.Count} in the stale cache before swap.");
+        Logger.Instance.Info($"{this.cache.Count} in hot cache, {this.stale.Count} in the stale cache before swap.");
 #endif
         this.stale.Clear();
         if (!this.cache.IsEmpty)
@@ -421,15 +421,23 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
         return false;
     }
 
+    public void Dispose()
+    {
+        this.Dispose(disposing: true);
+        GC.SuppressFinalize(this);
+    }
+
+
     /// <summary>
     /// Called when this is disposed.
     /// This is primarily used to dispose of the internal timer.
     /// </summary>
-    [SuppressMessage("Usage", "CA1816:Dispose methods should call SuppressFinalize", Justification = "Dipose is used here to remove the inner timer. This class still will need to be finalized.")]
-    public void Dispose()
+    protected virtual void Dispose(bool disposing)
     {
         this.timer.Change(TimeSpan.MaxValue, TimeSpan.MaxValue);
         this.timer.Dispose();
+        this.cache = null!;
+        this.stale = null!;
     }
 
     private void OnTimerCallback(object? state)

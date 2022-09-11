@@ -1,6 +1,4 @@
-﻿using AtraBase.Internal;
-
-namespace AtraBase.Toolkit.Extensions;
+﻿namespace AtraBase.Toolkit.Extensions;
 
 /// <summary>
 /// LINQ-like extensions on enumerables.
@@ -48,9 +46,6 @@ public static class IEnumerableExtensions
     public static IEnumerable<T> Unique<T>(this IEnumerable<T> enumerable)
     {
         HashSet<T> hashed = enumerable.ToHashSet();
-        foreach (T item in hashed)
-        {
-            yield return item;
-        }
+        return hashed;
     }
 }

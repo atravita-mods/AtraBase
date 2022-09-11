@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using CommunityToolkit.Diagnostics;
 using FastExpressionCompiler.LightExpression;
 
 namespace AtraBase.Toolkit.Reflection;
@@ -26,15 +27,15 @@ public static class FastReflection
         }
         if (!typeof(TObject).IsAssignableTo(field.DeclaringType))
         {
-            throw new ArgumentException($"{typeof(TObject).FullName} is not assignable to {field.DeclaringType?.FullName}");
+            ThrowHelper.ThrowArgumentException($"{typeof(TObject).FullName} is not assignable to {field.DeclaringType?.FullName}");
         }
         if (!typeof(TField).IsAssignableFrom(field.FieldType))
         {
-            throw new ArgumentException($"{typeof(TField).FullName} is not assignable from {field.FieldType.FullName}");
+            ThrowHelper.ThrowArgumentException($"{typeof(TField).FullName} is not assignable from {field.FieldType.FullName}");
         }
         if (field.IsStatic)
         {
-            throw new ArgumentException($"Expected a non-static field");
+            ThrowHelper.ThrowArgumentException($"Expected a non-static field");
         }
 
         ParameterExpression? objparam = Expression.ParameterOf<TObject>("obj");
@@ -59,15 +60,15 @@ public static class FastReflection
         }
         if (!typeof(TObject).IsAssignableTo(field.DeclaringType))
         {
-            throw new ArgumentException($"{typeof(TObject).FullName} is not assignable to {field.DeclaringType?.FullName}");
+            ThrowHelper.ThrowArgumentException($"{typeof(TObject).FullName} is not assignable to {field.DeclaringType?.FullName}");
         }
         if (!typeof(TField).IsAssignableTo(field.FieldType))
         {
-            throw new ArgumentException($"{typeof(TField).FullName} is not assignable to {field.FieldType.FullName}");
+            ThrowHelper.ThrowArgumentException($"{typeof(TField).FullName} is not assignable to {field.FieldType.FullName}");
         }
         if (field.IsStatic)
         {
-            throw new ArgumentException($"Expected a non-static field");
+            ThrowHelper.ThrowArgumentException($"Expected a non-static field");
         }
 
         ParameterExpression? objparam = Expression.ParameterOf<TObject>("obj");
@@ -95,11 +96,11 @@ public static class FastReflection
         }
         if (!typeof(TField).IsAssignableFrom(field.FieldType))
         {
-            throw new ArgumentException($"{typeof(TField).FullName} is not assignable from {field.FieldType.FullName}");
+            ThrowHelper.ThrowArgumentException($"{typeof(TField).FullName} is not assignable from {field.FieldType.FullName}");
         }
         if (!field.IsStatic)
         {
-            throw new ArgumentException($"Expected a static field");
+            ThrowHelper.ThrowArgumentException($"Expected a static field");
         }
 
         MemberExpression? fieldgetter = Expression.Field(null, field);
@@ -122,11 +123,11 @@ public static class FastReflection
         }
         if (!typeof(TField).IsAssignableTo(field.FieldType))
         {
-            throw new ArgumentException($"{typeof(TField).FullName} is not assignable to {field.FieldType.FullName}");
+            ThrowHelper.ThrowArgumentException($"{typeof(TField).FullName} is not assignable to {field.FieldType.FullName}");
         }
         if (!field.IsStatic)
         {
-            throw new ArgumentException($"Expected a static field");
+            ThrowHelper.ThrowArgumentException($"Expected a static field");
         }
 
         ParameterExpression? fieldval = Expression.ParameterOf<TField>("fieldval");
