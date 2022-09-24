@@ -21,6 +21,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Events\WeakEventManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\ILogger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\Logger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\RentedArrayHelpers\ShuffledYielder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\WeightedRandom\WeightedManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\CustomExceptions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\ArrayExtensions.cs" />
@@ -32,7 +33,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\GCHelperFunctions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\ObjectOverlay.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Reflection\FastReflection.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Reflection\GenerateInstanceMethodDelegate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Reflection\SimplifiedReflection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Shims\NetSeven\CharExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Shims\NetSix\IEnumerableShims.cs" />
@@ -52,5 +52,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Models\RentedArrayHelpers\" />
   </ItemGroup>
 </Project>

@@ -11,7 +11,7 @@ using System.Runtime.CompilerServices;
 using CommunityToolkit.Diagnostics;
 
 #if !NET7_0_OR_GREATER
-using AtraBase.Toolkit.Shims.NetSeven
+using AtraBase.Toolkit.Shims.NetSeven;
 #endif
 
 namespace AtraBase.Toolkit.StringHandler;
