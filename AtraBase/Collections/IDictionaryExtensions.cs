@@ -12,4 +12,3 @@ public static class IDictionaryExtensions
             && self.All((kvp) => other.TryGetValue(kvp.Key, out TValue? val) && val?.Equals(kvp.Value) == true);
     }
 }
-

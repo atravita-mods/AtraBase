@@ -1,4 +1,6 @@
-﻿using AtraBase.Toolkit.Extensions;
+﻿using System.Runtime.CompilerServices;
+
+using AtraBase.Toolkit.Extensions;
 
 namespace AtraBase.Toolkit.StringHandler;
 
@@ -210,6 +212,7 @@ FAIL:
     /// Tries to find the next location to split by.
     /// </summary>
     /// <returns>true if successful, false otherwise.</returns>
+    [MethodImpl(TKConstants.Hot)]
     private bool TryFindNext()
     {
         if (this.Finished)

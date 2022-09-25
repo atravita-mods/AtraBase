@@ -65,7 +65,10 @@ public static class IDictionaryExtensions
         TValue defaultValue)
     {
         // add the value to the dictionary if it doesn't exist.
-        dictionary.TryAdd(key, defaultValue);
+        if (dictionary.TryAdd(key, defaultValue))
+        {
+            return defaultValue;
+        }
         return dictionary[key];
     }
 

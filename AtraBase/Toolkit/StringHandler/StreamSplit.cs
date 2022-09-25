@@ -1,4 +1,6 @@
-﻿using AtraBase.Toolkit.Extensions;
+﻿using System.Runtime.CompilerServices;
+
+using AtraBase.Toolkit.Extensions;
 
 namespace AtraBase.Toolkit.StringHandler;
 
@@ -82,6 +84,7 @@ public ref struct StreamSplit
     /// Moves to the next value.
     /// </summary>
     /// <returns>True if the next value exists, false otherwise.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveOptimization)]
     public bool MoveNext()
     {
         while (true)
