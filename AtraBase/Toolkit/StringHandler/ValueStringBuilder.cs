@@ -16,6 +16,8 @@ using AtraBase.Toolkit.Shims.NetSeven;
 
 namespace AtraBase.Toolkit.StringHandler;
 
+#pragma warning disable SA1309 // Field names should not begin with underscore
+
 /// <summary>
 /// A variant of StringBuilder that tries not to allocate.
 /// Usage notes: **always** pass by ref. Best used when the 
@@ -307,5 +309,6 @@ internal ref struct ValueStringBuilder
             ArrayPool<char>.Shared.Return(toReturn);
         }
     }
-
 }
+
+#pragma warning restore SA1309 // Field names should not begin with underscore

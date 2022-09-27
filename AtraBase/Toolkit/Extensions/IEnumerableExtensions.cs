@@ -1,4 +1,6 @@
-﻿namespace AtraBase.Toolkit.Extensions;
+﻿using AtraBase.Internal;
+
+namespace AtraBase.Toolkit.Extensions;
 
 /// <summary>
 /// LINQ-like extensions on enumerables.
