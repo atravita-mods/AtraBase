@@ -20,7 +20,7 @@ namespace AtraBase.Toolkit.StringHandler;
 
 /// <summary>
 /// A variant of StringBuilder that tries not to allocate.
-/// Usage notes: **always** pass by ref. Best used when the 
+/// Usage notes: **always** pass by ref. Best used when the
 /// final capacity is known beforehand.
 /// Growing is very expensive.
 /// </summary>
@@ -30,6 +30,10 @@ internal ref struct ValueStringBuilder
     private Span<char> _chars;
     private int _pos;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ValueStringBuilder"/> struct.
+    /// </summary>
+    /// <param name="initialBuffer">The initial buffer to use.</param>
     public ValueStringBuilder(Span<char> initialBuffer)
     {
         this._arrayToReturnToPool = null;
@@ -37,6 +41,11 @@ internal ref struct ValueStringBuilder
         this._pos = 0;
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ValueStringBuilder"/> struct.
+    /// </summary>
+    /// <param name="initialCapacity">Initial capacity.</param>
+    /// <remarks>Always rents.</remarks>
     public ValueStringBuilder(int initialCapacity)
     {
         this._arrayToReturnToPool = ArrayPool<char>.Shared.Rent(initialCapacity);
@@ -54,7 +63,7 @@ internal ref struct ValueStringBuilder
     public void EnsureCapacity(int capacity)
     {
         // This is not expected to be called this with negative capacity
-        Debug.Assert(capacity >= 0);
+        Guard.IsGreaterThanOrEqualTo(capacity, 0);
 
         // If the caller has a bug and calls this with negative capacity, make sure to call Grow to throw an exception.
         if ((uint)capacity > (uint)this._chars.Length)
@@ -70,6 +79,7 @@ internal ref struct ValueStringBuilder
         }
     }
 
+    /// <inheritdoc/>
     public override string ToString()
     {
         string s = this._chars[..this._pos].ToString();
@@ -283,7 +293,7 @@ internal ref struct ValueStringBuilder
     [MethodImpl(MethodImplOptions.NoInlining)]
     private void Grow(int additionalCapacityBeyondPos)
     {
-        Debug.Assert(additionalCapacityBeyondPos > 0);
+        Guard.IsGreaterThan(additionalCapacityBeyondPos, 0);
         Debug.Assert(this._pos > this._chars.Length - additionalCapacityBeyondPos, "Grow called incorrectly, no resize is needed.");
 
         // Make sure to let Rent throw an exception if the caller has a bug and the desired capacity is negative
@@ -299,6 +309,9 @@ internal ref struct ValueStringBuilder
         }
     }
 
+    /// <summary>
+    /// Returns the rented array if any, sets all fields to default.
+    /// </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Dispose()
     {

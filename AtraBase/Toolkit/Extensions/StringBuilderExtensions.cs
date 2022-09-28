@@ -5,7 +5,7 @@ namespace AtraBase.Toolkit.Extensions;
 /// <summary>
 /// Extensions on StringBuilder.
 /// </summary>
-/// <remarks>Mostly taken from https://github.com/copernicus365/DotNetXtensions/blob/master/DotNetXtensions/src/XStringBuilder.cs 
+/// <remarks>Mostly taken from https://github.com/copernicus365/DotNetXtensions/blob/master/DotNetXtensions/src/XStringBuilder.cs .
 /// Which is licenced MIT, by https://github.com/copernicus365 .</remarks>
 public static class StringBuilderExtensionss
 {
@@ -73,8 +73,9 @@ public static class StringBuilderExtensionss
     /// <summary>
     /// Trims whitespace from the start of a stringbuilder.
     /// </summary>
-    /// <param name="sb"></param>
-    /// <returns></returns>
+    /// <param name="sb">Stringbuilder.</param>
+    /// <returns>Trimmed stringbuilder.</returns>
+    /// <remarks>The design of sb makes this not very performant. Be careful.</remarks>
     [return: NotNullIfNotNull("sb")]
     public static StringBuilder? TrimStart(this StringBuilder sb)
     {
@@ -109,6 +110,7 @@ public static class StringBuilderExtensionss
     /// <param name="sb">stringbuilder.</param>
     /// <param name="ch">character to trim.</param>
     /// <returns>the stringbuilder.</returns>
+    /// <remarks>The design of sb makes this not very performant. Be careful.</remarks>
     [return: NotNullIfNotNull("sb")]
     public static StringBuilder? TrimStart(this StringBuilder sb, char ch)
     {

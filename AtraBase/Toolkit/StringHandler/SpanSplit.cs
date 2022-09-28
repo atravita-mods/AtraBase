@@ -170,6 +170,7 @@ FAIL:
         return false;
     }
 
+
     /**********************
      * REGION ENUMERATOR METHODS
      * ********************/
@@ -177,6 +178,7 @@ FAIL:
     /// <summary>
     /// Gets the current value - for Enumerator.
     /// </summary>
+    [SuppressMessage("StyleCop.CSharp.OrderingRules", "SA1201:Elements should appear in the correct order", Justification = "Keep enumerator members close.")]
     public SpanSplitEntry Current { get; private set; } = default;
 
     /// <summary>
