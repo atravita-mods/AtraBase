@@ -31,6 +31,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\StringBuilderExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\StringExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\GCHelperFunctions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Hashing.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\ObjectOverlay.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Reflection\FastReflection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Reflection\SimplifiedReflection.cs" />

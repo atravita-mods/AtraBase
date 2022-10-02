@@ -427,7 +427,6 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
         GC.SuppressFinalize(this);
     }
 
-
     /// <summary>
     /// Called when this is disposed.
     /// This is primarily used to dispose of the internal timer.

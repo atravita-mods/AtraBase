@@ -295,7 +295,7 @@ public class BiHeap<T> : ICollection<T>
 
     private void Heapify()
     {
-        for (int i = this.count / 2 - 1; i >= 0; i--)
+        for (int i = (this.count / 2) - 1; i >= 0; i--)
         {
             T value = this.heap[i];
             int leaf = this.SiftGapDown(i);

@@ -1,8 +1,7 @@
 ﻿/* The following file was mostly copied with minimal changes
  * from https://github.com/dotnet/runtime/blob/main/src/libraries/Common/src/System/Text/ValueStringBuilder.cs
  * and is licensed MIT by the .NET foundation.
- 
- Any additional code has been marked.*/
+ * Any additional code has been marked.*/
 
 using System.Buffers;
 using System.Diagnostics;
@@ -17,6 +16,7 @@ using AtraBase.Toolkit.Shims.NetSeven;
 namespace AtraBase.Toolkit.StringHandler;
 
 #pragma warning disable SA1309 // Field names should not begin with underscore
+#pragma warning disable SA1201 // Elements should appear in the correct order
 
 /// <summary>
 /// A variant of StringBuilder that tries not to allocate.
@@ -325,3 +325,4 @@ internal ref struct ValueStringBuilder
 }
 
 #pragma warning restore SA1309 // Field names should not begin with underscore
+#pragma warning restore SA1201 // Elements should appear in the correct order
