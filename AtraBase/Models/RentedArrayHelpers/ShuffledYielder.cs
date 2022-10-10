@@ -6,7 +6,7 @@
 public static class ShuffleExtensions
 {
     public static ShuffledYielder<T> Shuffled<T>(this Span<T> span, int? count, Random? random)
-        where T: struct
+        where T : struct
         => new(span, count, random);
 }
 

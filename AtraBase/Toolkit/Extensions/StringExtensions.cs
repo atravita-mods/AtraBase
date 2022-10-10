@@ -16,6 +16,7 @@ public static class StringExtensions
     /// <param name="count">N.</param>
     /// <returns>Index of the char, or -1 if not found.</returns>
     [Pure]
+    [MethodImpl(TKConstants.Hot)]
     public static int NthOccuranceOf(this string str, char item, int count = 1)
     {
         for (int i = 0; i < str.Length; i++)
@@ -36,6 +37,7 @@ public static class StringExtensions
     /// <param name="count">N.</param>
     /// <returns>Index of the char, or -1 if not found.</returns>
     [Pure]
+    [MethodImpl(TKConstants.Hot)]
     public static int NthOccuranceFromEnd(this string str, char item, int count = 1)
     {
         for (int i = str.Length - 1; i >= 0; i--)
@@ -56,6 +58,7 @@ public static class StringExtensions
     /// <param name="index">index of the chunk to get.</param>
     /// <returns>a readonlyspan char with the chunk, or an empty readonlyspan for failure.</returns>
     [Pure]
+    [MethodImpl(TKConstants.Hot)]
     public static ReadOnlySpan<char> GetNthChunk(this string str, char deliminator, int index = 0)
         => str.GetNthChunk(new[] { deliminator }, index);
 
@@ -68,6 +71,7 @@ public static class StringExtensions
     /// <returns>a readonlyspan char with the chunk, or an empty readonlyspan for failure.</returns>
     /// <remarks>Inspired by the lovely Wren.</remarks>
     [Pure]
+    [MethodImpl(TKConstants.Hot)]
     public static ReadOnlySpan<char> GetNthChunk(this string str, char[] deliminators, int index = 0)
     {
         Guard.IsBetweenOrEqualTo(index, 0, str.Length + 1, nameof(index));
