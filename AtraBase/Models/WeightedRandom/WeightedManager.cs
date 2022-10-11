@@ -51,27 +51,74 @@ public class WeightedManager<T>
         }
     }
 
+    /// <summary>
+    /// Gets the number of elements for this weighted list.
+    /// </summary>
+    public int Count => this.items.Count;
+
     public void Add(WeightedItem<T> item)
     {
-        this.Reset();
-        this.items.Add(item);
+        if (item.Weight > 0)
+        {
+            this.Reset();
+            this.items.Add(item);
+        }
     }
 
+    /// <summary>
+    /// Adds an element to the weighted manager.
+    /// </summary>
+    /// <param name="weight">Weight to use.</param>
+    /// <param name="item">Item to add.</param>
+    public void Add(double weight, T item)
+    {
+        if (weight > 0)
+        {
+            this.Reset();
+            this.items.Add(new WeightedItem<T>(weight, item));
+        }
+    }
+
+    /// <summary>
+    /// Adds a range of items to the weighted manager.
+    /// </summary>
+    /// <param name="items">IEnumerable of items.</param>
     public void AddRange(IEnumerable<WeightedItem<T>> items)
     {
         this.Reset();
-        this.items.AddRange(items);
+        this.items.AddRange(items.Where(item => item.Weight > 0));
     }
 
+    /// <summary>
+    /// Resets pre-calculated array of chances.
+    /// </summary>
     public void Reset()
         => this.processedChances = null;
 
+    /// <summary>
+    /// Clears both the items list and the processed chances.
+    /// </summary>
+    public void Clear()
+    {
+        this.items.Clear();
+        this.Reset();
+    }
+
+    /// <summary>
+    /// Removes a specific item.
+    /// </summary>
+    /// <param name="item">Item to remove.</param>
+    /// <returns>If an item was removed at all.</returns>
     public bool Remove(WeightedItem<T> item)
     {
         this.Reset();
         return this.items.Remove(item);
     }
 
+    /// <summary>
+    /// Removes the element at the specified index.
+    /// </summary>
+    /// <param name="index">Index to remove at.</param>
     public void RemoveAt(int index)
     {
         this.Reset();
