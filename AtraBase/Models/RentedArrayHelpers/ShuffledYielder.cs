@@ -10,6 +10,11 @@ public static class ShuffleExtensions
         => new(span, count, random);
 }
 
+/// <summary>
+/// Modified fisher-yates shuffle that yields out one item at a time.
+/// </summary>
+/// <typeparam name="T">The type of thing to yield.</typeparam>
+/// <remarks>Built for use with rented arrays.</remarks>
 public ref struct ShuffledYielder<T>
     where T : struct
 {
@@ -30,9 +35,12 @@ public ref struct ShuffledYielder<T>
         this.random = random ?? new();
     }
 
-    public ShuffledYielder<T> GetEnumerator() => this;
-
+    /// <summary>
+    /// A reference to the current value.
+    /// </summary>
     public T Current { get; private set; } = default;
+
+    public ShuffledYielder<T> GetEnumerator() => this;
 
     public bool MoveNext()
     {

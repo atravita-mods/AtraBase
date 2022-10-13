@@ -60,7 +60,35 @@ public static class StringExtensions
     [Pure]
     [MethodImpl(TKConstants.Hot)]
     public static ReadOnlySpan<char> GetNthChunk(this string str, char deliminator, int index = 0)
-        => str.GetNthChunk(new[] { deliminator }, index);
+    {
+        Guard.IsBetweenOrEqualTo(index, 0, str.Length + 1, nameof(index));
+
+        int start = 0;
+        int ind = 0;
+        while (index-- >= 0)
+        {
+            ind = str.IndexOf(deliminator, start);
+            if (ind == -1)
+            {
+                // since we've previously decremented index, check against -1;
+                // this means we're done.
+                if (index == -1)
+                {
+                    return str.AsSpan()[start..];
+                }
+
+                // else, we've run out of entries
+                // and return an empty span to mark as failure.
+                return ReadOnlySpan<char>.Empty;
+            }
+
+            if (index > -1)
+            {
+                start = ind + 1;
+            }
+        }
+        return str.AsSpan()[start..ind];
+    }
 
     /// <summary>
     /// Faster replacement for str.Split()[index];.
