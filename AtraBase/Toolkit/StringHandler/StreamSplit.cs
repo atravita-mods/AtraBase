@@ -117,13 +117,13 @@ public ref struct StreamSplit
                     this.remainder.Slice(index, 2).Equals("\r\n", StringComparison.Ordinal))
                 {
                     splitchar = this.remainder.Slice(index, 2);
-                    word = this.remainder[..Math.Max(0, index)];
+                    word = this.remainder[..index];
                     this.remainder = this.remainder[(index + 2)..];
                 }
                 else
                 {
                     splitchar = this.remainder.Slice(index, 1);
-                    word = this.remainder[..Math.Max(0, index)];
+                    word = this.remainder[..index];
                     this.remainder = this.remainder[(index + 1)..];
                 }
             }
