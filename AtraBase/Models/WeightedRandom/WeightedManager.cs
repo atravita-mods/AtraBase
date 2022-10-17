@@ -3,7 +3,7 @@
 namespace AtraBase.Models.WeightedRandom;
 
 [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1313:Parameter names should begin with lower-case letter", Justification = "Stylecop doesn't understand records.")]
-public record struct WeightedItem<T>(double Weight, T Item);
+public readonly record struct WeightedItem<T>(double Weight, T Item);
 
 /// <summary>
 /// Wraps a list of weighted items in order to quickly produce values.
@@ -174,6 +174,8 @@ public class WeightedManager<T>
             index = ~index - 1;
         }
 
+        // try not to leak memory.
+        Array.Clear(weights, 0,  this.items.Count);
         ArrayPool<double>.Shared.Return(weights);
 
         return this.items[index].Item;
