@@ -27,6 +27,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\ArrayExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\IDictionaryExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\IListExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\RandomExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\SpanExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\StringBuilderExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\StringExtensions.cs" />
