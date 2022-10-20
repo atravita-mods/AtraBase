@@ -1,5 +1,7 @@
 ﻿using System.Buffers;
 
+using AtraBase.Toolkit.Extensions;
+
 namespace AtraBase.Models.WeightedRandom;
 
 [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1313:Parameter names should begin with lower-case letter", Justification = "Stylecop doesn't understand records.")]
@@ -31,6 +33,11 @@ public class WeightedManager<T>
         => this.items.AddRange(items);
 
     /// <summary>
+    /// Gets the number of elements for this weighted list.
+    /// </summary>
+    public int Count => this.items.Count;
+
+    /// <summary>
     /// Gets the random instance for this manager.
     /// Creates it and warms it up if necessary.
     /// </summary>
@@ -41,20 +48,11 @@ public class WeightedManager<T>
             if (this.random is null)
             {
                 this.random = new();
-                int warmup = this.random.Next(10, 30);
-                for (int i = 0; i < warmup; i++)
-                {
-                    _ = this.random.NextDouble();
-                }
+                this.random.PreWarm();
             }
             return this.random;
         }
     }
-
-    /// <summary>
-    /// Gets the number of elements for this weighted list.
-    /// </summary>
-    public int Count => this.items.Count;
 
     public void Add(WeightedItem<T> item)
     {
