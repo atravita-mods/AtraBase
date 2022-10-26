@@ -15,7 +15,7 @@ namespace AtraBase.Collections;
 /// while writing this.
 ///
 /// Dotnet impl: https://referencesource.microsoft.com/#PresentationCore/Shared/MS/Internal/PriorityQueue.cs
-/// Python impl: https://github.com/python/cpython/blob/3.10/Lib/heapq.py </remarks>
+/// Python impl: https://github.com/python/cpython/blob/3.10/Lib/heapq.py .</remarks>
 public class BiHeap<T> : ICollection<T>
     where T : notnull, IEquatable<T>
 {
@@ -43,7 +43,7 @@ public class BiHeap<T> : ICollection<T>
     {
         Guard.IsGreaterThan(capacity, 0);
 
-        this.heap = new T[capacity];
+        this.heap = GC.AllocateUninitializedArray<T>(capacity);
         this.comparer = Comparer<T>.Default;
     }
 
@@ -127,10 +127,7 @@ public class BiHeap<T> : ICollection<T>
 
     public void Add(T item)
     {
-        if (item is null)
-        {
-            ThrowHelper.ThrowArgumentNullException(nameof(item));
-        }
+        Guard.IsNotNull(item);
 
         this.ExpandHeapIfNeeded();
         this.SiftUp(this.count, 0, ref item);
@@ -139,10 +136,7 @@ public class BiHeap<T> : ICollection<T>
 
     public void AddRange(IList<T> items)
     {
-        if (items is null)
-        {
-            ThrowHelper.ThrowArgumentNullException(nameof(items));
-        }
+        Guard.IsNotNull(items);
 
         this.ExpandHeapIfNeeded(items.Count);
 
@@ -215,10 +209,7 @@ public class BiHeap<T> : ICollection<T>
     /// <returns>Old value.</returns>
     public T PushPop(T item)
     {
-        if (item is null)
-        {
-            ThrowHelper.ThrowArgumentNullException(nameof(item));
-        }
+        Guard.IsNotNull(item);
 
         if (this.count == 0)
         {
@@ -230,10 +221,7 @@ public class BiHeap<T> : ICollection<T>
 
     public T Replace(T item)
     {
-        if (item is null)
-        {
-            ThrowHelper.ThrowArgumentNullException(nameof(item));
-        }
+        Guard.IsNotNull(item);
 
         T? ret = this.heap[0];
         int leaf = this.SiftGapDown(0);
@@ -253,10 +241,7 @@ public class BiHeap<T> : ICollection<T>
 
     public bool Remove(T item)
     {
-        if (item is null)
-        {
-            ThrowHelper.ThrowArgumentNullException(nameof(item));
-        }
+        Guard.IsNotNull(item);
 
         for (int i = this.count - 1; i >= 0; i--)
         {
@@ -291,6 +276,7 @@ public class BiHeap<T> : ICollection<T>
 
     // right child is just left child + 1
     private static int GetLeftChild(int index) => (index * 2) + 1;
+
     private static int GetParent(int index) => (index - 1) / 2;
 
     private void Heapify()
@@ -321,7 +307,7 @@ public class BiHeap<T> : ICollection<T>
         if (items is ICollection collection)
         {
             this.count = collection.Count;
-            this.heap = new T[this.Count];
+            this.heap = GC.AllocateUninitializedArray<T>(this.Count);
             collection.CopyTo(this.heap, 0);
             return this.count;
         }
