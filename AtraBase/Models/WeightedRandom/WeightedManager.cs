@@ -23,7 +23,9 @@ public class WeightedManager<T>
     /// <summary>
     /// Initializes a new instance of the <see cref="WeightedManager{T}"/> class.
     /// </summary>
-    public WeightedManager() { }
+    public WeightedManager()
+    {
+    }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="WeightedManager{T}"/> class.
