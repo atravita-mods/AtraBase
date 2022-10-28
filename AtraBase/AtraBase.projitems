@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Caching\SimpleConcurrentCache.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collections\ArrayExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Collections\BiHeap.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Collections\BiMap.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Collections\Counter.cs" />
