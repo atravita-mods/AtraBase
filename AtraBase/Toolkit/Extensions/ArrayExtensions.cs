@@ -4,6 +4,9 @@ using CommunityToolkit.Diagnostics;
 
 namespace AtraBase.Toolkit.Extensions;
 
+/// <summary>
+/// Extensions for use for arrays.
+/// </summary>
 public static class ArrayExtensions
 {
     /// <summary>
@@ -11,10 +14,11 @@ public static class ArrayExtensions
     /// relevant.
     /// </summary>
     /// <typeparam name="T">Type of array.</typeparam>
-    /// <param name="array"></param>
-    /// <param name="random"></param>
-    /// <param name="count"></param>
+    /// <param name="array">The array to shuffle.</param>
+    /// <param name="random">The random to use.</param>
+    /// <param name="count">The number of relevant elements.</param>
     /// <remarks>This is for use in array pools.</remarks>
+    [MethodImpl(MethodImplOptions.AggressiveOptimization)]
     public static void Shuffle<T>(this T[] array, Random random, int? count = null)
     {
         Guard.IsNotNull(array);
@@ -34,6 +38,12 @@ public static class ArrayExtensions
         }
     }
 
+    /// <summary>
+    /// Copies a collection to an rented array.
+    /// </summary>
+    /// <typeparam name="T">Type param.</typeparam>
+    /// <param name="collection">The collection to copy.</param>
+    /// <returns>A rented array and the number of relevant items.</returns>
     [MethodImpl(TKConstants.Hot)]
     public static (T[] array, int count) ToRentedArray<T>(this ICollection<T> collection)
     {
@@ -55,7 +65,7 @@ public static class ArrayExtensions
         {
             int count = 0;
             T[] array = ArrayPool<T>.Shared.Rent(16);
-            foreach (var item in sequence)
+            foreach (T? item in sequence)
             {
                 if (array.Length == count)
                 {

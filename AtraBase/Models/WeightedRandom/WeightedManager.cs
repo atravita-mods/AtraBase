@@ -1,4 +1,5 @@
 ﻿using System.Buffers;
+using System.Runtime.CompilerServices;
 
 using AtraBase.Toolkit.Extensions;
 
@@ -125,6 +126,12 @@ public class WeightedManager<T>
         this.items.RemoveAt(index);
     }
 
+    /// <summary>
+    /// Gets a single value from this weighted manager.
+    /// </summary>
+    /// <param name="random">The random to use.</param>
+    /// <returns>value.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveOptimization)]
     public T GetValue(Random? random = null)
     {
         random ??= this.Random;

@@ -61,6 +61,10 @@ public class BiHeap<T> : ICollection<T>
         this.comparer = comparer;
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BiHeap{T}"/> class with a default comparer.
+    /// </summary>
+    /// <param name="values">Initial values.</param>
     public BiHeap(IEnumerable<T> values)
     {
         Guard.IsNotNull(values);

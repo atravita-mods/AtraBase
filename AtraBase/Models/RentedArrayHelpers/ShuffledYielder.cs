@@ -1,10 +1,20 @@
-﻿namespace AtraBase.Models.RentedArrayHelpers;
+﻿using System.Runtime.CompilerServices;
+
+namespace AtraBase.Models.RentedArrayHelpers;
 
 /// <summary>
 /// Extensions for ShuffledYielder.
 /// </summary>
 public static class ShuffleExtensions
 {
+    /// <summary>
+    /// Modified fisher-yates shuffle that yields a single element at a time.
+    /// </summary>
+    /// <typeparam name="T">type param.</typeparam>
+    /// <param name="span">Span to shuffle.</param>
+    /// <param name="count">Count of the relevant items.</param>
+    /// <param name="random">Random to use (null for a new one).</param>
+    /// <returns>A ShuffleYielder ref enumerator.</returns>
     public static ShuffledYielder<T> Shuffled<T>(this Span<T> span, int? count, Random? random)
         where T : struct
         => new(span, count, random);
@@ -35,13 +45,17 @@ public ref struct ShuffledYielder<T>
         this.random = random ?? new();
     }
 
-    /// <summary>
-    /// A reference to the current value.
-    /// </summary>
+    /// <inheritdoc cref="IEnumerator{T}.Current"/>
     public T Current { get; private set; } = default;
 
+    /// <inheritdoc cref="IEnumerable{T}.GetEnumerator"/>
     public ShuffledYielder<T> GetEnumerator() => this;
 
+    /// <summary>
+    /// Moves to the next value in the collection.
+    /// </summary>
+    /// <returns>True if there are more values, false otherwise.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveOptimization)]
     public bool MoveNext()
     {
         if (this.index < 0)
