@@ -15,6 +15,7 @@ public static class NumberExtensions
     /// <param name="margin">Margin.</param>
     /// <returns>True if within the margin, false otherwise.</returns>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveOptimization)]
     public static bool WithinMargin(this float val, float otherval, float margin = 0.01f)
         => Math.Abs(val - otherval) <= margin;
 
@@ -26,6 +27,7 @@ public static class NumberExtensions
     /// <param name="margin">Margin.</param>
     /// <returns>True if within the margin, false otherwise.</returns>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveOptimization)]
     public static bool WithinMargin(this double val, double otherval, double margin = 0.01)
         => Math.Abs(val - otherval) <= margin;
 
@@ -37,6 +39,7 @@ public static class NumberExtensions
     /// <param name="margin">Margin.</param>
     /// <returns>True if within the margin, false otherwise.</returns>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveOptimization)]
     public static bool WithinMargin(this decimal val, decimal otherval, decimal margin = 0.01M)
         => Math.Abs(val - otherval) <= margin;
 
@@ -49,6 +52,7 @@ public static class NumberExtensions
     /// <returns>Integer.</returns>
     /// <remarks>Rounds to even.</remarks>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveOptimization)]
     public static int ToIntPrecise(this float val)
         => (int)MathF.Round(val, MidpointRounding.ToEven);
 
@@ -59,6 +63,7 @@ public static class NumberExtensions
     /// <returns>Integer.</returns>
     /// <remarks>Rounds to even.</remarks>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveOptimization)]
     public static int ToIntPrecise(this double val)
         => (int)Math.Round(val, MidpointRounding.ToEven);
 
@@ -69,6 +74,7 @@ public static class NumberExtensions
     /// <returns>Integer.</returns>
     /// <remarks>Rounds to even.</remarks>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveOptimization)]
     public static int ToIntPrecise(this decimal val)
         => (int)Math.Round(val, MidpointRounding.ToEven);
 

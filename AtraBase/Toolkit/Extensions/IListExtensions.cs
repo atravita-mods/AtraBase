@@ -1,4 +1,6 @@
-﻿namespace AtraBase.Toolkit.Extensions;
+﻿using System.Runtime.CompilerServices;
+
+namespace AtraBase.Toolkit.Extensions;
 
 /// <summary>
 /// Extensions on IList.
@@ -14,6 +16,7 @@ public static class IListExtensions
     /// <param name="count">N.</param>
     /// <returns>Index of the thing, or -1 if not found.</returns>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveOptimization)]
     public static int NthOccuranceOf<T>(this IList<T> list, T item, int count = 1)
         where T : IEquatable<T>
     {
@@ -33,6 +36,7 @@ public static class IListExtensions
     /// <typeparam name="T">Type of list.</typeparam>
     /// <param name="list">List to clear nulls from.</param>
     /// <remarks>Clears in-place.</remarks>
+    [MethodImpl(MethodImplOptions.AggressiveOptimization)]
     public static void ClearNulls<T>(this IList<T> list)
     {
         // clear all nulls from the end first.

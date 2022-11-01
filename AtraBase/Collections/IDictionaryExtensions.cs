@@ -5,6 +5,7 @@ namespace AtraBase.Collections;
 public static class IDictionaryExtensions
 {
     public static bool IsEquivalentTo<TKey, TValue>(this IDictionary<TKey, TValue> self, IDictionary<TKey, TValue> other)
+        where TValue : IEquatable<TValue>
     {
         Guard.IsNotNull(self);
         Guard.IsNotNull(other);
