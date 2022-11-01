@@ -31,6 +31,8 @@ public ref struct StreamSplit
     private readonly StringSplitOptions options;
     private ReadOnlySpan<char> remainder;
 
+    #region constructors
+
     /// <summary>
     /// Initializes a new instance of the <see cref="StreamSplit"/> struct.
     /// </summary>
@@ -53,11 +55,23 @@ public ref struct StreamSplit
     {
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StreamSplit"/> struct.
+    /// </summary>
+    /// <param name="str">span to split.</param>
+    /// <param name="splitchar">character to split by.</param>
+    /// <param name="options">split options.</param>
     public StreamSplit(ReadOnlySpan<char> str, char splitchar, StringSplitOptions options = StringSplitOptions.None)
         : this(str, new[] { splitchar }, options)
     {
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StreamSplit"/> struct.
+    /// </summary>
+    /// <param name="str">span to split.</param>
+    /// <param name="splitchars">characters to split by, or null to split by whitespace.</param>
+    /// <param name="options">split options.</param>
     public StreamSplit(ReadOnlySpan<char> str, char[]? splitchars = null, StringSplitOptions options = StringSplitOptions.None)
     {
         this.remainder = str;
@@ -65,9 +79,9 @@ public ref struct StreamSplit
         this.options = options;
     }
 
-    /***************
-     * REGION ENUMERATOR METHODS
-     * *************/
+    #endregion
+
+    #region enumeratorMethods
 
     /// <summary>
     /// Gets the current value - for Enumerator.
@@ -139,4 +153,6 @@ public ref struct StreamSplit
             return true;
         }
     }
+
+    #endregion
 }
