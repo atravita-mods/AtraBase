@@ -7,7 +7,7 @@ namespace AtraBase.Toolkit.Extensions;
 /// </summary>
 /// <remarks>Mostly taken from https://github.com/copernicus365/DotNetXtensions/blob/master/DotNetXtensions/src/XStringBuilder.cs .
 /// Which is licenced MIT, by https://github.com/copernicus365 .</remarks>
-public static class StringBuilderExtensionss
+public static class StringBuilderExtensions
 {
     /// <summary>
     /// Trims whitespace from the end of a stringbuilder.
