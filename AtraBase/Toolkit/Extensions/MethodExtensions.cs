@@ -46,6 +46,6 @@ public static class PropertyInfoExtensions
         {
             return ThrowHelper.ThrowInvalidOperationException<bool>("This property appears to be mangled.");
         }
-        return (property.GetGetMethod()?.IsStatic == true) || (property.GetSetMethod()?.IsStatic == true);
+        return (property.GetGetMethod(true)?.IsStatic == true) || (property.GetSetMethod(true)?.IsStatic == true);
     }
 }
