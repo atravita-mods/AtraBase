@@ -348,7 +348,7 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
     /// <summary>
     /// Attempts to add a value to the hot cache.
     /// </summary>
-    /// <param name="item">kvp pair.</param>
+    /// <param name="item">Key Value Pair.</param>
     /// <returns>If successfully added.</returns>
     public bool TryAdd(KeyValuePair<TKey, TValue> item)
         => this.cache.TryAdd(item.Key, item.Value);
@@ -366,7 +366,7 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
     /// If either cache contains the item.
     /// </summary>
     /// <param name="item">Item to search for.</param>
-    /// <returns>If the kvp can be found in either cache.</returns>
+    /// <returns>If the KVP can be found in either cache.</returns>
     /// <remarks>Likely O(n).</remarks>
     public bool Contains(KeyValuePair<TKey, TValue> item)
         => this.cache.Contains(item) || this.stale.Contains(item);
@@ -404,7 +404,7 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
     /// Tries to get a value from this cache.
     /// </summary>
     /// <param name="key">Key to look for.</param>
-    /// <param name="value">Out param, returned value.</param>
+    /// <param name="value">Out parameter, returned value.</param>
     /// <returns>True if successful, false otherwise.</returns>
     public bool TryGetValue(TKey key, [MaybeNullWhen(false)] out TValue value)
     {

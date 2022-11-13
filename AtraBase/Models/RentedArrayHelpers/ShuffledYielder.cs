@@ -8,7 +8,7 @@ namespace AtraBase.Models.RentedArrayHelpers;
 public static class ShuffleExtensions
 {
     /// <summary>
-    /// Modified fisher-yates shuffle that yields a single element at a time.
+    /// Modified Fisher-Yates shuffle that yields a single element at a time.
     /// </summary>
     /// <typeparam name="T">type param.</typeparam>
     /// <param name="span">Span to shuffle.</param>
@@ -21,7 +21,7 @@ public static class ShuffleExtensions
 }
 
 /// <summary>
-/// Modified fisher-yates shuffle that yields out one item at a time.
+/// Modified Fisher-Yates shuffle that yields out one item at a time.
 /// </summary>
 /// <typeparam name="T">The type of thing to yield.</typeparam>
 /// <remarks>Built for use with rented arrays.</remarks>
