@@ -31,6 +31,15 @@ public ref struct SpanSplit
     /// <param name="expectedCount">The expected number of splits.</param>
     public SpanSplit(ReadOnlySpan<char> str, char[]? splitchars = null, StringSplitOptions options = StringSplitOptions.None, int? expectedCount = null)
     {
+        if (options.HasFlag(StringSplitOptions.RemoveEmptyEntries))
+        {
+            str = TrimSplitCharFromStart(str, splitchars);
+            if (options.HasFlag(StringSplitOptions.TrimEntries))
+            {
+                str = str.Trim();
+            }
+        }
+
         this.remainder = this.str = str;
         this.splitchars = splitchars;
         this.options = options;
@@ -170,7 +179,6 @@ FAIL:
         return false;
     }
 
-
     /**********************
      * REGION ENUMERATOR METHODS
      * ********************/
@@ -226,14 +234,8 @@ FAIL:
         int end;
         while (true)
         {
-            if (this.splitchars is null)
-            { // null = we're splitting by whitespace.
-                index = this.remainder.GetIndexOfWhiteSpace();
-            }
-            else
-            {
-                index = this.remainder.IndexOfAny(this.splitchars);
-            }
+            // null = we're splitting by whitespace.
+            index = this.splitchars is null ? this.remainder.GetIndexOfWhiteSpace() : this.remainder.IndexOfAny(this.splitchars);
 
             start = this.lastSearchPos;
             if (index < 0)
@@ -247,6 +249,13 @@ FAIL:
                 end = this.lastSearchPos + index - 1;
                 this.lastSearchPos += index + 1;
                 this.remainder = this.str[this.lastSearchPos..];
+
+                // Remove extra split chars from start.
+                if (this.options.HasFlag(StringSplitOptions.RemoveEmptyEntries))
+                {
+                    this.remainder = TrimSplitCharFromStart(this.remainder, this.splitchars);
+                    this.lastSearchPos = this.str.Length - this.remainder.Length;
+                }
             }
             if (this.options.HasFlag(StringSplitOptions.TrimEntries))
             {
@@ -284,4 +293,7 @@ FAIL:
             end--;
         }
     }
+
+    private static ReadOnlySpan<char> TrimSplitCharFromStart(ReadOnlySpan<char> str, char[]? splitchars)
+        => splitchars is null ? str.TrimStart() : str.TrimStart(splitchars);
 }

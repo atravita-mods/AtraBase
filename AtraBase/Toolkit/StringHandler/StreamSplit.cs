@@ -77,8 +77,16 @@ public ref struct StreamSplit
         this.remainder = str;
         this.splitchars = splitchars;
         this.options = options;
-    }
+        if (options.HasFlag(StringSplitOptions.RemoveEmptyEntries))
+        {
+            this.TrimSplitCharFromStart();
 
+            if (options.HasFlag(StringSplitOptions.TrimEntries))
+            {
+                this.remainder = this.remainder.Trim();
+            }
+        }
+    }
     #endregion
 
     #region enumeratorMethods
@@ -145,14 +153,25 @@ public ref struct StreamSplit
             {
                 word = word.Trim();
             }
-            if (this.options.HasFlag(StringSplitOptions.RemoveEmptyEntries) & word.Length == 0)
+            if (this.options.HasFlag(StringSplitOptions.RemoveEmptyEntries))
             {
-                continue;
+                this.TrimSplitCharFromStart();
+                if (word.Length == 0)
+                {
+                    continue;
+                }
             }
             this.Current = new SpanSplitEntry(word, splitchar);
             return true;
         }
     }
+
+    #endregion
+
+    #region helpers
+
+    private void TrimSplitCharFromStart()
+        => this.remainder = this.splitchars is null ? this.remainder.TrimStart() : this.remainder.TrimStart(this.splitchars);
 
     #endregion
 }
