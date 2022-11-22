@@ -91,7 +91,7 @@ public class WeightedManager<T>
     }
 
     /// <summary>
-    /// Resets pre-calculated array of chances.
+    /// Resets the precalculated array of chances.
     /// </summary>
     public void Reset()
         => this.processedChances = null;
@@ -132,8 +132,13 @@ public class WeightedManager<T>
     /// <param name="random">The random to use.</param>
     /// <returns>value.</returns>
     [MethodImpl(MethodImplOptions.AggressiveOptimization)]
-    public T GetValue(Random? random = null)
+    public T? GetValue(Random? random = null)
     {
+        if (this.items.Count == 0)
+        {
+            return default;
+        }
+
         random ??= this.Random;
 
         if (this.processedChances is null || this.processedChances.Length != this.items.Count)
@@ -153,8 +158,13 @@ public class WeightedManager<T>
         return this.items[index].Item;
     }
 
-    public T GetValueUncached(Random? random = null)
+    public T? GetValueUncached(Random? random = null)
     {
+        if (this.items.Count == 0)
+        {
+            return default;
+        }
+
         random ??= this.Random;
 
         // The values are cached already just use that.
