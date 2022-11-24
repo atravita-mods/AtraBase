@@ -37,8 +37,13 @@ public static class IListExtensions
     /// <param name="list">List to clear nulls from.</param>
     /// <remarks>Clears in-place.</remarks>
     [MethodImpl(MethodImplOptions.AggressiveOptimization)]
-    public static void ClearNulls<T>(this IList<T> list)
+    public static void ClearNulls<T>(this IList<T>? list)
     {
+        if (list?.Count is 0 or null)
+        {
+            return;
+        }
+
         // clear all nulls from the end first.
         for (int i = list.Count - 1; i >= 0; i--)
         {
