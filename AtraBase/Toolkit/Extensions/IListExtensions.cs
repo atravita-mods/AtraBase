@@ -8,7 +8,7 @@ namespace AtraBase.Toolkit.Extensions;
 public static class IListExtensions
 {
     /// <summary>
-    /// Gets the Nth occurance of a specific thing a list.
+    /// Gets the Nth occurrence of a specific thing a list.
     /// </summary>
     /// <typeparam name="T">Type of the list.</typeparam>
     /// <param name="list">List to search in.</param>
@@ -65,7 +65,7 @@ public static class IListExtensions
                 // swap with last element.
                 (list[i], list[count - 1]) = (list[count - 1], list[i]);
 
-                // remove last element
+                // remove last element.
                 list.RemoveAt(count - 1);
 
                 // reduce.
