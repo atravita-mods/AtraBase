@@ -25,6 +25,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\RentedArrayHelpers\ShuffledYielder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\WeightedRandom\WeightedManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\CustomExceptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\EventUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\ArrayExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\IDictionaryExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\IListExtensions.cs" />
