@@ -20,8 +20,10 @@ public static class EventUtils
     /// <param name="handlers">Listeners.</param>
     /// <param name="sender">Sending instance, or null for none.</param>
     /// <param name="name">Name (for logging).</param>
-    public static void RaiseSafe(this Delegate[]? handlers, object? sender, [CallerMemberName] string name = "")
+    public static void RaiseSafe(this EventHandler evt, object? sender, [CallerArgumentExpression("evt")] string name = "")
     {
+        Delegate[]? handlers = evt.GetInvocationList();
+
         if (handlers?.Length is null or 0)
         {
             return;
@@ -51,8 +53,10 @@ public static class EventUtils
     /// <param name="sender">Sender of the event, or null for none.</param>
     /// <param name="args">Event arguments.</param>
     /// <param name="name">Name (for logging).</param>
-    public static void RaiseSafe<TEventArgs>(this Delegate[]? handlers, object? sender, TEventArgs args, [CallerMemberName] string name = "")
+    public static void RaiseSafe<TEventArgs>(this EventHandler<TEventArgs> evt, object? sender, TEventArgs args, [CallerArgumentExpression("evt")] string name = "")
     {
+        Delegate[]? handlers = evt.GetInvocationList();
+
         if (handlers?.Length is null or 0)
         {
             return;
