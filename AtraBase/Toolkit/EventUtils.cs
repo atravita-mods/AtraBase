@@ -1,6 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 
 using AtraBase.Internal;
+using AtraBase.Toolkit.Extensions;
 
 using CommunityToolkit.Diagnostics;
 
@@ -29,12 +30,11 @@ public static class EventUtils
         Guard.IsNotNullOrWhiteSpace(name);
         Logger.Instance.Verbose($"Raising from {name}");
 
-        EventArgs? args = new();
-        foreach (EventHandler handler in handlers.OfType<EventHandler>())
+        foreach (EventHandler? handler in handlers.FilterToType<Delegate, EventHandler>())
         {
             try
             {
-                handler.Invoke(sender, args);
+                handler?.Invoke(sender, EventArgs.Empty);
             }
             catch (Exception ex)
             {
@@ -61,11 +61,11 @@ public static class EventUtils
         Guard.IsNotNullOrWhiteSpace(name);
         Logger.Instance.Verbose($"Raising from {name}");
 
-        foreach (EventHandler<TEventArgs> handler in handlers.OfType<EventHandler<TEventArgs>>())
+        foreach (EventHandler<TEventArgs>? handler in handlers.FilterToType<Delegate, EventHandler<TEventArgs>>())
         {
             try
             {
-                handler.Invoke(sender, args);
+                handler?.Invoke(sender, args);
             }
             catch (Exception ex)
             {
