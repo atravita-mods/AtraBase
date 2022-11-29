@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 using AtraBase.Internal;
 using AtraBase.Toolkit.Extensions;
@@ -17,12 +18,14 @@ public static class EventUtils
     /// <summary>
     /// Raises an event that has no event args safely, logging errors if they appear. See also: <seealso cref="EventHandler"/>.
     /// </summary>
-    /// <param name="handlers">Listeners.</param>
+    /// <param name="evt">Event to raise.</param>
     /// <param name="sender">Sending instance, or null for none.</param>
     /// <param name="name">Name (for logging).</param>
-    public static void RaiseSafe(this EventHandler evt, object? sender, [CallerArgumentExpression("evt")] string name = "")
+    public static void RaiseSafe(this EventHandler? evt, object? sender, [CallerArgumentExpression("evt")] string name = "")
     {
-        Delegate[]? handlers = evt.GetInvocationList();
+        Debug.Assert(!string.IsNullOrWhiteSpace(name), "Name should not be null or whitespace");
+
+        Delegate[]? handlers = evt?.GetInvocationList();
 
         if (handlers?.Length is null or 0)
         {
@@ -49,13 +52,15 @@ public static class EventUtils
     /// Raises an event safely, logging errors if they appear. See also: <seealso cref="EventHandler"/>.
     /// </summary>
     /// <typeparam name="TEventArgs">Type of the event args.</typeparam>
-    /// <param name="handlers">Listeners.</param>
+    /// <param name="evt">Event to raise.</param>
     /// <param name="sender">Sender of the event, or null for none.</param>
     /// <param name="args">Event arguments.</param>
     /// <param name="name">Name (for logging).</param>
-    public static void RaiseSafe<TEventArgs>(this EventHandler<TEventArgs> evt, object? sender, TEventArgs args, [CallerArgumentExpression("evt")] string name = "")
+    public static void RaiseSafe<TEventArgs>(this EventHandler<TEventArgs>? evt, object? sender, TEventArgs args, [CallerArgumentExpression("evt")] string name = "")
     {
-        Delegate[]? handlers = evt.GetInvocationList();
+        Debug.Assert(!string.IsNullOrWhiteSpace(name), "Name should not be null or whitespace");
+
+        Delegate[]? handlers = evt?.GetInvocationList();
 
         if (handlers?.Length is null or 0)
         {

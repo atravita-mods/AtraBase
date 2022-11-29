@@ -1,4 +1,6 @@
-﻿namespace AtraBase.Toolkit.Extensions;
+﻿using CommunityToolkit.Diagnostics;
+
+namespace AtraBase.Toolkit.Extensions;
 
 /// <summary>
 /// Extensions similar to Linq
@@ -8,7 +10,10 @@ public static class LinqLight
 {
     public static FilterToType<TArray, TCast> FilterToType<TArray, TCast>(this TArray[] array)
         where TCast : TArray
-        => new(array);
+    {
+        Guard.IsNotNull(array);
+        return new(array);
+    }
 
     public static FilterToType<TArray, TCast> FilterToType<TArray, TCast>(this Span<TArray> span)
         where TCast : TArray
@@ -21,6 +26,10 @@ public ref struct FilterToType<TArray, TCast>
     private readonly Span<TArray> span;
     private int index = -1;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FilterToType{TArray, TCast}"/> struct.
+    /// </summary>
+    /// <param name="span">Span to iterate over.</param>
     public FilterToType(Span<TArray> span) => this.span = span;
 
     /// <inheritdoc cref="IEnumerator{T}.Current"/>
@@ -29,6 +38,7 @@ public ref struct FilterToType<TArray, TCast>
     /// <inheritdoc cref="IEnumerable{T}.GetEnumerator"/>
     public FilterToType<TArray, TCast> GetEnumerator() => this;
 
+    /// <inheritdoc cref="IEnumerator{T}.MoveNext"/>
     public bool MoveNext()
     {
         while (++this.index < this.span.Length)
