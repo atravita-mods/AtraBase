@@ -1,6 +1,7 @@
 ﻿using System.Buffers;
 using System.Runtime.CompilerServices;
 
+using AtraBase.Internal;
 using AtraBase.Toolkit.Extensions;
 
 namespace AtraBase.Models.WeightedRandom;
@@ -130,7 +131,7 @@ public class WeightedManager<T>
     /// Gets a single value from this weighted manager.
     /// </summary>
     /// <param name="random">The random to use.</param>
-    /// <returns>value.</returns>
+    /// <returns>value, or default if this WeightedManager is empty.</returns>
     [MethodImpl(MethodImplOptions.AggressiveOptimization)]
     public T? GetValue(Random? random = null)
     {
@@ -158,6 +159,11 @@ public class WeightedManager<T>
         return this.items[index].Item;
     }
 
+    /// <summary>
+    /// Gets an value without building the probability cache.
+    /// </summary>
+    /// <param name="random">Random to use.</param>
+    /// <returns>Value, or default if this WeightedManager is empty.</returns>
     public T? GetValueUncached(Random? random = null)
     {
         if (this.items.Count == 0)
@@ -176,26 +182,33 @@ public class WeightedManager<T>
         double acc = 0;
         double[] weights = ArrayPool<double>.Shared.Rent(this.items.Count);
 
-        for (int i = 0; i < this.items.Count; i++)
+        try
         {
-            weights[i] = acc;
-            acc += this.items[i].Weight;
+            for (int i = 0; i < this.items.Count; i++)
+            {
+                weights[i] = acc;
+                acc += this.items[i].Weight;
+            }
+
+            double chance = random.NextDouble() * acc;
+
+            int index = Array.BinarySearch(weights, 0, this.items.Count, chance);
+
+            if (index < 0)
+            {
+                index = ~index - 1;
+            }
+            return this.items[index].Item;
         }
-
-        double chance = random.NextDouble() * acc;
-
-        int index = Array.BinarySearch(weights, 0, this.items.Count, chance);
-
-        if (index < 0)
+        catch (Exception ex)
         {
-            index = ~index - 1;
+            Logger.Instance.Error($"Error while attempting uncached weighted selection:\n\n{ex}");
+            return default;
         }
-
-        // try not to leak memory.
-        Array.Clear(weights, 0,  this.items.Count);
-        ArrayPool<double>.Shared.Return(weights);
-
-        return this.items[index].Item;
+        finally
+        {
+            ArrayPool<double>.Shared.Return(weights);
+        }
     }
 
     [MemberNotNull("processedChances")]
