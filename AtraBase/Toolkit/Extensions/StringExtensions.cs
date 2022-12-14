@@ -9,7 +9,7 @@ namespace AtraBase.Toolkit.Extensions;
 public static class StringExtensions
 {
     /// <summary>
-    /// Gets the Nth occurance of a specific unicode char in a string.
+    /// Gets the Nth occurrence of a specific Unicode char in a string.
     /// </summary>
     /// <param name="str">String to search in.</param>
     /// <param name="item">Char to search for.</param>
@@ -30,7 +30,7 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Gets the Nth occurance from the end of a specific unicode char in a string.
+    /// Gets the Nth occurrence from the end of a specific Unicode char in a string.
     /// </summary>
     /// <param name="str">String to search in.</param>
     /// <param name="item">Char to search for.</param>
@@ -187,5 +187,30 @@ public static class StringExtensions
             }
         }
         return -1;
+    }
+
+    [Pure]
+    [MethodImpl(TKConstants.Hot)]
+    public static bool TrySplitOnce(this string str, char? deliminator, out ReadOnlySpan<char> first, out ReadOnlySpan<char> second)
+    {
+        Guard.IsNotNull(str);
+        return str.AsSpan().TrySplitOnce(deliminator, out first, out second);
+    }
+
+    [Pure]
+    [MethodImpl(TKConstants.Hot)]
+    public static bool TrySplitOnce(this ReadOnlySpan<char> str, char? deliminator, out ReadOnlySpan<char> first, out ReadOnlySpan<char> second)
+    {
+        int idx = deliminator is null ? str.GetIndexOfWhiteSpace() : str.IndexOf(deliminator.Value);
+
+        if (idx < 0)
+        {
+            first = second = ReadOnlySpan<char>.Empty;
+            return false;
+        }
+
+        first = str[..idx];
+        second = str[(idx + 1)..];
+        return true;
     }
 }

@@ -58,6 +58,10 @@ public class WeightedManager<T>
         }
     }
 
+    /// <summary>
+    /// Adds an element to the weighted manager.
+    /// </summary>
+    /// <param name="item">Weighted item.</param>
     public void Add(WeightedItem<T> item)
     {
         if (item.Weight > 0)
