@@ -7,6 +7,8 @@ namespace AtraBase.Toolkit.Extensions;
 /// </summary>
 public static class NumberExtensions
 {
+    private static readonly Random Random = (new Random()).PreWarm();
+
     /// <summary>
     /// Gets whether or not a float is within a specific margin of another one.
     /// </summary>
@@ -101,4 +103,25 @@ public static class NumberExtensions
         => (int)(val + 0.5d);
 
     // No point doing a ToIntFast for Decimal.
+
+    [MethodImpl(MethodImplOptions.AggressiveOptimization)]
+    public static int RandomRoundProportional(this float val)
+    {
+        var below = Math.Floor(val);
+        return Random.NextDouble() < (val - below) ? (int)(below + 1) : (int)below;
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveOptimization)]
+    public static int RandomRoundProportional(this double val)
+    {
+        var below = Math.Floor(val);
+        return Random.NextDouble() < (val - below) ? (int)(below + 1) : (int)below;
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveOptimization)]
+    public static int RandomRoundProportional(this decimal val)
+    {
+        var below = Math.Floor(val);
+        return (decimal)Random.NextDouble() < (val - below) ? (int)(below + 1) : (int)below;
+    }
 }

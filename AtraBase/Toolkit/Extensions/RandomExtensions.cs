@@ -9,7 +9,8 @@ public static class RandomExtensions
     /// Prewarms a random.
     /// </summary>
     /// <param name="random">The random to prewarm.</param>
-    public static void PreWarm(this Random random)
+    /// <returns>The random.</returns>
+    public static Random PreWarm(this Random random)
     {
         int prewarm = random.Next(64);
         for (int i = 0; i < prewarm; i++)
@@ -22,5 +23,7 @@ public static class RandomExtensions
         {
             random.NextDouble();
         }
+
+        return random;
     }
 }
