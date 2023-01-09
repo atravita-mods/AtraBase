@@ -149,8 +149,8 @@ public static class FastReflection
         {
             return null;
         }
-        var obj = Expression.ParameterOf<object>("obj");
-        var express = Expression.TypeIs(obj, type);
+        ParameterExpression? obj = Expression.ParameterOf<object>("obj");
+        TypeBinaryExpression? express = Expression.TypeIs(obj, type);
         return Expression.Lambda<Func<object, bool>>(express, obj).CompileFast();
     }
 }

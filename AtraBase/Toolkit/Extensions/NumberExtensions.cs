@@ -7,6 +7,8 @@ namespace AtraBase.Toolkit.Extensions;
 /// </summary>
 public static class NumberExtensions
 {
+    private static readonly Random Random = (new Random()).PreWarm();
+
     /// <summary>
     /// Gets whether or not a float is within a specific margin of another one.
     /// </summary>
@@ -15,6 +17,7 @@ public static class NumberExtensions
     /// <param name="margin">Margin.</param>
     /// <returns>True if within the margin, false otherwise.</returns>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveOptimization)]
     public static bool WithinMargin(this float val, float otherval, float margin = 0.01f)
         => Math.Abs(val - otherval) <= margin;
 
@@ -26,6 +29,7 @@ public static class NumberExtensions
     /// <param name="margin">Margin.</param>
     /// <returns>True if within the margin, false otherwise.</returns>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveOptimization)]
     public static bool WithinMargin(this double val, double otherval, double margin = 0.01)
         => Math.Abs(val - otherval) <= margin;
 
@@ -37,6 +41,7 @@ public static class NumberExtensions
     /// <param name="margin">Margin.</param>
     /// <returns>True if within the margin, false otherwise.</returns>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveOptimization)]
     public static bool WithinMargin(this decimal val, decimal otherval, decimal margin = 0.01M)
         => Math.Abs(val - otherval) <= margin;
 
@@ -49,6 +54,7 @@ public static class NumberExtensions
     /// <returns>Integer.</returns>
     /// <remarks>Rounds to even.</remarks>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveOptimization)]
     public static int ToIntPrecise(this float val)
         => (int)MathF.Round(val, MidpointRounding.ToEven);
 
@@ -59,6 +65,7 @@ public static class NumberExtensions
     /// <returns>Integer.</returns>
     /// <remarks>Rounds to even.</remarks>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveOptimization)]
     public static int ToIntPrecise(this double val)
         => (int)Math.Round(val, MidpointRounding.ToEven);
 
@@ -69,6 +76,7 @@ public static class NumberExtensions
     /// <returns>Integer.</returns>
     /// <remarks>Rounds to even.</remarks>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveOptimization)]
     public static int ToIntPrecise(this decimal val)
         => (int)Math.Round(val, MidpointRounding.ToEven);
 
@@ -95,4 +103,25 @@ public static class NumberExtensions
         => (int)(val + 0.5d);
 
     // No point doing a ToIntFast for Decimal.
+
+    [MethodImpl(MethodImplOptions.AggressiveOptimization)]
+    public static int RandomRoundProportional(this float val)
+    {
+        var below = Math.Floor(val);
+        return Random.NextDouble() < (val - below) ? (int)(below + 1) : (int)below;
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveOptimization)]
+    public static int RandomRoundProportional(this double val)
+    {
+        var below = Math.Floor(val);
+        return Random.NextDouble() < (val - below) ? (int)(below + 1) : (int)below;
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveOptimization)]
+    public static int RandomRoundProportional(this decimal val)
+    {
+        var below = Math.Floor(val);
+        return (decimal)Random.NextDouble() < (val - below) ? (int)(below + 1) : (int)below;
+    }
 }

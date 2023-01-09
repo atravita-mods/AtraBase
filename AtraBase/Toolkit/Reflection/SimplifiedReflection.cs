@@ -58,9 +58,9 @@ public static class SimplifiedReflection
         => type.GetMethod(methodName, UnflattenedStaticFlags, null, paramsList, null);
 
     /// <summary>
-    /// Searches through all aseemblies, getting any types that can be assigned to the indicated type.
+    /// Searches through all assemblies, getting any types that can be assigned to the indicated type.
     /// This gets subclasses (and will pick up on the original type).
-    /// Skips dynamic assemblys though.
+    /// Skips dynamic assemblies though.
     /// </summary>
     /// <param name="type">Type to find subclasses of.</param>
     /// <param name="publiconly">Whether to search public classes only.</param>

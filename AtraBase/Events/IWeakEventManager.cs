@@ -1,7 +1,7 @@
 ﻿namespace AtraBase.Events;
 
 /// <summary>
-/// An event manager that uses weak references. Order is not guarenteed.
+/// An event manager that uses weak references. Order is not guaranteed.
 /// </summary>
 /// <typeparam name="TEventArgs">The type for the event arguments.</typeparam>
 public interface IWeakEventManager<TEventArgs>

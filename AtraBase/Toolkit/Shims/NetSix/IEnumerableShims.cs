@@ -5,7 +5,7 @@ internal static class IEnumerableShims
 {
     public static T? Min<T>(this IEnumerable<T> items, IComparer<T> comparer)
     {
-        var first = items.FirstOrDefault(x => x is not null);
+        T? first = items.FirstOrDefault(x => x is not null);
         if (first is null)
         {
             return default;
@@ -22,7 +22,7 @@ internal static class IEnumerableShims
 
     public static T? Max<T>(this IEnumerable<T> items, IComparer<T> comparer)
     {
-        var first = items.FirstOrDefault(x => x is not null);
+        T? first = items.FirstOrDefault(x => x is not null);
         if (first is null)
         {
             return default;

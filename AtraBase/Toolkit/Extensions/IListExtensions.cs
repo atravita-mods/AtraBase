@@ -1,4 +1,6 @@
-﻿namespace AtraBase.Toolkit.Extensions;
+﻿using System.Runtime.CompilerServices;
+
+namespace AtraBase.Toolkit.Extensions;
 
 /// <summary>
 /// Extensions on IList.
@@ -6,7 +8,7 @@
 public static class IListExtensions
 {
     /// <summary>
-    /// Gets the Nth occurance of a specific thing a list.
+    /// Gets the Nth occurrence of a specific thing a list.
     /// </summary>
     /// <typeparam name="T">Type of the list.</typeparam>
     /// <param name="list">List to search in.</param>
@@ -14,6 +16,7 @@ public static class IListExtensions
     /// <param name="count">N.</param>
     /// <returns>Index of the thing, or -1 if not found.</returns>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveOptimization)]
     public static int NthOccuranceOf<T>(this IList<T> list, T item, int count = 1)
         where T : IEquatable<T>
     {
@@ -33,8 +36,14 @@ public static class IListExtensions
     /// <typeparam name="T">Type of list.</typeparam>
     /// <param name="list">List to clear nulls from.</param>
     /// <remarks>Clears in-place.</remarks>
-    public static void ClearNulls<T>(this IList<T> list)
+    [MethodImpl(MethodImplOptions.AggressiveOptimization)]
+    public static void ClearNulls<T>(this IList<T>? list)
     {
+        if (list?.Count is 0 or null)
+        {
+            return;
+        }
+
         // clear all nulls from the end first.
         for (int i = list.Count - 1; i >= 0; i--)
         {
@@ -56,7 +65,7 @@ public static class IListExtensions
                 // swap with last element.
                 (list[i], list[count - 1]) = (list[count - 1], list[i]);
 
-                // remove last element
+                // remove last element.
                 list.RemoveAt(count - 1);
 
                 // reduce.
