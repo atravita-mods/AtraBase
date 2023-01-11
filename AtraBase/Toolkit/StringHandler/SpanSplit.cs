@@ -294,6 +294,7 @@ FAIL:
         }
     }
 
+    [SuppressMessage("StyleCop.CSharp.OrderingRules", "SA1204:Static elements should appear before instance elements", Justification = "Reviewed.")]
     private static ReadOnlySpan<char> TrimSplitCharFromStart(ReadOnlySpan<char> str, char[]? splitchars)
         => splitchars is null ? str.TrimStart() : str.TrimStart(splitchars);
 }
