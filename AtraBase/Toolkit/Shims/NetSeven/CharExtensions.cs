@@ -9,7 +9,7 @@ namespace AtraBase.Toolkit.Shims.NetSeven;
 
 /// <summary>
 /// Extensions on the char class.
-/// Mostly stuff that exists in .net7 copied back to previous verisons.
+/// Mostly stuff that exists in .net7 copied back to previous versions.
 /// </summary>
 public static class CharExtensions
 {

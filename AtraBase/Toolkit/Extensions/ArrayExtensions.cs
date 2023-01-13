@@ -53,6 +53,12 @@ public static class ArrayExtensions
         return (array, count);
     }
 
+    /// <summary>
+    /// Copies a collection to an rented array.
+    /// </summary>
+    /// <typeparam name="T">Type param.</typeparam>
+    /// <param name="sequence">The collection to copy.</param>
+    /// <returns>A rented array and the number of relevant items.</returns>
     public static (T[] array, int count) ToRentedArray<T>(this IEnumerable<T> sequence)
     {
         Guard.IsNotNull(sequence);
