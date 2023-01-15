@@ -1,4 +1,5 @@
 ﻿using System.Buffers;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 using AtraBase.Internal;
@@ -184,35 +185,24 @@ public class WeightedManager<T>
         }
 
         double acc = 0;
-        double[] weights = ArrayPool<double>.Shared.Rent(this.items.Count);
 
-        try
+        foreach (var item in this.items)
         {
-            for (int i = 0; i < this.items.Count; i++)
+            acc += item.Weight;
+        }
+
+        double chance = random.NextDouble() * acc;
+
+        foreach (var item in this.items)
+        {
+            chance -= item.Weight;
+            if (chance <= 0 )
             {
-                weights[i] = acc;
-                acc += this.items[i].Weight;
+                return item.Item;
             }
-
-            double chance = random.NextDouble() * acc;
-
-            int index = Array.BinarySearch(weights, 0, this.items.Count, chance);
-
-            if (index < 0)
-            {
-                index = ~index - 1;
-            }
-            return this.items[index].Item;
         }
-        catch (Exception ex)
-        {
-            Logger.Instance.Error($"Error while attempting uncached weighted selection:\n\n{ex}");
-            return default;
-        }
-        finally
-        {
-            ArrayPool<double>.Shared.Return(weights);
-        }
+
+        throw new UnreachableException();
     }
 
     [MemberNotNull("processedChances")]

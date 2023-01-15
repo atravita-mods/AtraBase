@@ -40,6 +40,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Reflection\FastReflection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Reflection\SimplifiedReflection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Shims\NetSeven\CharExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Shims\NetSeven\UnreachableException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Shims\NetSix\IEnumerableShims.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\StringBuilderCache.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\StringHandler\SpanSplit.cs" />
