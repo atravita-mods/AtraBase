@@ -1,6 +1,7 @@
 ﻿/* The following file was copied from https://github.com/dotnet/runtime/blob/main/src/libraries/Common/src/System/Text/StringBuilderCache.cs
  * and is licensed MIT by the .NET foundation.*/
 
+#pragma warning disable SA1308 // Variable names should not be prefixed
 using System.Text;
 
 namespace AtraBase.Toolkit;
@@ -62,3 +63,4 @@ public static class StringBuilderCache
     }
 }
 
+#pragma warning restore SA1308 // Variable names should not be prefixed

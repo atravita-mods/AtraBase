@@ -1,4 +1,6 @@
-﻿namespace AtraBase.Toolkit.Extensions;
+﻿using AtraBase.Internal;
+
+namespace AtraBase.Toolkit.Extensions;
 
 /// <summary>
 /// LINQ-like extensions on enumerables.
@@ -22,13 +24,13 @@ public static class IEnumerableExtensions
         Func<TEnumerable, TValue> valueselector)
         where TKey : notnull
     {
-        Dictionary<TKey, TValue> result = new();
+        Dictionary<TKey, TValue> result = new((enumerable as ICollection<TEnumerable>)?.Count ?? 32);
         foreach (TEnumerable item in enumerable)
         {
             if (!result.TryAdd(keyselector(item), valueselector(item)))
             {
 #if DEBUG
-                Logger.Instance.Info($"Recieved duplicate key {keyselector(item)}, ignoring");
+                Logger.Instance.Info($"Received duplicate key {keyselector(item)}, ignoring");
 #endif
             }
         }
@@ -44,8 +46,17 @@ public static class IEnumerableExtensions
     /// <remarks>This implementation is probably pretty slow, eh.</remarks>
     [Pure]
     public static IEnumerable<T> Unique<T>(this IEnumerable<T> enumerable)
-    {
-        HashSet<T> hashed = enumerable.ToHashSet();
-        return hashed;
-    }
+        => enumerable.ToHashSet();
+
+    /// <summary>
+    /// Uses a hashset to check if items are unique.
+    /// </summary>
+    /// <typeparam name="T">Type of enumerable.</typeparam>
+    /// <param name="enumerable">Enumerable to check.</param>
+    /// <param name="comparer">Comparer to use.</param>
+    /// <returns>An enumerable of unique items.</returns>
+    /// <remarks>This implementation is probably pretty slow, eh.</remarks>
+    [Pure]
+    public static IEnumerable<T> Unique<T>(this IEnumerable<T> enumerable, IEqualityComparer<T> comparer)
+        => enumerable.ToHashSet(comparer);
 }

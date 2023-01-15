@@ -1,4 +1,6 @@
-﻿using AtraBase.Toolkit.Extensions;
+﻿using System.Runtime.CompilerServices;
+
+using AtraBase.Toolkit.Extensions;
 
 namespace AtraBase.Toolkit.StringHandler;
 
@@ -29,6 +31,8 @@ public ref struct StreamSplit
     private readonly StringSplitOptions options;
     private ReadOnlySpan<char> remainder;
 
+    #region constructors
+
     /// <summary>
     /// Initializes a new instance of the <see cref="StreamSplit"/> struct.
     /// </summary>
@@ -51,21 +55,41 @@ public ref struct StreamSplit
     {
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StreamSplit"/> struct.
+    /// </summary>
+    /// <param name="str">span to split.</param>
+    /// <param name="splitchar">character to split by.</param>
+    /// <param name="options">split options.</param>
     public StreamSplit(ReadOnlySpan<char> str, char splitchar, StringSplitOptions options = StringSplitOptions.None)
         : this(str, new[] { splitchar }, options)
     {
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StreamSplit"/> struct.
+    /// </summary>
+    /// <param name="str">span to split.</param>
+    /// <param name="splitchars">characters to split by, or null to split by whitespace.</param>
+    /// <param name="options">split options.</param>
     public StreamSplit(ReadOnlySpan<char> str, char[]? splitchars = null, StringSplitOptions options = StringSplitOptions.None)
     {
         this.remainder = str;
         this.splitchars = splitchars;
         this.options = options;
-    }
+        if (options.HasFlag(StringSplitOptions.RemoveEmptyEntries))
+        {
+            this.TrimSplitCharFromStart();
 
-    /***************
-     * REGION ENUMERATOR METHODS
-     * *************/
+            if (options.HasFlag(StringSplitOptions.TrimEntries))
+            {
+                this.remainder = this.remainder.Trim();
+            }
+        }
+    }
+    #endregion
+
+    #region enumeratorMethods
 
     /// <summary>
     /// Gets the current value - for Enumerator.
@@ -82,6 +106,7 @@ public ref struct StreamSplit
     /// Moves to the next value.
     /// </summary>
     /// <returns>True if the next value exists, false otherwise.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveOptimization)]
     public bool MoveNext()
     {
         while (true)
@@ -114,13 +139,13 @@ public ref struct StreamSplit
                     this.remainder.Slice(index, 2).Equals("\r\n", StringComparison.Ordinal))
                 {
                     splitchar = this.remainder.Slice(index, 2);
-                    word = this.remainder[..Math.Max(0, index)];
+                    word = this.remainder[..index];
                     this.remainder = this.remainder[(index + 2)..];
                 }
                 else
                 {
                     splitchar = this.remainder.Slice(index, 1);
-                    word = this.remainder[..Math.Max(0, index)];
+                    word = this.remainder[..index];
                     this.remainder = this.remainder[(index + 1)..];
                 }
             }
@@ -128,12 +153,25 @@ public ref struct StreamSplit
             {
                 word = word.Trim();
             }
-            if (this.options.HasFlag(StringSplitOptions.RemoveEmptyEntries) & word.Length == 0)
+            if (this.options.HasFlag(StringSplitOptions.RemoveEmptyEntries))
             {
-                continue;
+                this.TrimSplitCharFromStart();
+                if (word.Length == 0)
+                {
+                    continue;
+                }
             }
             this.Current = new SpanSplitEntry(word, splitchar);
             return true;
         }
     }
+
+    #endregion
+
+    #region helpers
+
+    private void TrimSplitCharFromStart()
+        => this.remainder = this.splitchars is null ? this.remainder.TrimStart() : this.remainder.TrimStart(this.splitchars);
+
+    #endregion
 }

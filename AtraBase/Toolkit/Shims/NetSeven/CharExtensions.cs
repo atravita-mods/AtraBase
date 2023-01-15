@@ -2,8 +2,15 @@
  * from https://github.com/dotnet/runtime/blob/main/src/libraries/System.Private.CoreLib/src/System/Char.cs
  * and is licensed MIT by the .NET foundation. */
 
+#pragma warning disable SA1615 // Element return value should be documented
+#pragma warning disable SA1611 // Element parameters should be documented
+
 namespace AtraBase.Toolkit.Shims.NetSeven;
 
+/// <summary>
+/// Extensions on the char class.
+/// Mostly stuff that exists in .net7 copied back to previous versions.
+/// </summary>
 public static class CharExtensions
 {
     /// <summary>Indicates whether a character is within the specified inclusive range.</summary>
@@ -27,7 +34,6 @@ public static class CharExtensions
     /// Per http://www.unicode.org/glossary/#ASCII, ASCII is only U+0000..U+007F.
     /// </remarks>
     public static bool IsAscii(char c) => (uint)c <= '\x007f';
-
 
     /// <summary>Indicates whether a character is categorized as an ASCII letter.</summary>
     /// <param name="c">The character to evaluate.</param>
@@ -55,3 +61,5 @@ public static class CharExtensions
     public static bool IsAsciiLetterUpper(char c) => IsBetween(c, 'A', 'Z');
 }
 
+#pragma warning restore SA1615 // Element return value should be documented
+#pragma warning restore SA1611 // Element parameters should be documented

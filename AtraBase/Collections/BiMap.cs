@@ -228,7 +228,7 @@ public class BiMap<TForward, TReverse> : IEnumerable<KeyValuePair<TForward, TRev
     public void Add(KeyValuePair<TForward, TReverse> item) => this.Add(item.Key, item.Value);
 
     /// <summary>
-    /// Tries to add a set of values to the the bimap.
+    /// Tries to add a set of values to the bimap.
     /// </summary>
     /// <param name="forward">forward value.</param>
     /// <param name="reverse">reverse value.</param>
@@ -251,7 +251,7 @@ public class BiMap<TForward, TReverse> : IEnumerable<KeyValuePair<TForward, TRev
     }
 
     /// <summary>
-    /// Tries to add an item to the the bimap.
+    /// Tries to add an item to the bimap.
     /// </summary>
     /// <param name="item">Item to add.</param>
     /// <returns>true if successfully added, false otherwise.</returns>
@@ -285,7 +285,7 @@ public class BiMap<TForward, TReverse> : IEnumerable<KeyValuePair<TForward, TRev
     /// <summary>
     /// Whether or not the bimap contains this item.
     /// </summary>
-    /// <param name="item">kvp corresponding to the pair.</param>
+    /// <param name="item">KVP corresponding to the pair.</param>
     /// <returns>true if the pair is contained in the bimap. If either doesn't match, will return false.</returns>
     /// <exception cref="ArgumentNullException">Forward or reverse value was null.</exception>
     public bool Contains(KeyValuePair<TForward, TReverse> item) => this.Contains(item.Key, item.Value);
@@ -317,7 +317,7 @@ public class BiMap<TForward, TReverse> : IEnumerable<KeyValuePair<TForward, TRev
     /// </summary>
     /// <param name="reverse">Reverse key.</param>
     /// <param name="forward">Out param, the value.</param>
-    /// <returns>If the value was sucessfully gotten.</returns>
+    /// <returns>If the value was successfully gotten.</returns>
     public bool TryGetReverse(TReverse reverse, [MaybeNullWhen(false)] out TForward forward) => this.reverse.TryGetValue(reverse, out forward);
 
 #warning should probably test this logic?

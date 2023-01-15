@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Caching\SimpleConcurrentCache.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collections\ArrayExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Collections\BiHeap.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Collections\BiMap.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Collections\Counter.cs" />
@@ -21,20 +22,25 @@
     <Compile Include="$(MSBuildThisFileDirectory)Events\WeakEventManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\ILogger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\Logger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\RentedArrayHelpers\ShuffledYielder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\WeightedRandom\WeightedManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\CustomExceptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\EventUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\ArrayExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\IDictionaryExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\IListExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\LinqLike.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\RandomExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\SpanExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\StringBuilderExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\StringExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\GCHelperFunctions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Hashing.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\ObjectOverlay.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Reflection\FastReflection.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Reflection\GenerateInstanceMethodDelegate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Reflection\SimplifiedReflection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Shims\NetSeven\CharExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Shims\NetSeven\UnreachableException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Shims\NetSix\IEnumerableShims.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\StringBuilderCache.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\StringHandler\SpanSplit.cs" />
@@ -52,5 +58,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Models\RentedArrayHelpers\" />
   </ItemGroup>
 </Project>
