@@ -1,8 +1,5 @@
-﻿using System.Buffers;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 
-using AtraBase.Internal;
 using AtraBase.Toolkit.Extensions;
 
 namespace AtraBase.Models.WeightedRandom;
@@ -46,8 +43,8 @@ public class WeightedManager<T>
     /// Gets the random instance for this manager.
     /// Creates it and warms it up if necessary.
     /// </summary>
-    private Random Random => this.random ??= (new Random()).PreWarm();
- 
+    private Random Random => this.random ??= new Random().PreWarm();
+
     /// <summary>
     /// Sets a random for this weighted manager to be used with.
     /// </summary>
@@ -166,8 +163,8 @@ public class WeightedManager<T>
 
     /// <summary>
     /// Given a cutoff C and assuming M = sum(all weights), pick a weighted item M/C percent
-    /// of the time and returns null otherwise if M < C.
-    /// 
+    /// of the time and returns null otherwise (if M is less than C).
+    ///
     /// Reverts to normal weighted random otherwise.
     /// </summary>
     /// <param name="cutoff">Cutoff to use.</param>
@@ -217,14 +214,14 @@ public class WeightedManager<T>
 
         double acc = 0;
 
-        foreach (var item in this.items)
+        foreach (WeightedItem<T> item in this.items)
         {
             acc += item.Weight;
         }
 
         double chance = random.NextDouble() * acc;
 
-        foreach (var item in this.items)
+        foreach (WeightedItem<T> item in this.items)
         {
             chance -= item.Weight;
             if (chance <= 0 )

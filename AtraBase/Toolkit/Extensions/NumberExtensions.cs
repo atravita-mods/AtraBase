@@ -107,21 +107,21 @@ public static class NumberExtensions
     [MethodImpl(MethodImplOptions.AggressiveOptimization)]
     public static int RandomRoundProportional(this float val)
     {
-        var below = Math.Floor(val);
+        double below = Math.Floor(val);
         return Random.NextDouble() < (val - below) ? (int)(below + 1) : (int)below;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveOptimization)]
     public static int RandomRoundProportional(this double val)
     {
-        var below = Math.Floor(val);
+        double below = Math.Floor(val);
         return Random.NextDouble() < (val - below) ? (int)(below + 1) : (int)below;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveOptimization)]
     public static int RandomRoundProportional(this decimal val)
     {
-        var below = Math.Floor(val);
+        decimal below = Math.Floor(val);
         return (decimal)Random.NextDouble() < (val - below) ? (int)(below + 1) : (int)below;
     }
 }

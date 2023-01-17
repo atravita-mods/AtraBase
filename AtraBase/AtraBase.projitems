@@ -23,6 +23,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\ILogger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\Logger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\RentedArrayHelpers\ShuffledYielder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Result\Result.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\WeightedRandom\WeightedManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\CustomExceptions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\EventUtils.cs" />
