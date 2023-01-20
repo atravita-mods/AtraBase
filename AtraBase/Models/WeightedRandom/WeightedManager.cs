@@ -1,11 +1,12 @@
 ﻿using System.Runtime.CompilerServices;
 
+using AtraBase.Models.Result;
 using AtraBase.Toolkit.Extensions;
 
 namespace AtraBase.Models.WeightedRandom;
 
 [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1313:Parameter names should begin with lower-case letter", Justification = "Stylecop doesn't understand records.")]
-public readonly record struct WeightedItem<T>(double Weight, T Item);
+public readonly record struct WeightedItem<T>(double Weight, T? Item);
 
 /// <summary>
 /// Wraps a list of weighted items in order to quickly produce values.
@@ -14,11 +15,13 @@ public readonly record struct WeightedItem<T>(double Weight, T Item);
 /// <remarks>This is geared towards reusing the same list of weights often.</remarks>
 public class WeightedManager<T>
 {
-    private readonly List<WeightedItem<T>> items = new();
+    private readonly List<WeightedItem<T?>> items = new();
     private double[]? processedChances;
     private double max = -1;
 
     private Random? random;
+
+    #region constructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="WeightedManager{T}"/> class.
@@ -31,8 +34,12 @@ public class WeightedManager<T>
     /// Initializes a new instance of the <see cref="WeightedManager{T}"/> class.
     /// </summary>
     /// <param name="items">Initial items.</param>
-    public WeightedManager(IEnumerable<WeightedItem<T>> items)
+    public WeightedManager(IEnumerable<WeightedItem<T?>> items)
         => this.items.AddRange(items);
+
+    #endregion
+
+    #region properties
 
     /// <summary>
     /// Gets the number of elements for this weighted list.
@@ -45,12 +52,16 @@ public class WeightedManager<T>
     /// </summary>
     private Random Random => this.random ??= new Random().PreWarm();
 
+    #endregion
+
+    #region mutators
+
     /// <summary>
     /// Sets a random for this weighted manager to be used with.
     /// </summary>
     /// <param name="random">The random.</param>
     /// <returns>the weighted manager.</returns>
-    public WeightedManager<T> WithRandom(Random? random)
+    public WeightedManager<T?> WithRandom(Random? random)
     {
         this.random = random;
         return this;
@@ -60,7 +71,7 @@ public class WeightedManager<T>
     /// Adds an element to the weighted manager.
     /// </summary>
     /// <param name="item">Weighted item.</param>
-    public void Add(WeightedItem<T> item)
+    public void Add(WeightedItem<T?> item)
     {
         if (item.Weight > 0)
         {
@@ -74,12 +85,12 @@ public class WeightedManager<T>
     /// </summary>
     /// <param name="weight">Weight to use.</param>
     /// <param name="item">Item to add.</param>
-    public void Add(double weight, T item)
+    public void Add(double weight, T? item)
     {
         if (weight > 0)
         {
             this.Reset();
-            this.items.Add(new WeightedItem<T>(weight, item));
+            this.items.Add(new WeightedItem<T?>(weight, item));
         }
     }
 
@@ -87,7 +98,7 @@ public class WeightedManager<T>
     /// Adds a range of items to the weighted manager.
     /// </summary>
     /// <param name="items">IEnumerable of items.</param>
-    public void AddRange(IEnumerable<WeightedItem<T>> items)
+    public void AddRange(IEnumerable<WeightedItem<T?>> items)
     {
         this.Reset();
         this.items.AddRange(items.Where(item => item.Weight > 0));
@@ -113,7 +124,7 @@ public class WeightedManager<T>
     /// </summary>
     /// <param name="item">Item to remove.</param>
     /// <returns>If an item was removed at all.</returns>
-    public bool Remove(WeightedItem<T> item)
+    public bool Remove(WeightedItem<T?> item)
     {
         this.Reset();
         return this.items.Remove(item);
@@ -129,13 +140,15 @@ public class WeightedManager<T>
         this.items.RemoveAt(index);
     }
 
+    #endregion
+
     /// <summary>
     /// Gets a single value from this weighted manager.
     /// </summary>
     /// <param name="random">The random to use.</param>
     /// <returns>value, or default if this WeightedManager is empty.</returns>
     [MethodImpl(MethodImplOptions.AggressiveOptimization)]
-    public T? GetValue(Random? random = null)
+    public Option<T?> GetValue(Random? random = null)
     {
         if (this.items.Count == 0)
         {
@@ -158,7 +171,7 @@ public class WeightedManager<T>
             index = ~index - 1;
         }
 
-        return this.items[index].Item;
+        return new Option<T?>(this.items[index].Item);
     }
 
     /// <summary>
@@ -170,7 +183,7 @@ public class WeightedManager<T>
     /// <param name="cutoff">Cutoff to use.</param>
     /// <param name="random">Random instance.</param>
     /// <returns>Item, or default.</returns>
-    public T? GetValue(double cutoff, Random? random = null)
+    public Option<T?> GetValue(double cutoff, Random? random = null)
     {
         if (this.items.Count == 0)
         {
@@ -197,7 +210,7 @@ public class WeightedManager<T>
     /// </summary>
     /// <param name="random">Random to use.</param>
     /// <returns>Value, or default if this WeightedManager is empty.</returns>
-    public T? GetValueUncached(Random? random = null)
+    public Option<T?> GetValueUncached(Random? random = null)
     {
         if (this.items.Count == 0)
         {
@@ -214,26 +227,25 @@ public class WeightedManager<T>
 
         double acc = 0;
 
-        foreach (WeightedItem<T> item in this.items)
+        foreach (WeightedItem<T?> item in this.items)
         {
             acc += item.Weight;
         }
 
         double chance = random.NextDouble() * acc;
 
-        foreach (WeightedItem<T> item in this.items)
+        foreach (WeightedItem<T?> item in this.items)
         {
             chance -= item.Weight;
             if (chance <= 0 )
             {
-                return item.Item;
+                return new Option<T?>(item.Item);
             }
         }
 
-        // it's really, really unlikely we'll get here
-        // but we might (float rounding)
-        // so just fill in with the last time.
-        return this.items.Last().Item;
+        // it's really, really unlikely we'll get here but we might (float rounding)
+        // so just fill in with the last item.
+        return new Option<T?>(this.items.Last().Item);
     }
 
     [MemberNotNull("processedChances")]
@@ -245,7 +257,7 @@ public class WeightedManager<T>
         for (int i = 0; i < this.items.Count; i++)
         {
             this.processedChances[i] = acc;
-            WeightedItem<T> item = this.items[i];
+            WeightedItem<T?> item = this.items[i];
             acc += item.Weight;
         }
 
