@@ -11,7 +11,7 @@ namespace AtraBase.Toolkit;
 /// <summary>
 /// Helps in raising events safely.
 /// </summary>
-/// <remarks>Inspired by casey here: https://github.com/spacechase0/StardewValleyMods/blob/develop/SpaceShared/Util.cs 
+/// <remarks>Inspired by casey here: https://github.com/spacechase0/StardewValleyMods/blob/develop/SpaceShared/Util.cs
 /// who originally took the code from SMAPI.</remarks>
 public static class EventUtils
 {
