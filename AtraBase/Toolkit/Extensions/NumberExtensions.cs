@@ -104,6 +104,11 @@ public static class NumberExtensions
 
     // No point doing a ToIntFast for Decimal.
 
+    /// <summary>
+    /// Round proportional ie - 7.4 has a 40% chance of becoming 8 and a 60% chance of becoming 7.
+    /// </summary>
+    /// <param name="val">VAlue to round.</param>
+    /// <returns>Int.</returns>
     [MethodImpl(MethodImplOptions.AggressiveOptimization)]
     public static int RandomRoundProportional(this float val)
     {
@@ -111,6 +116,11 @@ public static class NumberExtensions
         return Random.NextDouble() < (val - below) ? (int)(below + 1) : (int)below;
     }
 
+    /// <summary>
+    /// Round proportional ie - 7.4 has a 40% chance of becoming 8 and a 60% chance of becoming 7.
+    /// </summary>
+    /// <param name="val">VAlue to round.</param>
+    /// <returns>Int.</returns>
     [MethodImpl(MethodImplOptions.AggressiveOptimization)]
     public static int RandomRoundProportional(this double val)
     {
@@ -118,6 +128,11 @@ public static class NumberExtensions
         return Random.NextDouble() < (val - below) ? (int)(below + 1) : (int)below;
     }
 
+    /// <summary>
+    /// Round proportional ie - 7.4 has a 40% chance of becoming 8 and a 60% chance of becoming 7.
+    /// </summary>
+    /// <param name="val">VAlue to round.</param>
+    /// <returns>Int.</returns>
     [MethodImpl(MethodImplOptions.AggressiveOptimization)]
     public static int RandomRoundProportional(this decimal val)
     {
