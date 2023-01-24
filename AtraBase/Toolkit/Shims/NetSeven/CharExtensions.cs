@@ -2,6 +2,8 @@
  * from https://github.com/dotnet/runtime/blob/main/src/libraries/System.Private.CoreLib/src/System/Char.cs
  * and is licensed MIT by the .NET foundation. */
 
+#if !NET7_0_OR_GREATER
+
 #pragma warning disable SA1615 // Element return value should be documented
 #pragma warning disable SA1611 // Element parameters should be documented
 
@@ -63,3 +65,5 @@ public static class CharExtensions
 
 #pragma warning restore SA1615 // Element return value should be documented
 #pragma warning restore SA1611 // Element parameters should be documented
+
+#endif
