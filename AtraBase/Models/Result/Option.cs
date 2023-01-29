@@ -27,6 +27,9 @@ public struct Option<T>
     /// </summary>
     public Option() => this.isNotNone = false;
 
+    private static Option<T> noneInstance = new();
+    public static Option<T> None => noneInstance;
+
     public bool IsNone => !this.isNotNone;
 
     public bool TryGetValue(out T? value)
