@@ -257,8 +257,7 @@ public class WeightedManager<T>
         for (int i = 0; i < this.items.Count; i++)
         {
             this.processedChances[i] = acc;
-            WeightedItem<T?> item = this.items[i];
-            acc += item.Weight;
+            acc += this.items[i].Weight;
         }
 
         this.max = acc;
