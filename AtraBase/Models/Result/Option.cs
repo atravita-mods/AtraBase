@@ -5,7 +5,8 @@ namespace AtraBase.Models.Result;
 /// <summary>
 /// Based of Rust's Option struct.
 /// </summary>
-public struct Option<T>
+/// <typeparam name="T">The type to wrap.</typeparam>
+public readonly struct Option<T>
 {
     private static readonly Option<T> noneInstance = new();
 

@@ -27,6 +27,8 @@ public class BiHeap<T> : ICollection<T>
     private int count = 0;
     private T[] heap;
 
+    #region constructors
+
     /// <summary>
     /// Initializes a new instance of the <see cref="BiHeap{T}"/> class.
     /// </summary>
@@ -75,6 +77,11 @@ public class BiHeap<T> : ICollection<T>
         this.Heapify();
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BiHeap{T}"/> class.
+    /// </summary>
+    /// <param name="values">The initial values.</param>
+    /// <param name="comparer">The comparer to use.</param>
     public BiHeap(IEnumerable<T> values, IComparer<T> comparer)
     {
         Guard.IsNotNull(values);
@@ -85,6 +92,8 @@ public class BiHeap<T> : ICollection<T>
 
         this.Heapify();
     }
+
+    #endregion
 
     /// <inheritdoc />
     public int Count => this.count;

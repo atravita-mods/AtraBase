@@ -138,9 +138,8 @@ public class Counter<TKey> : IDictionary<TKey, int>
         }
     }
 
-    /**************
-     * BEGIN DICTIONARY METHODS
-     * ************/
+    #region dictionary methods
+
     /// <summary>
     /// Not implemented - does not make sense for Counter.
     /// </summary>
@@ -207,4 +206,6 @@ public class Counter<TKey> : IDictionary<TKey, int>
 
     /// <inheritdoc/>
     IEnumerator IEnumerable.GetEnumerator() => this.dict.GetEnumerator();
+
+    #endregion
 }
