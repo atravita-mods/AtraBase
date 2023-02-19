@@ -16,6 +16,7 @@ namespace AtraBase.Collections;
 ///
 /// Dotnet impl: https://referencesource.microsoft.com/#PresentationCore/Shared/MS/Internal/PriorityQueue.cs
 /// Python impl: https://github.com/python/cpython/blob/3.10/Lib/heapq.py .</remarks>
+[SuppressMessage("StyleCop.CSharp.OrderingRules", "SA1201:Elements should appear in the correct order", Justification = "Reviewed.")]
 public class BiHeap<T> : ICollection<T>
     where T : notnull, IEquatable<T>
 {
@@ -263,6 +264,7 @@ public class BiHeap<T> : ICollection<T>
     public void CopyTo(T[] array, int arrayIndex)
         => this.heap.CopyTo(array, arrayIndex);
 
+    #region enumerator methods
     public IEnumerator<T> GetEnumerator() => (IEnumerator<T>)this;
 
     IEnumerator IEnumerable.GetEnumerator() => (IEnumerator)this;
@@ -277,6 +279,8 @@ public class BiHeap<T> : ICollection<T>
 
     public bool MoveNext()
         => this.TryPop(out this.current);
+
+    #endregion
 
     // right child is just left child + 1
     private static int GetLeftChild(int index) => (index * 2) + 1;

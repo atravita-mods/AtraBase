@@ -91,7 +91,9 @@ internal ref struct ValueStringBuilder
     public Span<char> RawChars => this._chars;
 
     public ReadOnlySpan<char> AsSpan() => this._chars[..this._pos];
+
     public ReadOnlySpan<char> AsSpan(int start) => this._chars[start..this._pos];
+
     public ReadOnlySpan<char> AsSpan(int start, int length) => this._chars.Slice(start, length);
 
     /// <summary>

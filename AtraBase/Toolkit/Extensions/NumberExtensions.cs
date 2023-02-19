@@ -7,6 +7,7 @@ namespace AtraBase.Toolkit.Extensions;
 /// </summary>
 public static class NumberExtensions
 {
+    [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1119:Statement should not use unnecessary parenthesis", Justification = "Preference.")]
     private static readonly Random Random = (new Random()).PreWarm();
 
     /// <summary>
