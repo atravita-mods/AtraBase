@@ -35,9 +35,12 @@ internal class WeakEventManager<TEventArgs> : IWeakEventManager<TEventArgs>
     /// <inheritdoc />
     public void Raise(object? sender, TEventArgs args)
     {
-        // add the listeners registered since last time.
-        this.listeners.AddRange(this.toAdd);
-        this.toAdd.Clear();
+        lock (this.toAdd)
+        {
+            // add the listeners registered since last time.
+            this.listeners.AddRange(this.toAdd);
+            this.toAdd.Clear();
+        }
 
         for (int i = this.listeners.Count - 1; i >= 0; i--)
         {
