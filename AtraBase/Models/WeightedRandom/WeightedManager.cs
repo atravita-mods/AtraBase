@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 using AtraBase.Models.Result;
 using AtraBase.Toolkit.Extensions;
@@ -245,6 +246,7 @@ public class WeightedManager<T>
 
         // it's really, really unlikely we'll get here but we might (float rounding)
         // so just fill in with the last item.
+        Debug.Assert(true, "GetValueUncached hit emergency backup.");
         return new Option<T?>(this.items.Last().Item);
     }
 

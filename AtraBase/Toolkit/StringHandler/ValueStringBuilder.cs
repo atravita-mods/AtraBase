@@ -74,7 +74,7 @@ internal ref struct ValueStringBuilder
     {
         get
         {
-            Guard.IsBetween(index, 0, this._pos);
+            Guard.IsBetween(index, -1, this._pos);
             return ref this._chars[index];
         }
     }

@@ -1,4 +1,5 @@
 ﻿using AtraBase.Internal;
+using AtraBase.Toolkit.Extensions;
 
 namespace AtraBase.Events;
 
@@ -46,7 +47,7 @@ internal class WeakEventManager<TEventArgs> : IWeakEventManager<TEventArgs>
         {
             if (!this.listeners[i].TryGetTarget(out EventHandler<TEventArgs>? listener))
             {
-                RemoveListenerAt(i);
+                this.listeners.SwapRemoveAt(i);
                 continue;
             }
 
@@ -54,7 +55,7 @@ internal class WeakEventManager<TEventArgs> : IWeakEventManager<TEventArgs>
             {
                 if (this.toRemove.Contains(listener))
                 {
-                    RemoveListenerAt(i);
+                    this.listeners.SwapRemoveAt(i);
                     this.toRemove.Remove(listener);
                     continue;
                 }
@@ -68,15 +69,6 @@ internal class WeakEventManager<TEventArgs> : IWeakEventManager<TEventArgs>
             {
                 Logger.Instance.Error($"Failed while raising weak event:\n\n{ex}");
             }
-        }
-
-        void RemoveListenerAt(int i)
-        {
-            if (i != this.listeners.Count - 1)
-            {
-                (this.listeners[i], this.listeners[^1]) = (this.listeners[^1], this.listeners[i]);
-            }
-            this.listeners.RemoveAt(this.listeners.Count - 1);
         }
     }
 }

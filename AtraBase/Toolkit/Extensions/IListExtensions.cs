@@ -1,5 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 
+using CommunityToolkit.Diagnostics;
+
 namespace AtraBase.Toolkit.Extensions;
 
 /// <summary>
@@ -77,5 +79,27 @@ public static class IListExtensions
         {
             list.RemoveAt(list.Count - 1);
         }
+    }
+
+    /// <summary>
+    /// Removes the item at <paramref name="index"/> by swapping it with the last element.
+    /// </summary>
+    /// <typeparam name="T">The type of the list</typeparam>
+    /// <param name="list">The list to remove from.</param>
+    /// <param name="index">The index to remove.</param>
+    [MethodImpl(MethodImplOptions.AggressiveOptimization)]
+    public static void SwapRemoveAt<T>(this IList<T>? list, int index)
+    {
+        if (list is null)
+        {
+            return;
+        }
+        Guard.IsBetween(index, -1, list.Count);
+
+        if (index != list.Count - 1)
+        {
+            (list[index], list[^1]) = (list[^1], list[index]);
+        }
+        list.RemoveAt(list.Count - 1);
     }
 }
