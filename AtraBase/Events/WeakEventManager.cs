@@ -44,25 +44,39 @@ internal class WeakEventManager<TEventArgs> : IWeakEventManager<TEventArgs>
 
         for (int i = this.listeners.Count - 1; i >= 0; i--)
         {
-            if (this.listeners[i].TryGetTarget(out EventHandler<TEventArgs>? listener) && !this.toRemove.Contains(listener))
+            if (!this.listeners[i].TryGetTarget(out EventHandler<TEventArgs>? listener))
             {
-                try
+                RemoveListenerAt(i);
+                continue;
+            }
+
+            lock (this.toRemove)
+            {
+                if (this.toRemove.Contains(listener))
                 {
-                    listener.Invoke(sender, args);
-                }
-                catch (Exception ex)
-                {
-                    Logger.Instance.Error($"Failed while raising weak event:\n\n{ex}");
+                    RemoveListenerAt(i);
+                    this.toRemove.Remove(listener);
+                    continue;
                 }
             }
-            else
+
+            try
             {
-                if (i != this.listeners.Count - 1)
-                {
-                    (this.listeners[i], this.listeners[^1]) = (this.listeners[^1], this.listeners[i]);
-                }
-                this.listeners.RemoveAt(this.listeners.Count - 1);
+                listener.Invoke(sender, args);
             }
+            catch (Exception ex)
+            {
+                Logger.Instance.Error($"Failed while raising weak event:\n\n{ex}");
+            }
+        }
+
+        void RemoveListenerAt(int i)
+        {
+            if (i != this.listeners.Count - 1)
+            {
+                (this.listeners[i], this.listeners[^1]) = (this.listeners[^1], this.listeners[i]);
+            }
+            this.listeners.RemoveAt(this.listeners.Count - 1);
         }
     }
 }
