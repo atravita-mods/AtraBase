@@ -94,7 +94,7 @@ public static class IListExtensions
         {
             return;
         }
-        Guard.IsBetween(index, -1, list.Count);
+        Guard.IsBetweenOrEqualTo(index, 0, list.Count - 1);
 
         if (index != list.Count - 1)
         {

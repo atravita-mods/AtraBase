@@ -61,7 +61,7 @@ public static class StringExtensions
     [MethodImpl(TKConstants.Hot)]
     public static ReadOnlySpan<char> GetNthChunk(this string str, char deliminator, int index = 0)
     {
-        Guard.IsBetweenOrEqualTo(index, 0, str.Length + 1, nameof(index));
+        Guard.IsBetweenOrEqualTo(index, 0, str.Length + 1);
 
         int start = 0;
         int ind = 0;
@@ -102,7 +102,7 @@ public static class StringExtensions
     [MethodImpl(TKConstants.Hot)]
     public static ReadOnlySpan<char> GetNthChunk(this string str, char[] deliminators, int index = 0)
     {
-        Guard.IsBetweenOrEqualTo(index, 0, str.Length + 1, nameof(index));
+        Guard.IsBetweenOrEqualTo(index, 0, str.Length + 1);
 
         int start = 0;
         int ind = 0;
