@@ -4,6 +4,9 @@ namespace AtraBase.Events;
 
 #warning - cross check this for thread safety.
 
+// this probably still doesn't work the way people would expect
+// Teh says I should be able to just lock on listeners? Check that.
+
 /// <inheritdoc />
 internal class WeakEventManager<TEventArgs> : IWeakEventManager<TEventArgs>
 {
