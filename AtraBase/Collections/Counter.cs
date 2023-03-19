@@ -27,8 +27,7 @@ public class Counter<TKey> : IDictionary<TKey, int>
     {
         Guard.IsNotNull(other);
 
-        this.dict = new();
-        this.dict.Update(other.dict);
+        this.dict = new(other.dict);
     }
 
     /// <summary>Gets the value of the dictionary if it exists. If not, returns 0.</summary>
