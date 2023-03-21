@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Text;
-using AtraBase.Toolkit.Extensions;
+
 using CommunityToolkit.Diagnostics;
 
 namespace AtraBase.Collections;
@@ -9,6 +9,7 @@ namespace AtraBase.Collections;
 /// Similar to Python's Counter.
 /// </summary>
 /// <typeparam name="TKey">Type of key.</typeparam>
+[SuppressMessage("StyleCop.CSharp.OrderingRules", "SA1201:Elements should appear in the correct order", Justification = "Preference.")]
 public class Counter<TKey> : IDictionary<TKey, int>
     where TKey : notnull
 {
