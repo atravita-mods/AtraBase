@@ -315,7 +315,7 @@ public class BiHeap<T> : ICollection<T>
     }
 
     // used for initialization, reads in an IEnumerable and sets .count and .heap
-    [MemberNotNull("heap", "count")]
+    [MemberNotNull(nameof(heap), nameof(count))]
     private int ReadInIEnumerable(IEnumerable<T> items)
     {
         Guard.IsNotNull(items);
