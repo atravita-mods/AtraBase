@@ -8,7 +8,12 @@ namespace AtraBase.Toolkit.Extensions;
 public static class NumberExtensions
 {
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1119:Statement should not use unnecessary parenthesis", Justification = "Preference.")]
-    private static readonly Random Random = (new Random()).PreWarm();
+    private static readonly Random Random =
+#if NET6_0_OR_GREATER
+        Random.Shared
+#else
+        (new Random()).PreWarm();
+#endif
 
     /// <summary>
     /// Gets whether or not a float is within a specific margin of another one.
