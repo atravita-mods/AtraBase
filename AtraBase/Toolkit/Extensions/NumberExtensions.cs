@@ -7,12 +7,15 @@ namespace AtraBase.Toolkit.Extensions;
 /// </summary>
 public static class NumberExtensions
 {
+    [ThreadStatic]
+    private static Random? _random = null;
+
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1119:Statement should not use unnecessary parenthesis", Justification = "Preference.")]
-    private static readonly Random Random =
+    private static Random Random =>
 #if NET6_0_OR_GREATER
         Random.Shared
 #else
-        (new Random()).PreWarm();
+        _random ??= (new Random()).PreWarm();
 #endif
 
     /// <summary>
