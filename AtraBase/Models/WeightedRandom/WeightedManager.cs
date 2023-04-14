@@ -198,7 +198,7 @@ public class WeightedManager<T>
             this.ProcessChances();
         }
 
-        if (cutoff <= this.max || random.NextDouble() * cutoff < this.max)
+        if (cutoff >= this.max || random.NextDouble() * cutoff < this.max)
         {
             return this.GetValue(random);
         }
@@ -250,7 +250,7 @@ public class WeightedManager<T>
         return new Option<T?>(this.items.Last().Item);
     }
 
-    [MemberNotNull("processedChances")]
+    [MemberNotNull(nameof(processedChances))]
     private void ProcessChances()
     {
         this.processedChances = new double[this.items.Count];
