@@ -246,7 +246,7 @@ public class WeightedManager<T>
 
         // it's really, really unlikely we'll get here but we might (float rounding)
         // so just fill in with the last item.
-        Debug.Assert(true, "GetValueUncached hit emergency backup.");
+        Debug.Assert(false, "GetValueUncached hit emergency backup.");
         return new Option<T?>(this.items.Last().Item);
     }
 
