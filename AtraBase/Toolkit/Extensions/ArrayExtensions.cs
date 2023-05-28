@@ -9,6 +9,19 @@ namespace AtraBase.Toolkit.Extensions;
 /// </summary>
 public static class ArrayExtensions
 {
+    public static ArraySegment<T> SkipToSegment<T>(this T[] array, int count)
+    {
+        Guard.IsNotNull(array);
+        Guard.IsGreaterThanOrEqualTo(count, 0);
+
+        if (count >= array.Length)
+        {
+            return ArraySegment<T>.Empty;
+        }
+
+        return new(array, count, array.Length - count);
+    }
+
     /// <summary>
     /// Fisher-Yates shuffle, assuming only the first <paramref name="count" /> elements are
     /// relevant.
