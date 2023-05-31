@@ -11,8 +11,8 @@ namespace AtraBase.Models.Result;
 public struct Result<TSuccess, TError>
     where TError : Exception
 {
-    private TSuccess? succcess;
-    private TError? error;
+    private readonly TSuccess? succcess;
+    private readonly TError? error;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Result{TSuccess, TError}"/> struct.
