@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 
 using AtraBase.Models.Result;
+using AtraBase.Toolkit;
 using AtraBase.Toolkit.Extensions;
 
 namespace AtraBase.Models.WeightedRandom;

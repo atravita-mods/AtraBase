@@ -23,7 +23,7 @@ public static class EventUtils
     /// <param name="evt">Event to raise.</param>
     /// <param name="sender">Sending instance, or null for none.</param>
     /// <param name="name">Name (for logging).</param>
-    public static void RaiseSafe(this EventHandler? evt, object? sender, [CallerArgumentExpression("evt")] string name = "")
+    public static void RaiseSafe(this EventHandler? evt, object? sender, [CallerArgumentExpression(nameof(evt))] string name = "")
     {
         Debug.Assert(!string.IsNullOrWhiteSpace(name), "Name should not be null or whitespace");
 

@@ -1,11 +1,13 @@
-﻿using System.Runtime.CompilerServices;
+﻿// Ignore Spelling: splitchars splitchar
+
+using System.Runtime.CompilerServices;
 
 using AtraBase.Toolkit.Extensions;
 
 namespace AtraBase.Toolkit.StringHandler;
 
 // TODO: consider the case of splitting by a string?
-// Dunno how necesssary though...
+// Dunno how necessary though...
 
 /// <summary>
 /// A struct that acts as the splitter.

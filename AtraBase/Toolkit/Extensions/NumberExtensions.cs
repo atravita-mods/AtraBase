@@ -1,4 +1,6 @@
-﻿using System.Runtime.CompilerServices;
+﻿// Ignore Spelling: otherval
+
+using System.Runtime.CompilerServices;
 
 namespace AtraBase.Toolkit.Extensions;
 
