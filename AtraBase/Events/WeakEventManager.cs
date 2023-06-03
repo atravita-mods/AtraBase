@@ -55,7 +55,7 @@ internal class WeakEventManager<TEventArgs> : IWeakEventManager<TEventArgs>
                 }
                 catch (Exception ex)
                 {
-                    Logger.Instance.Error($"Failed while raising weak event:\n\n{ex}");
+                    Logger.Instance.Error("Failed while raising weak event:", ex);
                 }
             }
             else

@@ -15,6 +15,10 @@ internal class Logger : ILogger
         => Console.WriteLine(message);
 
     /// <inheritdoc />
+    public void Error(string message, Exception exception)
+        => Console.WriteLine(message + '\n' + exception.ToString());
+
+    /// <inheritdoc />
     public void Info(string message)
         => Console.WriteLine(message);
 

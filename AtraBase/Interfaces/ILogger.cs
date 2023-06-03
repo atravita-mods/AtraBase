@@ -28,4 +28,11 @@ internal interface ILogger
     /// </summary>
     /// <param name="message">Message to log.</param>
     internal void Error(string message);
+
+    /// <summary>
+    /// Logs an error. Something has gone wrong.
+    /// </summary>
+    /// <param name="message">Message to log.</param>
+    /// <param name="exception">Associated exception.</param>
+    internal void Error(string message, Exception exception);
 }

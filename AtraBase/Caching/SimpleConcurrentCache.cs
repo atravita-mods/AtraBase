@@ -421,6 +421,7 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
         return false;
     }
 
+    /// <inheritdoc cref="IDisposable.Dispose"/>
     public void Dispose()
     {
         this.Dispose(disposing: true);
@@ -447,7 +448,7 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
         }
         catch (Exception ex)
         {
-            Logger.Instance.Error($"[AtraBase] Cache swap failed\n\n{ex}");
+            Logger.Instance.Error($"[AtraBase] Cache swap failed.", ex);
         }
     }
 

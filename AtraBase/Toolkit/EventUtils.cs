@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿// Ignore Spelling: evt Utils
+
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 using AtraBase.Internal;
@@ -43,7 +45,7 @@ public static class EventUtils
             }
             catch (Exception ex)
             {
-                Logger.Instance.Error($"Exception while handling event {name}:\n\n{ex}");
+                Logger.Instance.Error($"Exception while handling event {name}:", ex);
             }
         }
     }
@@ -78,7 +80,7 @@ public static class EventUtils
             }
             catch (Exception ex)
             {
-                Logger.Instance.Error($"Exception while handling event {name}:\n\n{ex}");
+                Logger.Instance.Error($"Exception while handling event {name}:", ex);
             }
         }
     }
