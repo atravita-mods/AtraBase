@@ -6,7 +6,7 @@ using AtraBase.Toolkit.Extensions;
 
 namespace AtraBase.Models.WeightedRandom;
 
-[SuppressMessage("StyleCop.CSharp.NamingRules", "SA1313:Parameter names should begin with lower-case letter", Justification = "Stylecop doesn't understand records.")]
+[SuppressMessage("StyleCop.CSharp.NamingRules", "SA1313:Parameter names should begin with lower-case letter", Justification = StyleCopErrorConsts.IsRecord)]
 public readonly record struct WeightedItem<T>(double Weight, T? Item);
 
 /// <summary>

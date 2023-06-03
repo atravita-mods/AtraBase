@@ -50,6 +50,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\StringHandler\SpanSplitExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\StringHandler\StreamSplit.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\StringHandler\ValueStringBuilder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)toolkit\StyleCopErrorConsts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\TKConstants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\IEnumerableExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Extensions\MethodExtensions.cs" />
