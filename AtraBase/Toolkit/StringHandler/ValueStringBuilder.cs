@@ -15,7 +15,6 @@ using AtraBase.Toolkit.Shims.NetSeven;
 
 namespace AtraBase.Toolkit.StringHandler;
 
-#pragma warning disable SA1309 // Field names should not begin with underscore
 #pragma warning disable SA1201 // Elements should appear in the correct order
 
 /// <summary>
@@ -334,5 +333,4 @@ internal ref struct ValueStringBuilder
     }
 }
 
-#pragma warning restore SA1309 // Field names should not begin with underscore
 #pragma warning restore SA1201 // Elements should appear in the correct order
