@@ -1,4 +1,6 @@
-﻿using System.Runtime.CompilerServices;
+﻿// Ignore Spelling: splitchar splitchars
+
+using System.Runtime.CompilerServices;
 
 using AtraBase.Toolkit.Extensions;
 
@@ -9,12 +11,15 @@ namespace AtraBase.Toolkit.StringHandler;
 /// </summary>
 public static class StreamSplitExtensions
 {
+    /// <inheritdoc cref="StreamSplit(string, char, StringSplitOptions)"/>
     public static StreamSplit StreamSplit(this string str, char splitchar, StringSplitOptions options = StringSplitOptions.None)
         => new(str, splitchar, options);
 
+    /// <inheritdoc cref="StreamSplit(string, char[]?, StringSplitOptions)"/>
     public static StreamSplit StreamSplit(this string str, char[]? splitchars = null, StringSplitOptions options = StringSplitOptions.None)
         => new(str, splitchars, options);
 
+    /// <inheritdoc cref="StreamSplit(ReadOnlySpan{char}, char, StringSplitOptions)"/>
     public static StreamSplit StreamSplit(this ReadOnlySpan<char> str, char splitchar, StringSplitOptions options = StringSplitOptions.None)
         => new(str, splitchar, options);
 
