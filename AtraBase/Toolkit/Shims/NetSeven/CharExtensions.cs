@@ -25,8 +25,13 @@ public static class CharExtensions
     /// to <paramref name="minInclusive"/>.  If <paramref name="maxInclusive"/> is less than
     /// <paramref name="minInclusive"/>, the behavior is undefined.
     /// </remarks>
-    public static bool IsBetween(char c, char minInclusive, char maxInclusive) =>
-        (uint)(c - minInclusive) <= (uint)(maxInclusive - minInclusive);
+    public static bool IsBetween(char c, char minInclusive, char maxInclusive)
+    {
+        unchecked
+        {
+            return (uint)(c - minInclusive) <= (uint)(maxInclusive - minInclusive);
+        }
+    }
 
     /// <summary>
     /// Returns <see langword="true"/> if <paramref name="c"/> is an ASCII
@@ -35,7 +40,13 @@ public static class CharExtensions
     /// <remarks>
     /// Per http://www.unicode.org/glossary/#ASCII, ASCII is only U+0000..U+007F.
     /// </remarks>
-    public static bool IsAscii(char c) => (uint)c <= '\x007f';
+    public static bool IsAscii(char c)
+    {
+        unchecked
+        {
+            return (uint)c <= '\x007f';
+        }
+    }
 
     /// <summary>Indicates whether a character is categorized as an ASCII letter.</summary>
     /// <param name="c">The character to evaluate.</param>
@@ -44,7 +55,13 @@ public static class CharExtensions
     /// This determines whether the character is in the range 'A' through 'Z', inclusive,
     /// or 'a' through 'z', inclusive.
     /// </remarks>
-    public static bool IsAsciiLetter(char c) => (uint)((c | 0x20) - 'a') <= 'z' - 'a';
+    public static bool IsAsciiLetter(char c)
+    {
+        unchecked
+        {
+            return (uint)((c | 0x20) - 'a') <= 'z' - 'a';
+        }
+    }
 
     /// <summary>Indicates whether a character is categorized as a lowercase ASCII letter.</summary>
     /// <param name="c">The character to evaluate.</param>

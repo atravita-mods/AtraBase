@@ -11,18 +11,43 @@ namespace AtraBase.Toolkit.StringHandler;
 /// </summary>
 public static class StreamSplitExtensions
 {
-    /// <inheritdoc cref="StreamSplit(string, char, StringSplitOptions)"/>
+    /// <summary>
+    /// Splits a string by a given character.
+    /// </summary>
+    /// <param name="str">String to split.</param>
+    /// <param name="splitchar">Character to split by.</param>
+    /// <param name="options">String split options.</param>
+    /// <returns><see cref="StreamSplit(string, char, StringSplitOptions)"/> instance.</returns>
     public static StreamSplit StreamSplit(this string str, char splitchar, StringSplitOptions options = StringSplitOptions.None)
         => new(str, splitchar, options);
 
-    /// <inheritdoc cref="StreamSplit(string, char[]?, StringSplitOptions)"/>
+    /// <summary>
+    /// Splits a string by one or more characters, or null for whitespace.
+    /// </summary>
+    /// <param name="str">String to split.</param>
+    /// <param name="splitchars">Characters to split by, or null for whitespace.</param>
+    /// <param name="options">String split options.</param>
+    /// <returns><see cref="StreamSplit"/> instance.</returns>
     public static StreamSplit StreamSplit(this string str, char[]? splitchars = null, StringSplitOptions options = StringSplitOptions.None)
         => new(str, splitchars, options);
 
-    /// <inheritdoc cref="StreamSplit(ReadOnlySpan{char}, char, StringSplitOptions)"/>
+    /// <summary>
+    /// Splits a readonlyspan by a given character.
+    /// </summary>
+    /// <param name="str">Span to split.</param>
+    /// <param name="splitchar">Character to split by.</param>
+    /// <param name="options">String split options.</param>
+    /// <returns><see cref="StreamSplit(ReadOnlySpan{char}, char, StringSplitOptions)"/> instance.</returns>
     public static StreamSplit StreamSplit(this ReadOnlySpan<char> str, char splitchar, StringSplitOptions options = StringSplitOptions.None)
         => new(str, splitchar, options);
 
+    /// <summary>
+    /// Splits a readonlyspan by one or more characters, or null for whitespace.
+    /// </summary>
+    /// <param name="str">Span to split.</param>
+    /// <param name="splitchars">Characters to split by, or null for whitespace.</param>
+    /// <param name="options">String split options.</param>
+    /// <returns><see cref="StreamSplit"/> instance.</returns>
     public static StreamSplit StreamSplit(this ReadOnlySpan<char> str, char[]? splitchars = null, StringSplitOptions options = StringSplitOptions.None)
         => new(str, splitchars, options);
 }
