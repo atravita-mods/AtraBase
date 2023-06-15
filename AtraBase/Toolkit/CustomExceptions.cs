@@ -25,7 +25,7 @@ public class UnexpectedEnumValueException<T> : Exception
 public static class TKThrowHelper
 {
 #if NET6_0_OR_GREATER
-    [StaticTraceHidden]
+    [StackTraceHidden]
 #endif
     [DoesNotReturn]
     [DebuggerHidden]
@@ -36,7 +36,7 @@ public static class TKThrowHelper
     }
 
 #if NET6_0_OR_GREATER
-    [StaticTraceHidden]
+    [StackTraceHidden]
 #endif
     [DoesNotReturn]
     [DebuggerHidden]
@@ -47,7 +47,7 @@ public static class TKThrowHelper
     }
 
 #if NET6_0_OR_GREATER
-    [StaticTraceHidden]
+    [StackTraceHidden]
 #endif
     [DoesNotReturn]
     [DebuggerHidden]
@@ -58,7 +58,7 @@ public static class TKThrowHelper
     }
 
 #if NET6_0_OR_GREATER
-    [StaticTraceHidden]
+    [StackTraceHidden]
 #endif
     [DoesNotReturn]
     [DebuggerHidden]

@@ -21,7 +21,7 @@ public class MethodNotFoundException : Exception
 public static class ReflectionThrowHelper
 {
 #if NET6_0_OR_GREATER
-    [StaticTraceHidden]
+    [StackTraceHidden]
 #endif
     [DoesNotReturn]
     [DebuggerHidden]
@@ -32,7 +32,7 @@ public static class ReflectionThrowHelper
     }
 
 #if NET6_0_OR_GREATER
-    [StaticTraceHidden]
+    [StackTraceHidden]
 #endif
     [DoesNotReturn]
     [DebuggerHidden]

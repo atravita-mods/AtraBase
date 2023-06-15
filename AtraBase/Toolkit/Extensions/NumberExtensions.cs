@@ -16,7 +16,7 @@ public static class NumberExtensions
 
     private static Random Random =>
 #if NET6_0_OR_GREATER
-        Random.Shared
+        Random.Shared;
 #else
         _random.Value!;
 #endif
