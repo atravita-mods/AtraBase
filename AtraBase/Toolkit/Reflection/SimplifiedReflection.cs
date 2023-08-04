@@ -1,6 +1,9 @@
 ﻿using System.Reflection;
 using AtraBase.Internal;
 
+using CommunityToolkit.Diagnostics;
+using HarmonyLib;
+
 namespace AtraBase.Toolkit.Reflection;
 
 /// <summary>
@@ -114,5 +117,41 @@ public static class SimplifiedReflection
             }
         }
         return types;
+    }
+
+    /// <summary>
+    /// Gets the direct base method of a method, or null if not applicable.
+    /// </summary>
+    /// <param name="method">Method to check.</param>
+    /// <returns>MethodBase of the base method, or null if not applicable.</returns>
+    public static MethodBase? GetBaseMethod(this MethodBase method)
+    {
+        Guard.IsNotNull(method);
+        Guard.IsFalse(method.IsStatic);
+
+        Type? baseType = method.DeclaringType?.BaseType;
+        if (baseType is null)
+        {
+            return null;
+        }
+
+        if (!method.IsVirtual)
+        {
+            return null;
+        }
+
+        Type[] parameters = method.GetParameters().Select(p => p.ParameterType).ToArray();
+        BindingFlags flags = BindingFlags.Instance | BindingFlags.FlattenHierarchy;
+        flags |= method.IsPublic ? BindingFlags.Public : BindingFlags.NonPublic;
+        switch (method)
+        {
+            case ConstructorInfo constructorInfo:
+                return baseType.GetConstructor(flags, null, parameters, null);
+            case MethodInfo methodInfo:
+                return baseType.GetMethod(method.Name, flags, null, parameters, null);
+            default:
+                ThrowHelper.ThrowInvalidOperationException($"Expected {method.FullDescription()} to be either a ConstructorInfo or a MethodInfo");
+                return null;
+        }
     }
 }
