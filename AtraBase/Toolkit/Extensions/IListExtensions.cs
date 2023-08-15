@@ -19,7 +19,7 @@ public static class IListExtensions
     /// <returns>Index of the thing, or -1 if not found.</returns>
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveOptimization)]
-    public static int NthOccuranceOf<T>(this IList<T> list, T item, int count = 1)
+    public static int NthOccurrenceOf<T>(this IList<T> list, T item, int count = 1)
         where T : IEquatable<T>
     {
         for (int i = 0; i < list.Count; i++)
@@ -84,7 +84,7 @@ public static class IListExtensions
     /// <summary>
     /// Removes the item at <paramref name="index"/> by swapping it with the last element.
     /// </summary>
-    /// <typeparam name="T">The type of the list</typeparam>
+    /// <typeparam name="T">The type of the list.</typeparam>
     /// <param name="list">The list to remove from.</param>
     /// <param name="index">The index to remove.</param>
     [MethodImpl(MethodImplOptions.AggressiveOptimization)]
