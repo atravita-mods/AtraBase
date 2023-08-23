@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 using AtraBase.Internal;
+using AtraBase.Toolkit.Extensions;
 
 using CommunityToolkit.Diagnostics;
-using HarmonyLib;
 
 namespace AtraBase.Toolkit.Reflection;
 
@@ -150,7 +150,7 @@ public static class SimplifiedReflection
             case MethodInfo methodInfo:
                 return baseType.GetMethod(method.Name, flags, null, parameters, null);
             default:
-                ThrowHelper.ThrowInvalidOperationException($"Expected {method.FullDescription()} to be either a ConstructorInfo or a MethodInfo");
+                ThrowHelper.ThrowInvalidOperationException($"Expected {method.GetFullName()} to be either a ConstructorInfo or a MethodInfo");
                 return null;
         }
     }
