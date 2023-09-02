@@ -12,21 +12,41 @@ internal class Logger : ILogger
 
     /// <inheritdoc />
     public void Error(string message)
-        => Console.WriteLine(message);
+    {
+#if DEBUG || LOG_ENABLED
+        Console.WriteLine(message);
+#endif
+    }
 
     /// <inheritdoc />
     public void Error(string message, Exception exception)
-        => Console.WriteLine(message + '\n' + exception.ToString());
+    {
+#if DEBUG || LOG_ENABLED
+        Console.WriteLine(message + '\n' + exception.ToString());
+#endif
+    }
 
     /// <inheritdoc />
     public void Info(string message)
-        => Console.WriteLine(message);
+    {
+#if DEBUG || LOG_ENABLED
+        Console.WriteLine(message);
+#endif
+    }
 
     /// <inheritdoc />
     public void Verbose(string message)
-        => Console.WriteLine(message);
+    {
+#if DEBUG || LOG_ENABLED
+        Console.WriteLine(message);
+#endif
+    }
 
     /// <inheritdoc />
     public void Warn(string message)
-        => Console.WriteLine(message);
+    {
+#if DEBUG || LOG_ENABLED
+        Console.WriteLine(message);
+#endif
+    }
 }
