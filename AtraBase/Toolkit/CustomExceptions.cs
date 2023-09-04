@@ -67,4 +67,48 @@ public static class TKThrowHelper
     {
         throw new IndexOutOfRangeException();
     }
+
+#if NET6_0_OR_GREATER
+    [StackTraceHidden]
+#endif
+    [DoesNotReturn]
+    [DebuggerHidden]
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public static void ThrowInvalidCastException()
+    {
+        throw new InvalidCastException();
+    }
+
+#if NET6_0_OR_GREATER
+    [StackTraceHidden]
+#endif
+    [DoesNotReturn]
+    [DebuggerHidden]
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public static TReturn ThrowInvalidCastException<TReturn>()
+    {
+        throw new InvalidCastException();
+    }
+
+#if NET6_0_OR_GREATER
+    [StackTraceHidden]
+#endif
+    [DoesNotReturn]
+    [DebuggerHidden]
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public static void ThrowInvalidCastException(string message)
+    {
+        throw new InvalidCastException(message);
+    }
+
+#if NET6_0_OR_GREATER
+    [StackTraceHidden]
+#endif
+    [DoesNotReturn]
+    [DebuggerHidden]
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public static TReturn ThrowInvalidCastException<TReturn>(string message)
+    {
+        throw new InvalidCastException(message);
+    }
 }
