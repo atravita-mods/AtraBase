@@ -326,13 +326,16 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
     /// </summary>
     public void Swap()
     {
+        var cache = this.cache;
+        var stale = this.stale;
 #if DEBUG
         Logger.Instance.Info($"{this.cache.Count} in hot cache, {this.stale.Count} in the stale cache before swap.");
 #endif
-        this.stale.Clear();
-        if (!this.cache.IsEmpty)
+        stale.Clear();
+        if (!cache.IsEmpty)
         {
-            (this.stale, this.cache) = (this.cache, this.stale);
+            this.stale = cache;
+            this.cache = stale;
         }
     }
 

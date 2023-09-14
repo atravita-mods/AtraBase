@@ -1,4 +1,6 @@
-﻿using System.Runtime.CompilerServices;
+﻿// Ignore Spelling: deliminator deliminators
+
+using System.Runtime.CompilerServices;
 using CommunityToolkit.Diagnostics;
 
 namespace AtraBase.Toolkit.Extensions;
@@ -17,7 +19,7 @@ public static class StringExtensions
     /// <returns>Index of the char, or -1 if not found.</returns>
     [Pure]
     [MethodImpl(TKConstants.Hot)]
-    public static int NthOccuranceOf(this string str, char item, int count = 1)
+    public static int NthOccurrenceOf(this string str, char item, int count = 1)
     {
         for (int i = 0; i < str.Length; i++)
         {
@@ -38,7 +40,7 @@ public static class StringExtensions
     /// <returns>Index of the char, or -1 if not found.</returns>
     [Pure]
     [MethodImpl(TKConstants.Hot)]
-    public static int NthOccuranceFromEnd(this string str, char item, int count = 1)
+    public static int NthOccurrenceFromEnd(this string str, char item, int count = 1)
     {
         for (int i = str.Length - 1; i >= 0; i--)
         {
@@ -189,6 +191,14 @@ public static class StringExtensions
         return -1;
     }
 
+    /// <summary>
+    /// Tries to split once by a deliminator.
+    /// </summary>
+    /// <param name="str">Text to split.</param>
+    /// <param name="deliminator">Deliminator to split by.</param>
+    /// <param name="first">The part that precedes the deliminator, or the whole text if not found.</param>
+    /// <param name="second">The part that is after the deliminator.</param>
+    /// <returns>True if successful, false otherwise.</returns>
     [Pure]
     [MethodImpl(TKConstants.Hot)]
     public static bool TrySplitOnce(this string str, char? deliminator, out ReadOnlySpan<char> first, out ReadOnlySpan<char> second)
@@ -197,6 +207,14 @@ public static class StringExtensions
         return str.AsSpan().TrySplitOnce(deliminator, out first, out second);
     }
 
+    /// <summary>
+    /// Tries to split once by a deliminator.
+    /// </summary>
+    /// <param name="str">Text to split.</param>
+    /// <param name="deliminator">Deliminator to split by.</param>
+    /// <param name="first">The part that precedes the deliminator, or the whole text if not found.</param>
+    /// <param name="second">The part that is after the deliminator.</param>
+    /// <returns>True if successful, false otherwise.</returns>
     [Pure]
     [MethodImpl(TKConstants.Hot)]
     public static bool TrySplitOnce(this ReadOnlySpan<char> str, char? deliminator, out ReadOnlySpan<char> first, out ReadOnlySpan<char> second)
@@ -205,7 +223,8 @@ public static class StringExtensions
 
         if (idx < 0)
         {
-            first = second = ReadOnlySpan<char>.Empty;
+            first = str;
+            second = ReadOnlySpan<char>.Empty;
             return false;
         }
 
