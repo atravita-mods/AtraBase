@@ -388,15 +388,17 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
     /// <returns>True if found and removed.</returns>
     public bool TryRemove(TKey key, out TValue? value)
     {
-        bool success = this.cache.TryRemove(key, out value);
-        if (success)
+        var cache = this.cache;
+        var stale = this.stale;
+
+        if (cache.TryRemove(key, out value))
         {
-            this.stale.TryRemove(key, out _);
+            stale.TryRemove(key, out _);
             return true;
         }
         else
         {
-            return this.stale.TryRemove(key, out value);
+            return stale.TryRemove(key, out value);
         }
     }
 
@@ -408,14 +410,17 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
     /// <returns>True if successful, false otherwise.</returns>
     public bool TryGetValue(TKey key, [MaybeNullWhen(false)] out TValue value)
     {
-        if (this.cache.TryGetValue(key, out value))
+        var cache = this.cache;
+        var stale = this.stale;
+
+        if (cache.TryGetValue(key, out value))
         {
             return true;
         }
-        if (this.stale.TryGetValue(key, out value))
+        if (stale.TryGetValue(key, out value))
         {
             // promote to hot.
-            this.cache[key] = value;
+            cache[key] = value;
             return true;
         }
         return false;
