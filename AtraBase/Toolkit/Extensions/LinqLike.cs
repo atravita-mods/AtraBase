@@ -20,6 +20,11 @@ public static class LinqLight
         => new(span);
 }
 
+/// <summary>
+/// Iterates over a Span, returning only items that can be cast to a specific type.
+/// </summary>
+/// <typeparam name="TArray">Type of the span.</typeparam>
+/// <typeparam name="TCast">Type to filter to.</typeparam>
 public ref struct FilterToType<TArray, TCast>
     where TCast : TArray
 {

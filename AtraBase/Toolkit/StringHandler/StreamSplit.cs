@@ -127,6 +127,11 @@ public ref struct StreamSplit
     public SpanSplitEntry Current { get; private set; } = new SpanSplitEntry(string.Empty, string.Empty);
 
     /// <summary>
+    /// The remaining string to process.
+    /// </summary>
+    public ReadOnlySpan<char> Remainder => this.remainder;
+
+    /// <summary>
     /// Gets this as an enumerator. Used for ForEach.
     /// </summary>
     /// <returns>this.</returns>
@@ -145,15 +150,9 @@ public ref struct StreamSplit
             {
                 return false;
             }
-            int index;
-            if (this.splitchars is null)
-            { // we're splitting by whitespace
-                index = this.remainder.GetIndexOfWhiteSpace();
-            }
-            else
-            {
-                index = this.remainder.IndexOfAny(this.splitchars);
-            }
+            int index = this.splitchars is null // null corresponds to splitting by any whitespace character.
+                ? this.remainder.GetIndexOfWhiteSpace()
+                : this.remainder.IndexOfAny(this.splitchars);
             ReadOnlySpan<char> splitchar;
             ReadOnlySpan<char> word;
             if (index < 0)

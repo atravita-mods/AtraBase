@@ -1,4 +1,7 @@
-﻿namespace AtraBase.Toolkit.Extensions;
+﻿using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+
+namespace AtraBase.Toolkit.Extensions;
 
 /// <summary>
 /// Add some python-esque methods to the dictionaries.
@@ -108,18 +111,27 @@ public static class IDictionaryExtensions
     /// <param name="defaultValue">Default value.</param>
     /// <returns>Value from dictionary if not null, or else defaultValue.</returns>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static TValue GetValueOrDefaultOverrideNull<TKey, TValue>(
         this IDictionary<TKey, TValue> dictionary,
         TKey key,
         TValue defaultValue)
-    {
-        if (key is not null && dictionary.TryGetValue(key, out TValue? value) && value is not null)
-        {
-            return value;
-        }
-        else
-        {
-            return defaultValue;
-        }
-    }
+        => key is not null && dictionary.TryGetValue(key, out TValue? value) && value is not null ? value : defaultValue;
+
+    /// <summary>
+    /// Tries to retrieve a value from a dictionary, returning default if it cannot be found.
+    /// </summary>
+    /// <typeparam name="TKey">Type of key.</typeparam>
+    /// <typeparam name="TValue">Type of value.</typeparam>
+    /// <param name="dictionary">Dictionary to search in.</param>
+    /// <param name="key">Key.</param>
+    /// <returns>Value if found, else default.</returns>
+    /// <remarks>If value types are involved, consider the <see cref="CollectionsMarshal"/> methods instead.</remarks>
+    [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static TValue? GetValueOrDefault<TKey, TValue>(
+        this IDictionary<TKey, TValue> dictionary,
+        TKey key)
+            where TValue : class
+        => key is not null && dictionary.TryGetValue(key, out TValue? value) ? value : default;
 }

@@ -26,7 +26,6 @@ public static class ShuffleExtensions
 /// <typeparam name="T">The type of thing to yield.</typeparam>
 /// <remarks>Built for use with rented arrays.</remarks>
 public ref struct ShuffledYielder<T>
-    where T : struct
 {
     private readonly Span<T> span;
     private readonly Random random;
@@ -46,15 +45,16 @@ public ref struct ShuffledYielder<T>
     }
 
     /// <inheritdoc cref="IEnumerator{T}.Current"/>
-    public T Current { get; private set; } = default;
+    public T? Current { get; private set; } = default;
 
     /// <inheritdoc cref="IEnumerable{T}.GetEnumerator"/>
-    public ShuffledYielder<T> GetEnumerator() => this;
+    public readonly ShuffledYielder<T> GetEnumerator() => this;
 
     /// <summary>
     /// Moves to the next value in the collection.
     /// </summary>
     /// <returns>True if there are more values, false otherwise.</returns>
+    [MemberNotNullWhen(true, nameof(Current))]
     [MethodImpl(MethodImplOptions.AggressiveOptimization)]
     public bool MoveNext()
     {
@@ -63,10 +63,13 @@ public ref struct ShuffledYielder<T>
             return false;
         }
 
-        int j = this.random.Next(this.index);
-        this.Current = this.span[j];
-        this.span[j] = this.span[this.index];
-        this.span[this.index] = this.Current;
+        int j = this.random.Next(this.index + 1);
+        this.Current = this.span[j]!;
+        if (j != this.index)
+        {
+            this.span[j] = this.span[this.index];
+            this.span[this.index] = this.Current;
+        }
 
         this.index--;
         return true;
