@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿// Ignore Spelling: Uncached
+
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 using AtraBase.Models.Result;
@@ -7,6 +9,12 @@ using AtraBase.Toolkit.Extensions;
 
 namespace AtraBase.Models.WeightedRandom;
 
+/// <summary>
+/// A representation of a weighted chance.
+/// </summary>
+/// <typeparam name="T">The type of the item.</typeparam>
+/// <param name="Weight">The weight assigned to the item.</param>
+/// <param name="Item">The item.</param>
 [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1313:Parameter names should begin with lower-case letter", Justification = StyleCopErrorConsts.IsRecord)]
 public readonly record struct WeightedItem<T>(double Weight, T? Item);
 

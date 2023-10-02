@@ -1,4 +1,6 @@
-﻿using System.Runtime.CompilerServices;
+﻿// Ignore Spelling: Dict
+
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace AtraBase.Toolkit.Extensions;

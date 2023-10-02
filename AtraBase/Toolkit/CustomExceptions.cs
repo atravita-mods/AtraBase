@@ -4,9 +4,9 @@ using System.Runtime.CompilerServices;
 namespace AtraBase.Toolkit;
 
 /// <summary>
-/// Thrown when I get an unexpected enum value.
+/// Thrown when an unexpected enum value is received.
 /// </summary>
-/// <typeparam name="T">The enum type that recieved an unexpected value.</typeparam>
+/// <typeparam name="T">The enum type that received an unexpected value.</typeparam>
 public class UnexpectedEnumValueException<T> : Exception
 {
     /// <summary>
@@ -14,7 +14,7 @@ public class UnexpectedEnumValueException<T> : Exception
     /// </summary>
     /// <param name="value">The unexpected enum value.</param>
     public UnexpectedEnumValueException(T value)
-        : base($"Enum {typeof(T).Name} recieved unexpected value {value}")
+        : base($"Enum {typeof(T).Name} received unexpected value {value}")
     {
     }
 }
@@ -24,6 +24,7 @@ public class UnexpectedEnumValueException<T> : Exception
 /// </summary>
 public static class TKThrowHelper
 {
+    /// <inheritdoc cref="UnexpectedEnumValueException{T}"/>
 #if NET6_0_OR_GREATER
     [StackTraceHidden]
 #endif
@@ -35,6 +36,7 @@ public static class TKThrowHelper
         throw new UnexpectedEnumValueException<TEnum>(value);
     }
 
+    /// <inheritdoc cref="UnexpectedEnumValueException{T}"/>
 #if NET6_0_OR_GREATER
     [StackTraceHidden]
 #endif
@@ -46,6 +48,7 @@ public static class TKThrowHelper
         throw new UnexpectedEnumValueException<TEnum>(value);
     }
 
+    /// <inheritdoc cref="IndexOutOfRangeException"/>
 #if NET6_0_OR_GREATER
     [StackTraceHidden]
 #endif
@@ -57,6 +60,7 @@ public static class TKThrowHelper
         throw new IndexOutOfRangeException();
     }
 
+    /// <inheritdoc cref="IndexOutOfRangeException"/>
 #if NET6_0_OR_GREATER
     [StackTraceHidden]
 #endif
@@ -68,6 +72,7 @@ public static class TKThrowHelper
         throw new IndexOutOfRangeException();
     }
 
+    /// <inheritdoc cref="InvalidCastException"/>
 #if NET6_0_OR_GREATER
     [StackTraceHidden]
 #endif
@@ -79,6 +84,7 @@ public static class TKThrowHelper
         throw new InvalidCastException();
     }
 
+    /// <inheritdoc cref="InvalidCastException"/>
 #if NET6_0_OR_GREATER
     [StackTraceHidden]
 #endif
@@ -90,6 +96,7 @@ public static class TKThrowHelper
         throw new InvalidCastException();
     }
 
+    /// <inheritdoc cref="InvalidCastException"/>
 #if NET6_0_OR_GREATER
     [StackTraceHidden]
 #endif
@@ -101,6 +108,7 @@ public static class TKThrowHelper
         throw new InvalidCastException(message);
     }
 
+    /// <inheritdoc cref="InvalidCastException"/>
 #if NET6_0_OR_GREATER
     [StackTraceHidden]
 #endif
