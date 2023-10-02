@@ -129,7 +129,7 @@ public static class IDictionaryExtensions
     /// <remarks>If value types are involved, consider the <see cref="CollectionsMarshal"/> methods instead.</remarks>
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static TValue? GetValueOrDefault<TKey, TValue>(
+    public static TValue? GetValueOrGetDefault<TKey, TValue>(
         this IDictionary<TKey, TValue> dictionary,
         TKey key)
             where TValue : class
