@@ -1,5 +1,14 @@
 ﻿namespace AtraBase.Interfaces;
 
+internal enum LoggerLevel
+{
+    Verbose,
+    Debug,
+    Info,
+    Warn,
+    Error
+}
+
 /// <summary>
 /// Encapsulates Atrabase logging.
 /// </summary>
