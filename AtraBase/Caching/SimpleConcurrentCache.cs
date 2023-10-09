@@ -326,8 +326,8 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
     /// </summary>
     public void Swap()
     {
-        var cache = this.cache;
-        var stale = this.stale;
+        ConcurrentDictionary<TKey, TValue> cache = this.cache;
+        ConcurrentDictionary<TKey, TValue> stale = this.stale;
 #if DEBUG
         Logger.Instance.Info($"{this.cache.Count} in hot cache, {this.stale.Count} in the stale cache before swap.");
 #endif
@@ -391,8 +391,8 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
     /// <returns>True if found and removed.</returns>
     public bool TryRemove(TKey key, out TValue? value)
     {
-        var cache = this.cache;
-        var stale = this.stale;
+        ConcurrentDictionary<TKey, TValue> cache = this.cache;
+        ConcurrentDictionary<TKey, TValue> stale = this.stale;
 
         if (cache.TryRemove(key, out value))
         {
@@ -413,8 +413,8 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
     /// <returns>True if successful, false otherwise.</returns>
     public bool TryGetValue(TKey key, [MaybeNullWhen(false)] out TValue value)
     {
-        var cache = this.cache;
-        var stale = this.stale;
+        ConcurrentDictionary<TKey, TValue> cache = this.cache;
+        ConcurrentDictionary<TKey, TValue> stale = this.stale;
 
         if (cache.TryGetValue(key, out value))
         {
