@@ -58,7 +58,7 @@ public static class EventUtils
     /// <param name="sender">Sender of the event, or null for none.</param>
     /// <param name="args">Event arguments.</param>
     /// <param name="name">Name (for logging).</param>
-    public static void RaiseSafe<TEventArgs>(this EventHandler<TEventArgs>? evt, object? sender, TEventArgs args, [CallerArgumentExpression("evt")] string name = "")
+    public static void RaiseSafe<TEventArgs>(this EventHandler<TEventArgs>? evt, object? sender, TEventArgs args, [CallerArgumentExpression(nameof(evt))] string name = "")
     {
         Debug.Assert(!string.IsNullOrWhiteSpace(name), "Name should not be null or whitespace");
 
