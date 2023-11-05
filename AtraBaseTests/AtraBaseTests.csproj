@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <LangVersion>11</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
+        <PackageReference Include="NUnit" Version="3.13.2" />
+        <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />    <PackageReference Include="NUnit" Version="3.13.2" />
+    
+  </ItemGroup>
+
+  <Import Project="..\AtraBase\AtraBase.projitems" Label="Shared" />
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Diagnostics" Version="8.0.0" />
+    <PackageReference Include="FastExpressionCompiler.LightExpression" Version="3.3.3" />
+    <PackageReference Include="LinqFasterer" Version="2.1.0" />
+    <PackageReference Include="morelinq" Version="3.4.2" />
+    <PackageReference Include="Microsoft.IO.RecyclableMemoryStream" Version="2.3.2" />
+
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+
+    <PackageReference Include="NetEscapades.EnumGenerators" Version="1.0.0-beta08"
+      PrivateAssets="all" ExcludeAssets="runtime" />
+
+    <PackageReference Include="JetBrains.Annotations" Version="2023.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="System.Diagnostics.CodeAnalysis" />
+    <Using Include="JetBrains.Annotations" />
+    <Using Alias="NotNullAttribute" Include="System.Diagnostics.CodeAnalysis.NotNullAttribute" />
+  </ItemGroup>
+
+</Project>

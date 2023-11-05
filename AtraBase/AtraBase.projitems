@@ -46,6 +46,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Shims\NetSeven\UnreachableException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\Shims\NetSix\IEnumerableShims.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\StringBuilderCache.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Toolkit\StringHandler\QuoteAwareSplit.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\StringHandler\SpanSplit.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\StringHandler\SpanSplitEntry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\StringHandler\SpanSplitExtension.cs" />

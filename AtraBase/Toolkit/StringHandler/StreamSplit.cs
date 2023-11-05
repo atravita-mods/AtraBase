@@ -127,7 +127,7 @@ public ref struct StreamSplit
     public SpanSplitEntry Current { get; private set; } = new SpanSplitEntry(string.Empty, string.Empty);
 
     /// <summary>
-    /// The remaining string to process.
+    /// Gets the remaining string to process.
     /// </summary>
     public ReadOnlySpan<char> Remainder => this.remainder;
 
@@ -163,18 +163,18 @@ public ref struct StreamSplit
             }
             else
             {
+                word = this.remainder[..index];
+
                 // special case - the windows newline.
                 if (this.splitchars is null && this.remainder.Length > index + 2 &&
                     this.remainder.Slice(index, 2).Equals("\r\n", StringComparison.Ordinal))
                 {
                     splitchar = this.remainder.Slice(index, 2);
-                    word = this.remainder[..index];
                     this.remainder = this.remainder[(index + 2)..];
                 }
                 else
                 {
                     splitchar = this.remainder.Slice(index, 1);
-                    word = this.remainder[..index];
                     this.remainder = this.remainder[(index + 1)..];
                 }
             }
