@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
         <PackageReference Include="NUnit" Version="3.13.2" />
         <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />    <PackageReference Include="NUnit" Version="3.13.2" />
     
@@ -20,10 +20,10 @@
   <Import Project="..\AtraBase\AtraBase.projitems" Label="Shared" />
 
   <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Diagnostics" Version="8.0.0" />
-    <PackageReference Include="FastExpressionCompiler.LightExpression" Version="3.3.3" />
+    <PackageReference Include="CommunityToolkit.Diagnostics" Version="8.2.2" />
+    <PackageReference Include="FastExpressionCompiler.LightExpression" Version="4.0.1" />
     <PackageReference Include="LinqFasterer" Version="2.1.0" />
-    <PackageReference Include="morelinq" Version="3.4.2" />
+    <PackageReference Include="morelinq" Version="4.1.0" />
     <PackageReference Include="Microsoft.IO.RecyclableMemoryStream" Version="2.3.2" />
 
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
