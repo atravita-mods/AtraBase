@@ -81,7 +81,7 @@ public static class StringExtensions
 
                 // else, we've run out of entries
                 // and return an empty span to mark as failure.
-                return ReadOnlySpan<char>.Empty;
+                return [];
             }
 
             if (index > -1)
@@ -122,7 +122,7 @@ public static class StringExtensions
 
                 // else, we've run out of entries
                 // and return an empty span to mark as failure.
-                return ReadOnlySpan<char>.Empty;
+                return [];
             }
 
             if (index > -1)
@@ -224,7 +224,7 @@ public static class StringExtensions
         if (idx < 0)
         {
             first = str;
-            second = ReadOnlySpan<char>.Empty;
+            second = [];
             return false;
         }
 
