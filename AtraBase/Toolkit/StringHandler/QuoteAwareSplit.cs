@@ -40,7 +40,7 @@ public ref struct QuoteAwareSplit
             // toss the whole thing into IndexOfAny
             // This is a heap allocation, but a teensy one that simplifies our logic by a lot.
             // Also why I'm avoiding Array.Copy here.
-            var searchchars = new char[splitchars.Length + 2];
+            char[] searchchars = new char[splitchars.Length + 2];
             for (int i = 0; i < splitchars.Length; i++)
             {
                 searchchars[i] = splitchars[i];
@@ -176,7 +176,7 @@ public ref struct QuoteAwareSplit
         // if we need to remove the quotes and escape characters
         // we'll need to build the string fragment somewhere.
         // let's try our best to use VSB.
-        var buffer = new ValueStringBuilder(stackalloc char[256]);
+        ValueStringBuilder buffer = new ValueStringBuilder(stackalloc char[256]);
 
         word = string.Empty;
         buffer.Append(segment[..index]);
@@ -205,7 +205,7 @@ file static class QuoteAwareSplitExtensions
     {
         for (int i = 0; i < chars.Length; i++)
         {
-            var c = chars[i];
+            char c = chars[i];
             if (c == first || c == second || char.IsWhiteSpace(c))
             {
                 return i;
