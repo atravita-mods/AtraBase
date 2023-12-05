@@ -70,7 +70,7 @@ public ref struct StreamSplit
     /// <param name="splitchar">character to split by.</param>
     /// <param name="options">split options.</param>
     public StreamSplit(string str, char splitchar, StringSplitOptions options = StringSplitOptions.None)
-        : this(str.AsSpan(), new[] { splitchar }, options)
+        : this(str.AsSpan(), [splitchar], options)
     {
     }
 
@@ -92,7 +92,7 @@ public ref struct StreamSplit
     /// <param name="splitchar">character to split by.</param>
     /// <param name="options">split options.</param>
     public StreamSplit(ReadOnlySpan<char> str, char splitchar, StringSplitOptions options = StringSplitOptions.None)
-        : this(str, new[] { splitchar }, options)
+        : this(str, [splitchar], options)
     {
     }
 

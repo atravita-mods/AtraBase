@@ -42,7 +42,7 @@ public static class ObjectOverlay
         }
 
         BlockExpression? block = Expression.Block(expressionList);
-        return Expression.Lambda<Action<T, T>>(block, new ParameterExpression[] { obj, overlay } ).Compile();
+        return Expression.Lambda<Action<T, T>>(block, [obj, overlay] ).Compile();
     }
 
     private static bool IsNotNull(object obj)
