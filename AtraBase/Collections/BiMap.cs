@@ -28,8 +28,8 @@ public class BiMap<TForward, TReverse> : IEnumerable<KeyValuePair<TForward, TRev
     /// </summary>
     public BiMap()
     {
-        this.forward = new Dictionary<TForward, TReverse>();
-        this.reverse = new Dictionary<TReverse, TForward>();
+        this.forward = [];
+        this.reverse = [];
     }
 
     /// <summary>

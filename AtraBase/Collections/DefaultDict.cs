@@ -23,7 +23,7 @@ public class DefaultDict<TKey, TValue> : IDictionary<TKey, TValue>
     public DefaultDict(Func<TValue>? factory = null)
     {
         this.factory = factory ?? (() => new TValue());
-        this.dict = new();
+        this.dict = [];
     }
 
     /// <summary>

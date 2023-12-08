@@ -18,7 +18,7 @@ public class Counter<TKey> : IDictionary<TKey, int>
     /// <summary>
     /// Initializes a new instance of the <see cref="Counter{TKey}"/> class.
     /// </summary>
-    public Counter() => this.dict = new();
+    public Counter() => this.dict = [];
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Counter{TKey}"/> class, with values copied from a different counter.
@@ -104,7 +104,7 @@ public class Counter<TKey> : IDictionary<TKey, int>
     /// </summary>
     public void RemoveZeros()
     {
-        List<TKey> toRemove = new();
+        List<TKey> toRemove = [];
         foreach ((TKey key, int count) in this)
         {
             if (count == 0)
@@ -124,7 +124,7 @@ public class Counter<TKey> : IDictionary<TKey, int>
     /// <param name="limit">Limit to remove all values under.</param>
     public void RemoveBelow(int limit = 0)
     {
-        List<TKey> toRemove = new();
+        List<TKey> toRemove = [];
         foreach ((TKey key, int count) in this)
         {
             if (count <= limit)

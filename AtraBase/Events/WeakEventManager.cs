@@ -10,9 +10,9 @@ namespace AtraBase.Events;
 /// <inheritdoc />
 internal class WeakEventManager<TEventArgs> : IWeakEventManager<TEventArgs>
 {
-    private readonly List<WeakReference<EventHandler<TEventArgs>>> listeners = new();
-    private readonly List<WeakReference<EventHandler<TEventArgs>>> toAdd = new();
-    private readonly HashSet<EventHandler<TEventArgs>> toRemove = new();
+    private readonly List<WeakReference<EventHandler<TEventArgs>>> listeners = [];
+    private readonly List<WeakReference<EventHandler<TEventArgs>>> toAdd = [];
+    private readonly HashSet<EventHandler<TEventArgs>> toRemove = [];
 
     /// <inheritdoc />
     public void Add(EventHandler<TEventArgs> listener)

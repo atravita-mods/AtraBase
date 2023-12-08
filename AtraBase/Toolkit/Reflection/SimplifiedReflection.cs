@@ -79,7 +79,7 @@ public static class SimplifiedReflection
         Func<Assembly, bool>? assemblyfilter = null,
         Func<Assembly, Type, bool>? typefilter = null)
     {
-        HashSet<Type> types = new();
+        HashSet<Type> types = [];
         assemblyfilter ??= (Assembly assembly) => true;
         typefilter ??= (Assembly assembly, Type type) => true;
         foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies().Where(assemblyfilter))

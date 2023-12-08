@@ -16,7 +16,7 @@ public static class RegexExtensions
     [Pure]
     public static Dictionary<string, string> MatchGroupsToDictionary(this Match match, bool namedOnly = true)
     {
-        Dictionary<string, string> result = new();
+        Dictionary<string, string> result = [];
         foreach (Group group in match.Groups)
         {
             // Microsoft doesn't really give a better way to exclude unnamed groups, which are numbers as strings.
@@ -46,7 +46,7 @@ public static class RegexExtensions
         bool namedOnly = true)
         where TKey : notnull
     {
-        Dictionary<TKey, TValue> result = new();
+        Dictionary<TKey, TValue> result = [];
         foreach (Group group in match.Groups)
         {
             // Microsoft doesn't really give a better way to exclude unnamed groups, which are numbers as strings.

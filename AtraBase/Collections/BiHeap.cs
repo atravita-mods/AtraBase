@@ -112,9 +112,9 @@ public class BiHeap<T> : ICollection<T>
             TType? min = items.Min(comparer);
             if (min is null)
             {
-                return new List<TType>();
+                return [];
             }
-            return new List<TType>() { min };
+            return [min];
         }
 
         // Number of elements wanted is larger than the number of elements in the collection.

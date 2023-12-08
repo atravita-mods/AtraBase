@@ -25,7 +25,7 @@ public readonly record struct WeightedItem<T>(double Weight, T? Item);
 /// <remarks>This is geared towards reusing the same list of weights often.</remarks>
 public class WeightedManager<T>
 {
-    private readonly List<WeightedItem<T?>> items = new();
+    private readonly List<WeightedItem<T?>> items = [];
     private double[]? processedChances;
     private double max = -1;
 

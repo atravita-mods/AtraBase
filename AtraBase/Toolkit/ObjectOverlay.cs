@@ -11,11 +11,11 @@ public static class ObjectOverlay
         ParameterExpression? obj = Expression.Parameter(typeof(T));
         ParameterExpression? overlay = Expression.Parameter(typeof(T));
 
-        List<Expression> expressionList = new();
+        List<Expression> expressionList = [];
 
         foreach (PropertyInfo? property in typeof(T).GetProperties())
         {
-            List<Expression> miniList = new();
+            List<Expression> miniList = [];
             MemberExpression? getter = Expression.Property(overlay, property);
             MemberExpression? setter = Expression.Property(obj, property);
 
