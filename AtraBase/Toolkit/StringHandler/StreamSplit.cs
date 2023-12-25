@@ -195,6 +195,17 @@ public ref struct StreamSplit
         }
     }
 
+    /// <summary>
+    /// Skips the next N characters.
+    /// </summary>
+    /// <param name="length">Number of characters to skip.</param>
+    internal void Skip(int length) => this.remainder = this.remainder[length..];
+
+    /// <summary>
+    /// Trims whitespace characters from the start of the next segment.
+    /// </summary>
+    internal void TrimStart() => this.remainder = this.remainder.TrimStart();
+
     #endregion
 
     #region helpers

@@ -27,8 +27,16 @@ public readonly ref struct SpanSplitEntry
     /// </summary>
     public ReadOnlySpan<char> Seperator { get; }
 
+    /// <summary>
+    /// Converts this entry to a ReadOnlySpan.
+    /// </summary>
+    /// <param name="entry">Entry to convert.</param>
     public static implicit operator ReadOnlySpan<char>(SpanSplitEntry entry) => entry.Word;
 
+    /// <summary>
+    /// Converts the entry to a string.
+    /// </summary>
+    /// <param name="entry">Entry to convert.</param>
     public static implicit operator string(SpanSplitEntry entry) => entry.Word.ToString();
 
     /// <summary>
