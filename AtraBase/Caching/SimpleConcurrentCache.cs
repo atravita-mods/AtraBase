@@ -24,8 +24,8 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
     public SimpleConcurrentCache()
     {
         this.timer = this.GetDefaultTimer();
-        this.cache = new();
-        this.stale = new();
+        this.cache = new ();
+        this.stale = new ();
     }
 
     /// <summary>
@@ -34,13 +34,13 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
     /// <param name="time">The amount of time needed between resets.</param>
     public SimpleConcurrentCache(TimeSpan time)
     {
-        this.timer = new(
+        this.timer = new (
             new TimerCallback(this.OnTimerCallback),
             null,
             time,
             time);
-        this.cache = new();
-        this.stale = new();
+        this.cache = new ();
+        this.stale = new ();
     }
 
     /// <summary>
@@ -52,8 +52,8 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
         Guard.IsNotNull(initial);
 
         this.timer = this.GetDefaultTimer();
-        this.cache = new(initial);
-        this.stale = new();
+        this.cache = new (initial);
+        this.stale = new ();
     }
 
     /// <summary>
@@ -65,13 +65,13 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
     {
         Guard.IsNotNull(initial);
 
-        this.timer = new(
+        this.timer = new (
             new TimerCallback(this.OnTimerCallback),
             null,
             time,
             time);
-        this.cache = new(initial);
-        this.stale = new();
+        this.cache = new (initial);
+        this.stale = new ();
     }
 
     /// <summary>
@@ -83,8 +83,8 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
         Guard.IsNotNull(comparer);
 
         this.timer = this.GetDefaultTimer();
-        this.cache = new(comparer);
-        this.stale = new(comparer);
+        this.cache = new (comparer);
+        this.stale = new (comparer);
     }
 
     /// <summary>
@@ -96,14 +96,14 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
     {
         Guard.IsNotNull(comparer);
 
-        this.timer = new(
+        this.timer = new (
             new TimerCallback(this.OnTimerCallback),
             null,
             time,
             time);
 
-        this.cache = new(comparer);
-        this.stale = new(comparer);
+        this.cache = new (comparer);
+        this.stale = new (comparer);
     }
 
     /// <summary>
@@ -117,8 +117,8 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
         Guard.IsNotNull(comparer);
 
         this.timer = this.GetDefaultTimer();
-        this.cache = new(initial, comparer);
-        this.stale = new(comparer);
+        this.cache = new (initial, comparer);
+        this.stale = new (comparer);
     }
 
     /// <summary>
@@ -132,14 +132,14 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
         Guard.IsNotNull(initial);
         Guard.IsNotNull(comparer);
 
-        this.timer = new(
-            new(this.OnTimerCallback),
+        this.timer = new (
+            new (this.OnTimerCallback),
             null,
             time,
             time);
 
-        this.cache = new(initial, comparer);
-        this.stale = new(comparer);
+        this.cache = new (initial, comparer);
+        this.stale = new (comparer);
     }
 
     /// <summary>
@@ -154,8 +154,8 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
         Guard.IsGreaterThanOrEqualTo(capacity, 0);
 
         this.timer = this.GetDefaultTimer();
-        this.cache = new(concurrencyLevel, capacity);
-        this.stale = new(concurrencyLevel, 0); // no need to reserve capacity for the stale cache.
+        this.cache = new (concurrencyLevel, capacity);
+        this.stale = new (concurrencyLevel, 0); // no need to reserve capacity for the stale cache.
     }
 
     /// <summary>
@@ -170,13 +170,13 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
         Guard.IsGreaterThanOrEqualTo(concurrencyLevel, 1);
         Guard.IsGreaterThanOrEqualTo(capacity, 0);
 
-        this.timer = new(
+        this.timer = new (
             new TimerCallback(this.OnTimerCallback),
             null,
             time,
             time);
-        this.cache = new(concurrencyLevel, capacity);
-        this.stale = new(concurrencyLevel, 0); // no need to reserve capacity for the stale cache.
+        this.cache = new (concurrencyLevel, capacity);
+        this.stale = new (concurrencyLevel, 0); // no need to reserve capacity for the stale cache.
     }
 
     /// <summary>
@@ -194,8 +194,8 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
         Guard.IsNotNull(comparer);
 
         this.timer = this.GetDefaultTimer();
-        this.cache = new(concurrencyLevel, initial, comparer);
-        this.stale = new(concurrencyLevel, Enumerable.Empty<KeyValuePair<TKey, TValue>>(), comparer);
+        this.cache = new (concurrencyLevel, initial, comparer);
+        this.stale = new (concurrencyLevel, Enumerable.Empty<KeyValuePair<TKey, TValue>>(), comparer);
     }
 
     /// <summary>
@@ -213,13 +213,13 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
         Guard.IsNotNull(initial);
         Guard.IsNotNull(comparer);
 
-        this.timer = new(
+        this.timer = new (
             new TimerCallback(this.OnTimerCallback),
             null,
             time,
             time);
-        this.cache = new(concurrencyLevel, initial, comparer);
-        this.stale = new(concurrencyLevel, Enumerable.Empty<KeyValuePair<TKey, TValue>>(), comparer);
+        this.cache = new (concurrencyLevel, initial, comparer);
+        this.stale = new (concurrencyLevel, Enumerable.Empty<KeyValuePair<TKey, TValue>>(), comparer);
     }
 
     /// <summary>
@@ -236,8 +236,8 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
         Guard.IsNotNull(comparer);
 
         this.timer = this.GetDefaultTimer();
-        this.cache = new(concurrencyLevel, capacity, comparer);
-        this.stale = new(concurrencyLevel, 0, comparer);
+        this.cache = new (concurrencyLevel, capacity, comparer);
+        this.stale = new (concurrencyLevel, 0, comparer);
     }
 
     /// <summary>
@@ -254,13 +254,13 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
         Guard.IsGreaterThanOrEqualTo(capacity, 0);
         Guard.IsNotNull(comparer);
 
-        this.timer = new(
+        this.timer = new (
             new TimerCallback(this.OnTimerCallback),
             null,
             time,
             time);
-        this.cache = new(concurrencyLevel, capacity, comparer);
-        this.stale = new(concurrencyLevel, 0, comparer);
+        this.cache = new (concurrencyLevel, capacity, comparer);
+        this.stale = new (concurrencyLevel, 0, comparer);
     }
 
     /// <summary>Gets the total number of items in the cache.</summary>
@@ -467,7 +467,7 @@ public class SimpleConcurrentCache<TKey, TValue> : IDisposable
     /// </summary>
     /// <returns>The default timer.</returns>
     private Timer GetDefaultTimer()
-    => new(
+    => new (
         new TimerCallback(this.OnTimerCallback),
         null,
         TimeSpan.FromMinutes(2),

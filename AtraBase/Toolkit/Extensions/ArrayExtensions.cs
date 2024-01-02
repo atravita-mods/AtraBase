@@ -9,6 +9,13 @@ namespace AtraBase.Toolkit.Extensions;
 /// </summary>
 public static class ArrayExtensions
 {
+    /// <summary>
+    /// Skips a certain number of items from an array.
+    /// </summary>
+    /// <typeparam name="T">Type of the array.</typeparam>
+    /// <param name="array">Array.</param>
+    /// <param name="count">Number of items to skip.</param>
+    /// <returns>An array segment with the remaining items.</returns>
     public static ArraySegment<T> SkipToSegment<T>(this T[] array, int count)
     {
         Guard.IsNotNull(array);
@@ -93,6 +100,7 @@ public static class ArrayExtensions
                     backup.CopyTo(array, 0);
                     ArrayPool<T>.Shared.Return(backup);
                 }
+
                 array[count] = item;
                 count++;
             }

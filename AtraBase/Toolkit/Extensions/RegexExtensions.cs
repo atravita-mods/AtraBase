@@ -17,7 +17,7 @@ public static class RegexExtensions
     public static Dictionary<string, string> MatchGroupsToDictionary(this Match match, bool namedOnly = true)
     {
         Dictionary<string, string> result = [];
-        foreach (Group group in match.Groups)
+        foreach (Group group in match.Groups.Cast<Group>())
         {
             // Microsoft doesn't really give a better way to exclude unnamed groups, which are numbers as strings.
             if (!namedOnly || !int.TryParse(group.Name, out _))
@@ -47,7 +47,7 @@ public static class RegexExtensions
         where TKey : notnull
     {
         Dictionary<TKey, TValue> result = [];
-        foreach (Group group in match.Groups)
+        foreach (Group group in match.Groups.Cast<Group>())
         {
             // Microsoft doesn't really give a better way to exclude unnamed groups, which are numbers as strings.
             if (!namedOnly || !int.TryParse(group.Name, out _))
@@ -72,7 +72,7 @@ public static class RegexExtensions
     {
         if (match is not null)
         {
-            foreach (Group group in match.Groups)
+            foreach (Group group in match.Groups.Cast<Group>())
             {
                 // Microsoft doesn't really give a better way to exclude unnamed groups, which are numbers as strings.
                 if (!namedOnly || !int.TryParse(group.Name, out _))

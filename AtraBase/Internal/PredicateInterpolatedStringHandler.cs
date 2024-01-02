@@ -4,11 +4,21 @@
 
 using System.Runtime.CompilerServices;
 
+/// <summary>
+/// An interpolated string handler that checks a predicate before interpreting.
+/// </summary>
 [InterpolatedStringHandler]
 public ref struct PredicateInterpolatedStringHandler
 {
     private DefaultInterpolatedStringHandler _handler;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PredicateInterpolatedStringHandler"/> struct.
+    /// </summary>
+    /// <param name="literateLength"></param>
+    /// <param name="formattedCount"></param>
+    /// <param name="predicate"></param>
+    /// <param name="handlerIsValid"></param>
     public PredicateInterpolatedStringHandler(int literateLength, int formattedCount, bool predicate, out bool handlerIsValid)
     {
         if (!predicate)

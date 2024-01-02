@@ -8,7 +8,7 @@ namespace AtraBase.Models.Result;
 /// <typeparam name="T">The type to wrap.</typeparam>
 public readonly struct Option<T>
 {
-    private static readonly Option<T> noneInstance = new();
+    private static readonly Option<T> noneInstance = new ();
 
     private readonly T? value;
     private readonly bool isNotNone = false; // `default` inits all fields to **their** default, so doing this "backwards" to make `default` work.

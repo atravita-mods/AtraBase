@@ -98,6 +98,7 @@ public ref struct SpanSplit
                 {
                 }
             }
+
             return this.splitLocs.Count;
         }
     }
@@ -152,6 +153,7 @@ public ref struct SpanSplit
                 }
             }
         }
+
         return false;
     }
 
@@ -167,15 +169,18 @@ public ref struct SpanSplit
         {
             goto FAIL;
         }
+
         while (index >= this.splitLocs.Count && this.TryFindNext())
         {
         }
+
         if (index < this.splitLocs.Count)
         {
             (int start, int count, int sep) = this.splitLocs[index];
             entry = new SpanSplitEntry(this.str.Slice(start, count), sep == this.str.Length ? string.Empty : this.str.Slice(sep, 1));
             return true;
         }
+
 FAIL:
         entry = default;
         return false;
@@ -208,6 +213,7 @@ FAIL:
         {
             this.Current = entry;
         }
+
         return success;
     }
 
@@ -231,6 +237,7 @@ FAIL:
         {
             return false;
         }
+
         int index;
         int start;
         int end;
@@ -259,10 +266,12 @@ FAIL:
                     this.lastSearchPos = this.str.Length - this.remainder.Length;
                 }
             }
+
             if (this.options.HasFlag(StringSplitOptions.TrimEntries))
             {
                 this.PerformTrimIfNeeded(ref start, ref end);
             }
+
             if (this.options.HasFlag(StringSplitOptions.RemoveEmptyEntries) && start >= end)
             {
                 if (this.lastSearchPos >= this.str.Length)
@@ -274,6 +283,7 @@ FAIL:
                     continue;
                 }
             }
+
             this.splitLocs.Add((start, end - start + 1, this.lastSearchPos - 1));
             return true;
         }
@@ -284,12 +294,13 @@ FAIL:
     /// </summary>
     /// <param name="start">start coordinate.</param>
     /// <param name="end">end coordinate.</param>
-    private void PerformTrimIfNeeded(ref int start, ref int end)
+    private readonly void PerformTrimIfNeeded(ref int start, ref int end)
     {
         while (char.IsWhiteSpace(this.str[start]) && start < end)
         {
             start++;
         }
+
         while (char.IsWhiteSpace(this.str[end]) && start < end)
         {
             end--;
