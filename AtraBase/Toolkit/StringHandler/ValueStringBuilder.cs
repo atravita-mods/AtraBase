@@ -23,7 +23,7 @@ namespace AtraBase.Toolkit.StringHandler;
 /// final capacity is known beforehand.
 /// Growing is very expensive.
 /// </summary>
-internal ref struct ValueStringBuilder
+public ref struct ValueStringBuilder
 {
     private char[]? _arrayToReturnToPool;
     private Span<char> _chars;
