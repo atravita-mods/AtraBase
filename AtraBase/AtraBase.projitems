@@ -22,7 +22,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Events\WeakEventManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\ILogger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\Logger.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Internal\PredicateInterpolatedStringHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\RentedArrayHelpers\ShuffledYielder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Result\Option.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Result\Result.cs" />
